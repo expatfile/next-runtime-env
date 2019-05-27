@@ -32,15 +32,17 @@ func main() {
     log.Fatal("Error reading .env file")
   }
 
-  f, err := os.Create("env.json")
+  f, err := os.Create("env.js")
   
   if err != nil {
-    log.Fatal("Error creating env.json file")
+    log.Fatal("Error creating env.js file")
   }
 
   defer f.Close()
 
-  _, err = f.WriteString(string(jsonString))
+  var windowEnv string = "window._env = " + string(jsonString) + ";"
+
+  _, err = f.WriteString(windowEnv)
 
   if err != nil {
     log.Fatal("Error writing to env.json file")
