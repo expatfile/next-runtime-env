@@ -19,7 +19,7 @@ func main() {
 
   for k, v := range env { 
     if strings.HasPrefix(k, "REACT_APP_") {
-      var safeKey = strings.TrimLeft(k, "REACT_APP_")
+      var safeKey = strings.TrimPrefix(k, "REACT_APP_")
       if len(safeKey) > 0 {
         whitelist[safeKey] = v
       }
