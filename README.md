@@ -1,5 +1,5 @@
-## Create React Env
-##### Runtime environment variables
+## CRA - Runtime environment variables
+#### Create React Env
 
 This repository builds a Docker image that generates a `env.js` file from your environment variables as per the [CRA docs](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#adding-development-environment-variables-in-env). 
 
@@ -27,17 +27,18 @@ COPY yarn.lock /var/app
 
 RUN yarn install
 
+ADD . .
+
 RUN yarn build
 
-# Create an image
-
+# Create deployable image
 FROM beamaustralia/create-react-env:1.0.0
 
 WORKDIR /var/www
 
 COPY . /var/www
 
-COPY --from=install /var/app/build /var/www
+COPY --from=build /var/app/build /var/www
 ```
 
 Place the following in the head of the `public/index.html` file:

@@ -45,6 +45,6 @@ func main() {
   _, err = f.WriteString(windowEnv)
 
   if err != nil {
-    log.Fatal("Error writing to env.json file")
+    log.Fatal("Error writing to env.js file")
   }  
 }

@@ -6,6 +6,6 @@ echo "Serializing whitelist environment:"
 
 create-react-env
 
-cat env.json
+cat env.js
 
 exec "$@"
