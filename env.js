@@ -1,0 +1,1 @@
+window._env = {"API_HOST":"","UPLOADS_HOST":"","WEB_ACCOUNTS_HOST":"","WEB_CMS_HOST":"","WEB_PUBLIC_HOST":"","WEB_STAFF_HOST":""};
