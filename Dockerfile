@@ -23,3 +23,5 @@ ADD ./docker/nginx.conf /etc/nginx/nginx.conf
 ADD ./docker/entrypoint.sh /var/entrypoint.sh
 
 ENTRYPOINT ["/var/entrypoint.sh"]
+
+CMD ["nginx", "-g", "daemon off;"]

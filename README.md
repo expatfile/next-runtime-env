@@ -5,11 +5,11 @@ This repository builds a Docker image that generates a `env.js` file from your e
 
 Docker repo: `beamaustralia/create-react-env`
 
-The image is based off the official Nginx alpine distro and includes a best-practices default `nginx.conf` file to servce a CRA application.
+The image is based off the official Nginx alpine distro and includes a best-practices default `nginx.conf` file to serve a CRA application.
 
 ## How does this work?
 
-The Docker image contains a small Golang binary that builds the `env.json` file. The binary is run within the ENTRYPOINT script of the Docker image, therefore env variables are read when the container is started. 
+The Docker image contains a small Golang binary that builds the `env.js` file. The binary is run within the ENTRYPOINT script of the Docker image, therefore env variables are read when the container is started. 
 
 ## How do I use this?
 
@@ -36,9 +36,9 @@ FROM beamaustralia/create-react-env:1.0.0
 
 WORKDIR /var/www
 
-COPY . /var/www
-
 COPY --from=build /var/app/build /var/www
+
+COPY .env* /var/www/
 ```
 
 Place the following in the head of the `public/index.html` file:
@@ -53,7 +53,9 @@ Build your app:
 
 Run your app:
 
-`docker run -p 127.0.0.1:80:80/tcp my-app`
+`docker run -d -p 8080:80 my-app`
+
+Then you can hit http://localhost:8080 or http://host-ip:8080 in your browser.
 
 Access your white-listed env variables:
 
