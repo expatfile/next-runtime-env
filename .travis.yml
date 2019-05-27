@@ -4,7 +4,7 @@ services:
   - docker
 
 script:
-  - docker build -t beamaustralia/php .
+  - docker build -t beamaustralia/create-react-env .
 
 deploy:
   provider: script
@@ -12,3 +12,4 @@ deploy:
   on:
     tags: true
     all_branches: true
+    
