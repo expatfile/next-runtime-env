@@ -1,0 +1,14 @@
+sudo: 'required'
+
+services:
+  - docker
+
+script:
+  - docker build -t beamaustralia/php .
+
+deploy:
+  provider: script
+  script: bash scripts/push.sh
+  on:
+    tags: true
+    all_branches: true
