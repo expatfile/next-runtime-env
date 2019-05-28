@@ -72,3 +72,6 @@ render() {
 }
 ````
 
+## Runtime environment variables
+
+The `env.js` environment configuration file is generated as the container boots. Therefore it will contain whitelisted env vars that are present at *container start*, any new environment variables needs a container restart. This is normal Docker behaviour. 
