@@ -17,11 +17,11 @@ func main() {
     log.Fatal("Error loading .env file")
   }
 
-  for k, v := range env { 
-    if strings.HasPrefix(k, "REACT_APP_") {
-      var safeKey = strings.TrimPrefix(k, "REACT_APP_")
+  for key, value := range env { 
+    if strings.HasPrefix(key, "REACT_APP_") {
+      var safeKey = strings.TrimPrefix(key, "REACT_APP_")
       if len(safeKey) > 0 {
-        whitelist[safeKey] = v
+        whitelist[safeKey] = value
       }
     }
   }
