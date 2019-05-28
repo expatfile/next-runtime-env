@@ -1,6 +1,6 @@
 ## CRA - Runtime environment variables
 
-# NOTE: Development support coming soon.
+# NOTE: Dev-server support coming soon.
 
 #### Create React Env
 
