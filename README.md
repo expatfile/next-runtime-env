@@ -1,4 +1,7 @@
 ## CRA - Runtime environment variables
+
+# NOTE: Development support coming soon.
+
 #### Create React Env
 
 This repository builds a Docker image that generates a `env.js` file from your environment variables as per the [CRA docs](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#adding-development-environment-variables-in-env). 
