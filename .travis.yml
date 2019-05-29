@@ -6,8 +6,8 @@ node_js: '10'
 script:
   - cd packages/golang
   - bash compile.sh
-  - cp ./bin/* ../node/dist/bin/
-  - cp ./bin/* ../nginx/bin/
+  - cp -a ./bin/. ../node/dist/bin/
+  - cp -a ./bin/. ../nginx/bin/
   - cd ../node
   - yarn install
   - yarn build
@@ -18,6 +18,7 @@ after_success:
   - docker push beamaustralia/create-react:$TRAVIS_TAG
   - docker push beamaustralia/create-react:latest 
   - cd ../node
+  - yarn publish --new-version $TRAVIS_TAG --no-commit-hooks --no-git-tag-version
 deploy:
   provider: npm
   email: andrewmclagan@gmail.com
