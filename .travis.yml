@@ -22,5 +22,4 @@ after_success:
   - npm-cli-login
   - npm version $TRAVIS_TAG --allow-same-version
   - npm publish --access public
-
   
