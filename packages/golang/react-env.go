@@ -6,6 +6,7 @@ import (
     "os"
     "strings"
     "log"
+    "flag"
 )
 
 func getSystemEnv() map[string]string {
@@ -26,21 +27,35 @@ func getSystemEnv() map[string]string {
   return environment
 }
 
+func getFlagEnv() map[string]string {
+  var svar string
+  flag.StringVar(&svar, "env-file", "", "path to an .env file")
+  flag.Parse()
+  if "" != svar {
+    env, _ := godotenv.Read(svar)
+    return env
+  }
+  return make(map[string]string)
+}
+
 func mergeMap(a map[string]string, b map[string]string) {
     for k,v := range b {
         a[k] = v
     }
 }
 
-func getEnvPriority() map[string]string {
+func getEnvMap() map[string]string {
   nodeEnv := os.Getenv("NODE_ENV")
   env := map[string]string{"NODE_ENV": nodeEnv}
   if "" == nodeEnv {
     nodeEnv = "development"
   }
   ///
-  env5 := getSystemEnv()
-  mergeMap(env, env5)  
+  env6 := getSystemEnv()
+  mergeMap(env, env6)  
+  ///
+  env5 := getFlagEnv()
+  mergeMap(env, env5)    
   ///
   env4, _ := godotenv.Read()
   mergeMap(env, env4)  
@@ -62,7 +77,7 @@ func getEnvPriority() map[string]string {
 func main() {
   whitelist := make(map[string]string)
 
-  env := getEnvPriority()
+  env := getEnvMap()
 
   for key, value := range env { 
     if strings.HasPrefix(key, "REACT_APP_") {
