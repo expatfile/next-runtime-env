@@ -18,12 +18,5 @@ after_success:
   - docker push beamaustralia/create-react:$TRAVIS_TAG
   - docker push beamaustralia/create-react:latest 
   - cd ../node
-  - yarn publish --new-version $TRAVIS_TAG --no-commit-hooks --no-git-tag-version
-deploy:
-  provider: npm
-  email: andrewmclagan@gmail.com
-  skip_cleanup: true
-  api_key:
-    secure: bKdRZnayDzrNEcWCtb2XDw2v/+sWtLV8Bcv5dDg8fHAggPEY/sXd7XiUOUEzp45NZf0KX4uhsOuB3VZVS9SO9lc7KnpyUH2jaLR1WAabNlP4KYitzM2dagWVU58mAW/huPauDBIEVPpv0RlfO5anR4VLb6OnOI28j1f5lPfBXAKG2sor7GltwZlKYQM9/zVQuFi7fyDwsnLSbFBR5rt7VTsoRUD+RECi3mV+4lTOOtBwRsxvLn3bqEUAA81SsRuwifI3anMJcs/eOVdz2lRymqrt3K2skwnxtLp0huSZ2X8u0qiiu0XTbk7KTVP5s+edwqyNexBze0xbMhryfSinFRN0DLwiDoz20GFrbbNAje+d+E3/Cqm5UjhXaNy0/OGNKDoWkKXwl28O1/eLigtub+yS3KSdnOf5obwAw9SDDwglHY2ZplyJOPdjmajqMVFET3ZQab/YZ1I08nWaNgiGfa9zOEkZ3HZu9HXivvdUiwhYPXGcq9iNAXwxExsxVEh67eZNJJtCxe5xcFAc6JnSDcK3Nwz7eg6oNZpiFKLzF2WTsO0W527cKTiVIsYWyd5YfD1xzqIc4dOiATLs+i1uxO7jn19JjQC8p1D0215FTFJYZCGcmIA/Gymki8F8GCVtqqKwDOJPOux8jKdn//Pa+9Q8bT/h7Qx73yF8/QVg6TI=
-  on:
-    tags: true
+  - npm login -u $NPM_USERNAME -p $NPM_PASSWORD
+  - npm publish --access public ---tag $TRAVIS_TAG
