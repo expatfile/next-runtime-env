@@ -9,7 +9,7 @@
     "repository": "http://github.com/beam-australia/create-react-env",
     "main": "dist/index.js",
     "bin": {
-        "react-env": "dist/index.js"
+        "react-env": "dist/cli.js"
     },
     "scripts": {
         "test": "echo test",
