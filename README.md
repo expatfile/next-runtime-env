@@ -21,8 +21,14 @@ Place the following in the head of the `public/index.html` file:
 <script src="%PUBLIC_URL%/env.js"></script>
 ```
 
-Rather then using `process.env.REACT_APP_FOO` you use `window._env.FOO`. As per CRA only env vars following the `REACT_APP_` format will be present, although without the `REACT_APP_FOO` preposition as this package removes any missing this.
+Rather then using `process.env.REACT_APP_FOO` you use `window._env.FOO`. As per CRA only env vars following the `REACT_APP_` format will be present, although without the `REACT_APP_` preposition as this package removes it.
 
+```bash
+# .env
+REACT_APP_FOO="Create React APP"
+REACT_APP_NOT_SECRET_CODE="1234"
+```
+becomes...
 ```jsx
 render() {
   return (
