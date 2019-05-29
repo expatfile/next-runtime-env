@@ -2,12 +2,12 @@
 Allows CRA environment variables to be populated at run-time rather then build-time in a very performant manner.
 
 * *User Guide*
-** [Overview](#overview)
-* [Development server](#development)
-* [Deploying with Docker](#deploying)
-* Technical Guide
-* [Runtime environment variables](#runtime-environment-variables)
-* [.env file order of priority](#.env-file-order-of-priority)
+  * [Overview](#overview)
+  * [Development server](#development)
+  * [Deploying with Docker](#deploying)
+* *Technical Guide*
+  * [Runtime environment variables](#runtime-environment-variables)
+  * [.env file order of priority](#.env-file-order-of-priority)
 
 ## User Guide
 
