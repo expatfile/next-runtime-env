@@ -9,7 +9,7 @@ script:
   - cp -a ./bin/. ../node/dist/bin/
   - cp -a ./bin/. ../nginx/bin/
   - cd ../node
-  - cp ../README.md ./
+  - cp ../../README.md ./
   - yarn install
   - yarn build
   - cd ../nginx
