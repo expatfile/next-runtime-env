@@ -1,14 +1,14 @@
 #!/bin/bash
 
+set -x
 set -e
-
-LATEST_TAG=beamaustralia/create-react:latest
-VERSION_TAG=beamaustralia/create-react:$TRAVIS_TAG
 
 # publish nginx image
 cd packages/nginx
-docker push $LATEST_TAG
-docker push $VERSION_TAG
+docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+docker build -t beamaustralia/react-env:$TRAVIS_TAG -t beamaustralia/react-env:latest .  
+docker push beamaustralia/create-react:latest
+docker push beamaustralia/create-react:$TRAVIS_TAG
 
 # publish npm package
 cd ../node
