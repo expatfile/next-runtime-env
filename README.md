@@ -1,5 +1,5 @@
 # React Env - Runtime Environment Configuration
-Allows CRA environment variables to be populated at run-time rather then build-time in a very performant manner.
+Allows CRA environment variables to be populated at run-time rather then build-time and run as static js.
 
 * *User Guide*
   * [Overview](#overview)
@@ -125,6 +125,8 @@ This library uses a small Golang binary that is responsible for generating the `
 1. A discreet binary enables us build the env config while booting an Nginx docker container without installing npm, nodejs and a host of packages. The resulting Nginx Alpine Docker container comes in at under 10Mb.
 
 2. Golang is very fast and very reliable. Its a system language and is more suitable for this type of application.
+
+3. We can run the CRA statically with no nodejs installed.
 
 #### Runtime environment variables
 
