@@ -8,14 +8,61 @@ import (
     "log"
 )
 
-func main() {
-  var env map[string]string
-  whitelist := make(map[string]string)
-  env, err := godotenv.Read()
-
-  if err != nil {
-    log.Fatal("Error loading .env file")
+func getSystemEnv() map[string]string {
+  getenvironment := func(data []string, getkeyval func(item string) (key, val string)) map[string]string {
+      items := make(map[string]string)
+      for _, item := range data {
+          key, val := getkeyval(item)
+          items[key] = val
+      }
+      return items
   }
+  environment := getenvironment(os.Environ(), func(item string) (key, val string) {
+      splits := strings.Split(item, "=")
+      key = splits[0]
+      val = splits[1]
+      return
+  })
+  return environment
+}
+
+func mergeMap(a map[string]string, b map[string]string) {
+    for k,v := range b {
+        a[k] = v
+    }
+}
+
+func getEnvPriority() map[string]string {
+  nodeEnv := os.Getenv("NODE_ENV")
+  env := map[string]string{"NODE_ENV": nodeEnv}
+  if "" == nodeEnv {
+    nodeEnv = "development"
+  }
+  ///
+  env5 := getSystemEnv()
+  mergeMap(env, env5)  
+  ///
+  env4, _ := godotenv.Read()
+  mergeMap(env, env4)  
+  ///
+  if "test" != nodeEnv {
+    env3, _ := godotenv.Read(".env.local")
+    mergeMap(env, env3)
+  }
+  ///  
+  env2, _ := godotenv.Read(".env." + nodeEnv)
+  mergeMap(env, env2)
+  ///  
+  env1, _ := godotenv.Read(".env." + nodeEnv + ".local")
+  mergeMap(env, env1)
+  ///
+  return env
+}
+
+func main() {
+  whitelist := make(map[string]string)
+
+  env := getEnvPriority()
 
   for key, value := range env { 
     if strings.HasPrefix(key, "REACT_APP_") {
@@ -26,11 +73,7 @@ func main() {
     }
   }
 
-  jsonString, err := json.Marshal(whitelist)
-
-  if err != nil {
-    log.Fatal("Error reading .env file")
-  }
+  jsonString, _ := json.Marshal(whitelist)
 
   f, err := os.Create("env.js")
   
