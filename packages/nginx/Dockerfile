@@ -2,9 +2,9 @@ FROM nginx:1.15-alpine
 
 ADD ./bin/react-env_linux-amd64 /usr/bin/react-env
 
-ADD ./docker/nginx.conf /etc/nginx/nginx.conf
+ADD nginx.conf /etc/nginx/nginx.conf
 
-ADD ./docker/entrypoint.sh /var/entrypoint.sh
+ADD entrypoint.sh /var/entrypoint.sh
 
 ENTRYPOINT ["/var/entrypoint.sh"]
 
