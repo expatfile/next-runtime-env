@@ -9,10 +9,10 @@ script:
   - cd ../node
   - yarn install
   - yarn build
-after_success:  
   - cd ../nginx
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-  - docker build -t beamaustralia/react-env:$TRAVIS_TAG -t beamaustralia/react-env:latest .
+  - docker build -t beamaustralia/react-env:$TRAVIS_TAG -t beamaustralia/react-env:latest .  
+after_success:
   - docker push beamaustralia/create-react:$TRAVIS_TAG
   - docker push beamaustralia/create-react:latest 
   - cd ../node

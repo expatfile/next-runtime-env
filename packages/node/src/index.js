@@ -1,4 +1,5 @@
 const shell = require("shelljs");
+var path = require("path");
 
 function translateArch() {
   switch (process.arch) {
@@ -14,7 +15,7 @@ function translateArch() {
 
 function getBinaryPath() {
   const bin = `react-env_${process.platform}-${translateArch()}`;
-  return `./bin/${bin}`;
+  return path.resolve(`${__dirname}/bin/${bin}`);
 }
 
 function command(cmd) {
