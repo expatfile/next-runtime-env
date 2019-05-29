@@ -1,4 +1,3 @@
-import copy from "rollup-plugin-copy";
 import pkg from "./package.json";
 
 export default {
@@ -13,11 +12,5 @@ export default {
       format: "cjs"
     }
   ],
-  external: ["shelljs", "path"],
-  plugins: [
-    copy({
-      targets: ["../golang/bin"],
-      outputFolder: "dist"
-    })
-  ]
+  external: ["shelljs", "path"]
 };

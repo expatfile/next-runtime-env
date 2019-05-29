@@ -6,6 +6,8 @@ node_js: '10'
 script:
   - cd packages/golang
   - bash compile.sh
+  - cp ./bin/* ../node/dist/bin/
+  - cp ./bin/* ../nginx/bin/
   - cd ../node
   - yarn install
   - yarn build
