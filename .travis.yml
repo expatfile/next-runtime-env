@@ -3,6 +3,8 @@ language: node_js
 cache: yarn
 services: docker
 node_js: '10'
+
+### Build
 script:
   - cd packages/golang
   - bash compile.sh
@@ -15,7 +17,9 @@ script:
   - cd ../nginx
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
   - docker build -t beamaustralia/react-env:$TRAVIS_TAG -t beamaustralia/react-env:latest .  
-  - ../../
+  - cd ../../
+
+## Publish
 deploy:
   provider: script
   script: bash deploy.sh
