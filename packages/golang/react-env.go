@@ -29,7 +29,7 @@ func getSystemEnv() map[string]string {
 
 func getFlagEnv() map[string]string {
   var svar string
-  flag.StringVar(&svar, "env-file", "", "path to an .env file")
+  flag.StringVar(&svar, "env", "", "path to an .env file")
   flag.Parse()
   if "" != svar {
     env, _ := godotenv.Read(svar)
