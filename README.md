@@ -11,7 +11,7 @@ Place the following in the head of the `public/index.html` file:
 <script src="%PUBLIC_URL%/env.js"></script>
 ```
 
-Rathern then using `process.env.REACT_APP_FOO` you use `window._env.FOO`. As per CRA only env vars following the `REACT_APP_` format will be present, although without the `REACT_APP_FOO` prepesition as this package removes any missing this.
+Rather then using `process.env.REACT_APP_FOO` you use `window._env.FOO`. As per CRA only env vars following the `REACT_APP_` format will be present, although without the `REACT_APP_FOO` preposition as this package removes any missing this.
 
 ```jsx
 render() {
@@ -98,6 +98,23 @@ Run your app:
 
 Then you can hit http://localhost:8080 or http://host-ip:8080 in your browser.
 
+## Technical Guide
+
+This library uses a small Golang binary that is responsible for generating the `env.js` environment file. We do this for tow reasons. 
+
+1. A discreet binary enables us build the env config while booting an Nginx docker container without installing npm, nodejs and a host of packages. The resulting Nginx Alpine Docker container comes in at under 10Mb.
+
+2. Golang is very fast and very reliable. Its a system language and is more suitable for this type of application.
+
 #### Runtime environment variables
 
 The `env.js` environment configuration file is generated as the container boots. Therefore it will contain whitelisted env vars that are present at *container start*, any new environment variables needs a container restart. This is normal Docker behaviour. 
+
+
+#### .env file order of priority
+
+We have replicated the order of priority as per the [CRA documentation](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#what-other-env-files-can-be-used).
+
+e.g. `.env.development.local, .env.development, .env.local, .env`
+
+
