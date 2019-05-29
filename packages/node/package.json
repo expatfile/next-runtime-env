@@ -1,6 +1,6 @@
 {
     "name": "@beam-australia/react-env",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "author": "andrewmclagan",
     "license": "MIT",
     "publishConfig": {
@@ -12,6 +12,7 @@
         "react-env": "dist/index.js"
     },
     "scripts": {
+        "test": "echo test",
         "build": "rollup -c",
         "start": "rollup -c -w",
         "preversion": "yarn build && yarn test",
