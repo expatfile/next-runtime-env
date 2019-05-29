@@ -15,6 +15,7 @@ script:
   - cd ../nginx
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
   - docker build -t beamaustralia/react-env:$TRAVIS_TAG -t beamaustralia/react-env:latest .  
+  - ../../
 deploy:
   provider: script
   script: bash deploy.sh

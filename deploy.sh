@@ -2,6 +2,7 @@
 
 set -e
 
+cd packages/nginx
 docker push beamaustralia/create-react:$TRAVIS_TAG
 docker push beamaustralia/create-react:latest 
 cd ../node
