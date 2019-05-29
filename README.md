@@ -1,10 +1,3 @@
-## CRA - Runtime environment variables
-
-# NOTE: Dev-server support coming soon.
-
-#### What is this?
-
-
 ## How does this work?
 
 Allows CRA environment variables to be populated at run-time rather then build-time.
