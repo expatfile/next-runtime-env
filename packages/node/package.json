@@ -23,8 +23,7 @@
     },
     "peerDependencies": {},
     "devDependencies": {
-        "rollup": "^1.7.3",
-        "rollup-plugin-copy": "^2.0.1"
+        "rollup": "^1.7.3"
     },
     "files": [
         "dist"
