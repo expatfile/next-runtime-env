@@ -4,10 +4,14 @@ set -e
 
 printenv
 
+REPO=beamaustralia/create-react
+LATEST=$REPO:latest
+VERSION=$REPO:$TRAVIS_TAG
+
 # publish nginx image
 cd packages/nginx
-docker push beamaustralia/create-react:$TRAVIS_TAG
-docker push beamaustralia/create-react:latest 
+docker push $LATEST
+docker push $VERSION
 
 # publish npm package
 cd ../node
