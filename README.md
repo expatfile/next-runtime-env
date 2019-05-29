@@ -1,8 +1,7 @@
-## How does this work?
 
 Allows CRA environment variables to be populated at run-time rather then build-time.
 
-## How do I use this?
+## User Guide
 
 This package generates a `env.js` file that contains all your white-listed environment variables, you need to include this file.
 
