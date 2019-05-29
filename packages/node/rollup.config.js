@@ -6,5 +6,5 @@ export default {
     file: pkg.main,
     format: "cjs"
   },
-  external: ["shelljs", "path"]
+  external: ["shelljs", "yargs"]
 };

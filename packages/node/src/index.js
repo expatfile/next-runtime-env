@@ -1,4 +1,5 @@
 const shell = require("shelljs");
+var argv = require("yargs").argv;
 var path = require("path");
 
 function translateArch() {
@@ -18,9 +19,9 @@ function getBinaryPath() {
   return path.resolve(`${__dirname}/bin/${bin}`);
 }
 
-function command(cmd) {
-  shell.echo(cmd);
-  if (shell.exec(cmd).code !== 0) {
+function command(bin) {
+  const command = argv.env ? `${bin} --env=${argv.env}` : bin;
+  if (shell.exec(command).code !== 0) {
     shell.exit(1);
   }
 }
