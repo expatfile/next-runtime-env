@@ -2,7 +2,7 @@ sudo: 'required'
 language: node_js
 cache: yarn
 services: docker
-node_js: '8'
+node_js: '10'
 script:
   - cd packages/golang
   - bash compile
@@ -11,7 +11,7 @@ script:
   - yarn build
   - cd ../nginx
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-  - docker build -t beamaustralia/react-env:$TRAVIS_TAG -t -t beamaustralia/react-env:latest .
+  - docker build -t beamaustralia/react-env:$TRAVIS_TAG -t beamaustralia/react-env:latest .
   - docker push beamaustralia/create-react:$TRAVIS_TAG
   - docker push beamaustralia/create-react:latest 
   - cd ../node
