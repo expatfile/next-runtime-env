@@ -9,11 +9,11 @@ script:
   # build go binaries
   - cd packages/golang
   - bash compile.sh
-  - cp -a ./bin/. ../node/dist/bin/
-  - cp -a ./bin/. ../nginx/bin/
+  - cp -af ./bin/. ../node/dist/bin/
+  - cp -af ./bin/. ../nginx/bin/
   # build node package
   - cd ../node
-  - cp ../../README.md ./
+  - cp -f ../../README.md ./
   - yarn install
   - yarn build
   - cd ../../
