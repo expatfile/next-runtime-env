@@ -3,7 +3,7 @@ Allows CRA environment variables to be populated at run-time rather then build-t
 
 ## User Guide
 
-This package generates a `env.js` file that contains all your white-listed environment variables, you need to include this file.
+This package generates a `env.js` file that contains white-listed environment variables as per the [CRA documentation](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables).
 
 Place the following in the head of the `public/index.html` file:
 
