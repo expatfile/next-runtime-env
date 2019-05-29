@@ -1,0 +1,39 @@
+{
+    "name": "@beam-australia/react-env",
+    "version": "1.0.0",
+    "author": "andrewmclagan",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "http://github.com/beam-australia/create-react-env",
+    "main": "dist/index.js",
+    "scripts": {
+        "test": "cross-env CI=1 react-scripts test --env=jsdom",
+        "build": "rollup -c",
+        "start": "rollup -c -w",
+        "preversion": "yarn build && yarn test",
+        "postversion": "git push --tags && git push"
+    },
+    "dependencies": {
+    },
+    "peerDependencies": {
+    },
+    "devDependencies": {
+        "@babel/core": "^7.4.0",
+        "@babel/plugin-external-helpers": "^7.2.0",
+        "@babel/plugin-proposal-class-properties": "^7.3.4",
+        "@babel/preset-env": "^7.3.4",
+        "@babel/preset-stage-0": "^7.0.0",
+        "babel-loader": "^8.0.5",
+        "rollup": "^1.7.3",
+        "rollup-plugin-babel": "^4.3.2",
+        "rollup-plugin-commonjs": "^9.2.2",
+        "rollup-plugin-includepaths": "^0.2.3",
+        "rollup-plugin-node-resolve": "^4.0.1",
+        "rollup-plugin-peer-deps-external": "^2.2.0"
+    },
+    "files": [
+        "dist"
+    ]
+}

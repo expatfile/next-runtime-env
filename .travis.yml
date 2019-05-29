@@ -4,11 +4,11 @@ services:
   - docker
 
 script:
-  - docker build -t beamaustralia/create-react-env .
+  - docker build -t beamaustralia/react-env .
 
 deploy:
   provider: script
-  script: bash scripts/push.sh
+  script: bash push.sh
   on:
     tags: true
     all_branches: true
