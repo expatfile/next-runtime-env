@@ -13,7 +13,7 @@ export default {
       format: "cjs"
     }
   ],
-  external: ["shelljs"],
+  external: ["shelljs", "path"],
   plugins: [
     copy({
       targets: ["../golang/bin"],

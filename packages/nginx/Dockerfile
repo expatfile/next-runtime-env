@@ -1,6 +1,6 @@
 FROM nginx:1.15-alpine
 
-ADD ./golang/bin/react-env_linux-amd64 /usr/bin/react-env
+ADD ../golang/bin/react-env_linux-amd64 /usr/bin/react-env
 
 ADD ./docker/nginx.conf /etc/nginx/nginx.conf
 
