@@ -20,4 +20,4 @@ after_success:
   - cd ../node
   - npm install -g npm-cli-login
   - npm-cli-login
-  - npm publish --access public ---tag $TRAVIS_TAG
+  - npm publish --access public ---tag v$TRAVIS_TAG
