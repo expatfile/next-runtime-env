@@ -11,7 +11,7 @@ Place the following in the head of the `public/index.html` file:
 <script src="%PUBLIC_URL%/env.js"></script>
 ```
 
-Rathern then using `process.env.REACT_APP_FOO` you use `window._env.FOO`. As per CRA only env vars following the `REACT_APP_` format will be present, although without this prepesition:
+Rathern then using `process.env.REACT_APP_FOO` you use `window._env.FOO`. As per CRA only env vars following the `REACT_APP_` format will be present, although without the `REACT_APP_FOO` prepesition as this package removes any missing this.
 
 ```jsx
 render() {
