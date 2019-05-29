@@ -1,14 +1,11 @@
 #!/bin/bash
 
-set -x
 set -e
 
 # publish nginx image
 cd packages/nginx
-docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-docker build -t beamaustralia/react-env:$TRAVIS_TAG -t beamaustralia/react-env:latest .  
-docker push beamaustralia/create-react:latest
-docker push beamaustralia/create-react:$TRAVIS_TAG
+docker push beamaustralia/react-env:latest
+docker push beamaustralia/react-env:$TRAVIS_TAG
 
 # publish npm package
 cd ../node
