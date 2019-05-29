@@ -5,10 +5,11 @@ services: docker
 node_js: '10'
 script:
   - cd packages/golang
-  - bash compile
+  - bash compile.sh
   - cd ../node
   - yarn install
   - yarn build
+after_success:  
   - cd ../nginx
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
   - docker build -t beamaustralia/react-env:$TRAVIS_TAG -t beamaustralia/react-env:latest .
