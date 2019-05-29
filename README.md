@@ -1,7 +1,17 @@
 
 Allows CRA environment variables to be populated at run-time rather then build-time in a very performant manner.
 
+* User Guide
+* [Overview](#overview)
+* [Development server](#development)
+* [Deploying with Docker](#deploying)
+* Technical Guide
+* [Runtime environment variables](#runtime-environment-variables)
+* [.env file order of priority](#.env-file-order-of-priority)
+
 ## User Guide
+
+#### Overview
 
 This package generates a `env.js` file that contains white-listed environment variables as per the [CRA documentation](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables).
 
@@ -101,6 +111,8 @@ Run your app:
 Then you can hit http://localhost:8080 or http://host-ip:8080 in your browser.
 
 ## Technical Guide
+
+#### Tech Overview
 
 This library uses a small Golang binary that is responsible for generating the `env.js` environment file. We do this for tow reasons. 
 
