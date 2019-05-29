@@ -1,4 +1,5 @@
+node_modules
 .DS_Store
-env.json
+env.js
 .env
 create-react-env

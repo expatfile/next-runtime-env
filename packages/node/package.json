@@ -1,0 +1,31 @@
+{
+    "name": "@beam-australia/react-env",
+    "version": "1.0.0",
+    "author": "andrewmclagan",
+    "license": "MIT",
+    "publishConfig": {
+        "access": "public"
+    },
+    "repository": "http://github.com/beam-australia/create-react-env",
+    "main": "dist/index.js",
+    "bin": {
+        "react-env": "dist/index.js"
+    },
+    "scripts": {
+        "build": "rollup -c",
+        "start": "rollup -c -w",
+        "preversion": "yarn build && yarn test",
+        "postversion": "git push --tags && git push"
+    },
+    "dependencies": {
+        "shelljs": "^0.8.3"
+    },
+    "peerDependencies": {},
+    "devDependencies": {
+        "rollup": "^1.7.3",
+        "rollup-plugin-copy": "^2.0.1"
+    },
+    "files": [
+        "dist"
+    ]
+}
