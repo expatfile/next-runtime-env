@@ -2,19 +2,71 @@
 
 # NOTE: Dev-server support coming soon.
 
-#### Create React Env
+#### What is this?
 
-This repository builds a Docker image that generates a `env.js` file from your environment variables as per the [CRA docs](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#adding-development-environment-variables-in-env). 
-
-Docker repo: `beamaustralia/create-react-env`
-
-The image is based off the official Nginx alpine distro and includes a best-practices default `nginx.conf` file to serve a CRA application.
 
 ## How does this work?
 
-The Docker image contains a small Golang binary that builds the `env.js` file. The binary is run within the ENTRYPOINT script of the Docker image, therefore env variables are read when the container is started. 
+Allows CRA environment variables to be populated at run-time rather then build-time.
 
 ## How do I use this?
+
+This package generates a `env.js` file that contains all your white-listed environment variables, you need to include this file.
+
+Place the following in the head of the `public/index.html` file:
+
+```html
+<script src="%PUBLIC_URL%/env.js"></script>
+```
+
+Rathern then using `process.env.REACT_APP_FOO` you use `window._env.FOO`. As per CRA only env vars following the `REACT_APP_` format will be present, although without this prepesition:
+
+```jsx
+render() {
+  return (
+    <div>
+      <small>Did you know that... <b>{window._env.FOO}</b> is great!.</small>
+      <form>
+        <input type="hidden" defaultValue={window._env.NOT_SECRET_CODE} />
+      </form>
+    </div>
+  );
+}
+````
+
+#### Development
+
+To use this package during development you need to install the npm package `@beam-australia/react-env`
+
+```bash
+yarn add @beam-australia/react-env --dev
+## Or
+npm install @beam-australia/react-env --save-dev
+```
+
+Change your `package.json` scripts file to have a "prestart" key:
+
+```javascript
+{
+  // ...
+  "scripts": {
+    // ...
+    "prestart": "react-env",
+    "start": "react-scripts start", // remains the same
+  },
+  // ...
+}
+```
+
+You may now use CRA as normal: 
+
+```bash
+yarn start
+## Or
+npm run start
+```
+
+#### Deploying
 
 Create a `Dockerfile` in the root of your CRA project
 
@@ -44,12 +96,6 @@ COPY --from=build /var/app/build /var/www
 COPY .env* /var/www/
 ```
 
-Place the following in the head of the `public/index.html` file:
-
-```html
-<script src="%PUBLIC_URL%/env.js"></script>
-```
-
 Build your app:
 
 `docker build -t my-app .`
@@ -60,21 +106,6 @@ Run your app:
 
 Then you can hit http://localhost:8080 or http://host-ip:8080 in your browser.
 
-Access your white-listed env variables:
-
-```jsx
-render() {
-  return (
-    <div>
-      <small>Did you know that... <b>{window._env.MY_VARIABLE}</b> is great!.</small>
-      <form>
-        <input type="hidden" defaultValue={window._env.NOT_SECRET_CODE} />
-      </form>
-    </div>
-  );
-}
-````
-
-## Runtime environment variables
+#### Runtime environment variables
 
 The `env.js` environment configuration file is generated as the container boots. Therefore it will contain whitelisted env vars that are present at *container start*, any new environment variables needs a container restart. This is normal Docker behaviour. 
