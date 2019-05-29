@@ -60,6 +60,8 @@ npm run start
 
 #### Deploying
 
+We have build a docker image that builds your `env.js` config when the container starts. As a convenience this is based off the Alpine Linux - Nginx image and contains a best practices `nginx.conf` file for serving you CRA site. Simple!
+
 Create a `Dockerfile` in the root of your CRA project
 
 ```dockerfile
