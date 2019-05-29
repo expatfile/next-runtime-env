@@ -18,5 +18,6 @@ after_success:
   - docker push beamaustralia/create-react:$TRAVIS_TAG
   - docker push beamaustralia/create-react:latest 
   - cd ../node
-  - npm login -u $NPM_USERNAME -p $NPM_PASSWORD
+  - npm install -g npm-cli-login
+  - npm-cli-login
   - npm publish --access public ---tag $TRAVIS_TAG
