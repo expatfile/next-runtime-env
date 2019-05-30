@@ -111,7 +111,7 @@ ADD . .
 RUN yarn build
 
 # Create deployable image
-FROM beamaustralia/create-react-env:1.0.0
+FROM beamaustralia/react-env:1.0.0
 
 WORKDIR /var/www
 
