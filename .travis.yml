@@ -7,7 +7,7 @@ node_js: '10'
 ### Build
 script:
   # build node package
-  - cd ../node
+  - cd packages/node
   - cp -f ../../README.md ./
   - yarn install
   - yarn build
