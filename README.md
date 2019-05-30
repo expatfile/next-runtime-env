@@ -8,6 +8,7 @@ Allows CRA environment variables to be populated at run-time rather then build-t
 * *Technical Guide*
   * [Runtime environment variables](#runtime-environment-variables)
   * [.env file order of priority](#.env-file-order-of-priority)
+  * [arguments](#arguments)
 
 ## User Guide
 
@@ -142,5 +143,12 @@ We have replicated the order of priority as per the [CRA documentation](https://
 
 e.g. `.env.development.local, .env.development, .env.local, .env`
 
-You are also able to add other env files via the `--env` argument.
+#### Arguments
 
+* `--env` **(default: null)**
+
+Read in another `.env` file for populating `env.js`
+
+* `--dest` **(default: ./public)**
+
+Change the default destination for generating the `env.js` file
