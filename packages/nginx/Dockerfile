@@ -1,6 +1,6 @@
 FROM nginx:1.15-alpine
 
-ADD ./bin/react-env_linux-amd64 /usr/bin/react-env
+RUN apk add --no-cache nodejs
 
 ADD nginx.conf /etc/nginx/nginx.conf
 

@@ -6,11 +6,6 @@ node_js: '10'
 
 ### Build
 script:
-  # build go binaries
-  - cd packages/golang
-  - bash compile.sh
-  - cp -af ./bin/. ../node/dist/bin/
-  - cp -af ./bin/. ../nginx/bin/
   # build node package
   - cd ../node
   - cp -f ../../README.md ./
