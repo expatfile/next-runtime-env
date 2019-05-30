@@ -6,8 +6,9 @@ var argv = require("yargs").argv;
 const NODE_ENV = process.env.NODE_ENV || "development";
 
 function writeClientEnvironment(env) {
+  const basePath = fs.realpathSync(process.cwd());
   const populate = `window._env = ${JSON.stringify(env)};`;
-  fs.appendFile("env.js", populate, () => {});
+  fs.appendFile(`${basePath}/public/env.js`, populate, () => {});
 }
 
 function getClientEnvironment() {

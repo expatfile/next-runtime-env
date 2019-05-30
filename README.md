@@ -44,7 +44,7 @@ render() {
 
 #### Development
 
-To use this package during development you need to install the npm package `@beam-australia/react-env`
+To use this package during development you only need to install the npm package `@beam-australia/react-env`
 
 ```bash
 yarn add @beam-australia/react-env --dev
@@ -72,6 +72,19 @@ You may now use CRA as normal:
 yarn start
 ## Or
 npm run start
+```
+
+If you have another `.env` file you would like to read you can use the `--env` argument:
+
+
+```javascript
+{
+  // ...
+  "scripts": {
+    // ...
+    "prestart": "react-env --env /path/to/.env.custom",
+  },
+}
 ```
 
 #### Deploying
@@ -118,16 +131,6 @@ Then you can hit http://localhost:8080 or http://host-ip:8080 in your browser.
 
 ## Technical Guide
 
-#### Tech Overview
-
-This library uses a small Golang binary that is responsible for generating the `env.js` environment file. We do this for tow reasons. 
-
-1. A discreet binary enables us build the env config while booting an Nginx docker container without installing npm, nodejs and a host of packages. The resulting Nginx Alpine Docker container comes in at under 10Mb.
-
-2. Golang is very fast and very reliable. Its a system language and is more suitable for this type of application.
-
-3. We can run the CRA statically with no nodejs installed.
-
 #### Runtime environment variables
 
 The `env.js` environment configuration file is generated as the container boots. Therefore it will contain whitelisted env vars that are present at *container start*, any new environment variables needs a container restart. This is normal Docker behaviour. 
@@ -139,4 +142,5 @@ We have replicated the order of priority as per the [CRA documentation](https://
 
 e.g. `.env.development.local, .env.development, .env.local, .env`
 
+You are also able to add other env files via the `--env` argument.
 
