@@ -2,6 +2,8 @@ FROM nginx:1.15-alpine
 
 RUN apk add --no-cache nodejs
 
+RUN npm install -g @beam-australia/react-env
+
 ADD nginx.conf /etc/nginx/nginx.conf
 
 ADD entrypoint.sh /var/entrypoint.sh
