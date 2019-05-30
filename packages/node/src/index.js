@@ -7,8 +7,9 @@ const NODE_ENV = process.env.NODE_ENV || "development";
 
 function writeClientEnvironment(env) {
   const basePath = fs.realpathSync(process.cwd());
+  const destPath = argv.dest ? `${argv.dest}/` : 'public/';
   const populate = `window._env = ${JSON.stringify(env)};`;
-  fs.appendFile(`${basePath}/public/env.js`, populate, () => {});
+  fs.appendFile(`${basePath}/${destPath}env.js`, populate, () => {});
 }
 
 function getClientEnvironment() {
