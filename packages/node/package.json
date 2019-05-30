@@ -1,30 +1,31 @@
 {
-    "name": "@beam-australia/react-env",
-    "version": "0.1.0",
-    "author": "andrewmclagan",
-    "license": "MIT",
-    "publishConfig": {
-        "access": "public"
-    },
-    "repository": "http://github.com/beam-australia/create-react-env",
-    "main": "dist/index.js",
-    "bin": {
-        "react-env": "dist/cli.js"
-    },
-    "scripts": {
-        "test": "echo test",
-        "build": "rollup -c",
-        "start": "rollup -c -w"
-    },
-    "dependencies": {
-        "shelljs": "^0.8.3",
-        "yargs": "^13.2.4"
-    },
-    "peerDependencies": {},
-    "devDependencies": {
-        "rollup": "^1.7.3"
-    },
-    "files": [
-        "dist"
-    ]
+  "name": "@beam-australia/react-env",
+  "version": "0.1.0",
+  "author": "andrewmclagan",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": "http://github.com/beam-australia/react-env",
+  "main": "dist/index.js",
+  "bin": {
+    "react-env": "dist/cli.js"
+  },
+  "scripts": {
+    "test": "echo test",
+    "build": "rollup -c",
+    "start": "rollup -c -w"
+  },
+  "dependencies": {
+    "dotenv": "^8.0.0",
+    "dotenv-expand": "^5.1.0",
+    "yargs": "^13.2.4"
+  },
+  "peerDependencies": {},
+  "devDependencies": {
+    "rollup": "^1.7.3"
+  },
+  "files": [
+    "dist"
+  ]
 }

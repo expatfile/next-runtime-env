@@ -4,7 +4,7 @@ set -e
 
 echo "Serializing whitelist environment:"
 
-react-env
+./node_modules/.bin/react-env
 
 cat env.js
 
