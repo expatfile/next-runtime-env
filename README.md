@@ -96,7 +96,7 @@ Create a `Dockerfile` in the root of your CRA project
 
 ```dockerfile
 # Build the app
-FROM node:8-alpine AS build
+FROM node:10-alpine AS build
 
 WORKDIR /var/app
 
