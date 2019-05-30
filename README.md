@@ -96,7 +96,7 @@ Create a `Dockerfile` in the root of your CRA project
 
 ```dockerfile
 # Build the app
-FROM node:8-alpine AS build
+FROM node:10-alpine AS build
 
 WORKDIR /var/app
 
@@ -111,7 +111,7 @@ ADD . .
 RUN yarn build
 
 # Create deployable image
-FROM beamaustralia/create-react-env:1.0.0
+FROM beamaustralia/react-env:1.0.0
 
 WORKDIR /var/www
 
