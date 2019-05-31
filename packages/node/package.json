@@ -1,6 +1,6 @@
 {
   "name": "@beam-australia/react-env",
-  "version": "0.1.0",
+  "version": "0.1.0-dev",
   "author": "andrewmclagan",
   "license": "MIT",
   "publishConfig": {
@@ -17,9 +17,10 @@
     "start": "rollup -c -w"
   },
   "dependencies": {
+    "cross-spawn": "^6.0.5",
     "dotenv": "^8.0.0",
     "dotenv-expand": "^5.1.0",
-    "yargs": "^13.2.4"
+    "minimist": "^1.2.0"
   },
   "peerDependencies": {},
   "devDependencies": {

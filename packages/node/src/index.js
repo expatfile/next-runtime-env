@@ -1,23 +1,16 @@
 "use strict";
 
+const spawn = require("cross-spawn");
 const fs = require("fs");
-var argv = require("yargs").argv;
+const argv = require("minimist")(process.argv.slice(2));
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 
-function canUseDom() {
-  return typeof window !== "undefined";
-}
-
 function writeBrowserEnvironment(env) {
   const basePath = fs.realpathSync(process.cwd());
-  const destPath = argv.dest ? `${argv.dest}/` : 'public/';
+  const destPath = argv.dest ? `${argv.dest}/` : "public/";
   const populate = `window._env = ${JSON.stringify(env)};`;
   fs.writeFileSync(`${basePath}/${destPath}env.js`, populate);
-}
-
-function writeServerEnvironment(env) {
-  Object.keys(env).map(key => process.env[key] = env[key])
 }
 
 function getEnvironment() {
@@ -40,8 +33,16 @@ function resolveFile(file) {
 }
 
 function getEnvFiles() {
+  let appendFiles = [];
+  if (argv.env) {
+    if (typeof argv.env === "string") {
+      appendFiles = [argv.env];
+    } else {
+      appendFiles = argv.env;
+    }
+  }
   return [
-    argv.env,
+    ...appendFiles,
     resolveFile(`.env.${NODE_ENV}.local`),
     resolveFile(`.env.${NODE_ENV}`),
     NODE_ENV !== "test" && resolveFile(".env.local"),
@@ -63,8 +64,11 @@ dotenvFiles.forEach(dotenvFile => {
 
 const env = getEnvironment();
 
-if (canUseDom()) {
-  writeBrowserEnvironment(env);
-} else {
-  writeServerEnvironment(env);
+writeBrowserEnvironment(env);
+
+if (argv._[0]) {
+  spawn(argv._[0], argv._.slice(1), { stdio: "inherit" })
+    .on("exit", function(exitCode) {
+      process.exit(exitCode);
+    });  
 }
