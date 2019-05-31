@@ -5,14 +5,22 @@ var argv = require("yargs").argv;
 
 const NODE_ENV = process.env.NODE_ENV || "development";
 
-function writeClientEnvironment(env) {
+function canUseDom() {
+  return typeof window !== "undefined";
+}
+
+function writeBrowserEnvironment(env) {
   const basePath = fs.realpathSync(process.cwd());
   const destPath = argv.dest ? `${argv.dest}/` : 'public/';
   const populate = `window._env = ${JSON.stringify(env)};`;
   fs.writeFileSync(`${basePath}/${destPath}env.js`, populate);
 }
 
-function getClientEnvironment() {
+function writeServerEnvironment(env) {
+  Object.keys(env).map(key => process.env[key] = env[key])
+}
+
+function getEnvironment() {
   const match = /^REACT_APP_/i;
   return Object.keys(process.env)
     .filter(key => match.test(key))
@@ -53,6 +61,10 @@ dotenvFiles.forEach(dotenvFile => {
   }
 });
 
-const env = getClientEnvironment();
+const env = getEnvironment();
 
-writeClientEnvironment(env);
+if (canUseDom()) {
+  writeBrowserEnvironment(env);
+} else {
+  writeServerEnvironment(env);
+}
