@@ -1,8 +1,8 @@
 FROM nginx:1.15-alpine
 
-RUN apk add --no-cache nodejs nodejs-npm
+RUN apk add --no-cache nodejs yarn
 
-RUN npm install -g @beam-australia/react-env
+RUN yarn global add @beam-australia/react-env
 
 ADD nginx.conf /etc/nginx/nginx.conf
 
