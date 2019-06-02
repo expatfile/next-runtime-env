@@ -8,7 +8,7 @@ Allows CRA environment variables to be populated at run-time rather then build-t
 * *Technical Guide*
   * [Runtime environment variables](#runtime-environment-variables)
   * [.env file order of priority](#.env-file-order-of-priority)
-  * [arguments](#arguments)
+  * [Args and params](#arguments-and-parameters)
 
 ## User Guide
 
