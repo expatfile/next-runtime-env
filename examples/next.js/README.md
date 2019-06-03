@@ -1,6 +1,6 @@
 ### Next.js
 
-This folder contains an example app using Next.js server rendered framework. First create a `static` where we will generate our `env.js` file.
+This folder contains an example app using Next.js server rendered framework. First create a `static` directory where we will generate our `env.js` file.
 
 Next we need to include this file in the head of our pages:
 
