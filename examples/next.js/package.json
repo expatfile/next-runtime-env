@@ -1,0 +1,17 @@
+{
+  "name": "react-env-next.js",
+  "license": "ISC",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "react-env next --dest ./static",
+    "build": "next build",
+    "start": "react-env next start --dest ./static"
+  },
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "next": "latest",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "react-env": "latest"
+  }
+}
