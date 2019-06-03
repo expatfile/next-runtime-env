@@ -1,6 +1,6 @@
 ### Create React App
 
-Place the following in the head of the `public/index.html` file:
+This folder contains an example app using Create React App. First place the following in the head of the `public/index.html` file:
 
 ```html
 <script src="%PUBLIC_URL%/env.js"></script>

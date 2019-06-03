@@ -10,9 +10,9 @@ Allows your react app's environment variables to be populated at run-time rather
 
 ## User Guide
 
-Example using [Create React APP](examples/create-react-app/README.md)
+* Example using [Create React APP](examples/create-react-app/README.md)
 
-Example using [Next.js](examples/next.js/README.md)
+* Example using [Next.js](examples/next.js/README.md)
 
 #### Overview
 
