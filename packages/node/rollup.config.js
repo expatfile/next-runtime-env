@@ -1,10 +1,22 @@
-import pkg from "./package.json";
+import commonjs from "rollup-plugin-commonjs";
 
-export default {
-  input: "src/index.js",
-  output: {
-    file: pkg.main,
-    format: "cjs"
+export default [
+  {
+    input: "src/cli-index.js",
+    output: {
+      file: "dist/cli-index.js",
+      format: "cjs"
+    },
+    external: ["shelljs", "yargs"]
   },
-  external: ["shelljs", "yargs"]
-};
+  {
+    input: "src/index.js",
+    output: {
+      file: "dist/index.js",
+      format: "cjs"
+    },
+    plugins: [
+      commonjs()
+    ]
+  }
+];

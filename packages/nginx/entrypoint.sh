@@ -2,7 +2,7 @@
 
 set -e
 
-echo "Serializing whitelist environment:"
+echo "Serializing environment:"
 
 react-env --dest .
 
