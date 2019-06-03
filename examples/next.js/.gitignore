@@ -1,15 +1,7 @@
-<<<<<<< HEAD
-node_modules
-package-lock.json
-yarn-lock.json
-.DS_Store
-env.js
-.env
-=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.js
 
@@ -17,7 +9,7 @@ env.js
 /coverage
 
 # production
-/.next
+.next
 
 # env.js
 static/env.js
@@ -34,4 +26,3 @@ yarn-lock.json
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
->>>>>>> develop
