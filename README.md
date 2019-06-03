@@ -1,6 +1,10 @@
 # React Env - Runtime Environment Configuration
 
-Allows your react app's environment variables to be populated at run-time rather then build-time and run as static js. Works with client and server rendered frameworks.
+Allows your react app's environment variables to be populated at **run-time** rather then **build-time**. Works with client and server rendered frameworks.
+
+* Example using [Create React APP](examples/create-react-app/README.md)
+
+* Example using [Next.js](examples/next.js/README.md)
 
   - _User Guide_
     - [Overview](#overview)
@@ -8,13 +12,7 @@ Allows your react app's environment variables to be populated at run-time rather
     - [.env file order of priority](#.env-file-order-of-priority)
     - [Arguments and parameters](#arguments-and-parameters)
 
-## User Guide
-
-* Example using [Create React APP](examples/create-react-app/README.md)
-
-* Example using [Next.js](examples/next.js/README.md)
-
-#### Overview
+### Overview
 
 This package generates a `env.js` file that contains white-listed environment variables that have a `REACT_APP_` preposition, as per the [CRA documentation](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables).
 
