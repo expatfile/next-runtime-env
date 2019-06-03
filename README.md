@@ -6,12 +6,6 @@ Allows your react app's environment variables to be populated at **run-time** ra
 
 * Example using [Next.js](examples/next.js/README.md)
 
-  - _User Guide_
-    - [Overview](#overview)
-    - [Runtime environment variables](#runtime-environment-variables)
-    - [.env file order of priority](#.env-file-order-of-priority)
-    - [Arguments and parameters](#arguments-and-parameters)
-
 ### Overview
 
 This package generates a `env.js` file that contains white-listed environment variables that have a `REACT_APP_` preposition, as per the [CRA documentation](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables).
