@@ -28,6 +28,37 @@ Change your `package.json` scripts file to have a "prestart" key:
 }
 ```
 
+#### Accessing values
+
+Your variables will be available on the `window._env` object e.g. `window._env.REACT_APP_FOO`. We Have included a helper function to easily retrieve these values:
+
+```bash
+# .env
+NODE_ENV="development"
+REACT_APP_FOO="Not a secret code"
+REACT_APP_NOT_SECRET_CODE="1234"
+```
+
+becomes...
+
+```jsx
+import env from "@beam-australia/react-env";
+
+export default props => (
+  <div>
+    <small>
+      This is: <b>{env("FOO")}</b>.
+    </small>
+    <small>
+      Current environment: <b>{env("NODE_ENV")}</b>.
+    </small>    
+    <form>
+      <input type="hidden" defaultValue={env("NOT_SECRET_CODE")} />
+    </form>
+  </div>
+);
+```
+
 #### Deploying in production
 
 To run CRA in production We have built a docker image that automatically populates `env.js` when the container starts. As a convenience this is based off the Alpine Linux - Nginx image and contains a best practices `nginx.conf` file for serving you CRA site. Simple!
@@ -51,7 +82,7 @@ ADD . .
 RUN yarn build
 
 # Create deployable image
-FROM beamaustralia/react-env:1.0.0
+FROM beamaustralia/react-env:latest
 
 WORKDIR /var/www
 
