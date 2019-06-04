@@ -8,7 +8,7 @@ yarn install && yarn dev
 
 ### Overview
 
-In a new Next.js installation, first create a `static` directory where we will generate our `env.js` file.
+In a new Next.js installation you first need to create a `static` directory where we will generate our `env.js` file.
 
 Next we need to include this file in the head of our pages:
 
@@ -49,7 +49,7 @@ Change your `package.json` scripts file to look like the following:
 }
 ```
 
-#### Accessing values
+### Accessing values
 
 In the browser your variables will be available on the `window._env` object e.g. `window._env.REACT_APP_FOO`. On the server the same variables will be available on `process.env` e.g. `process.env.REACT_APP_FOO`. 
 
