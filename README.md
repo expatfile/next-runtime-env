@@ -1,5 +1,7 @@
 # React Env - Runtime Environment Configuration
 
+[![Build Status](https://travis-ci.org/beam-australia/react-env.svg?branch=master)](https://travis-ci.org/beam-australia/react-env)
+
 Allows your react app's environment variables to be populated at **run-time** rather then **build-time**. Works with client and server rendered frameworks.
 
 * Example using [Create React APP](examples/create-react-app/README.md)
