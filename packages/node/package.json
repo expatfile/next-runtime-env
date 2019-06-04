@@ -13,6 +13,7 @@
   },
   "scripts": {
     "test": "jest",
+    "test:ci": "jest --coverage --coverageReporters=text-lcov | coveralls",
     "build": "rollup -c",
     "start": "rollup -c -w"
   },
@@ -27,6 +28,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "babel-jest": "^24.8.0",
+    "coveralls": "^3.0.3",
     "del": "^4.1.1",
     "jest": "^24.8.0",
     "rollup": "^1.7.3",
