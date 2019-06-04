@@ -11,6 +11,7 @@ script:
   - cp -f ../../README.md ./
   - yarn install
   - yarn build
+  - yarn run test:ci
   - cd ../../
 
 ## Publish
