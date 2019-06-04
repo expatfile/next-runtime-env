@@ -1,7 +1,7 @@
 const NODE_ENV = process.env.NODE_ENV || "development";
 
 function isBrowser() {
-  return typeof window !== "undefined" && window._env && true
+  return !!(typeof window !== "undefined" && window._env)
 }
 
 function getFiltered() {
@@ -18,6 +18,9 @@ function getFiltered() {
 
 export default function env(key = "") {
   const safeKey = `REACT_APP_${key}`;
+  if (isBrowser() && key === "NODE_ENV") {
+    return window._env.NODE_ENV;
+  }
   if (isBrowser()) {
     return key.length ? window._env[safeKey] : window._env;
   } 
