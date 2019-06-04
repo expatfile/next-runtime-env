@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/beam-australia/react-env.svg?branch=master)](https://travis-ci.org/beam-australia/react-env)
 [![npm version](https://badge.fury.io/js/%40beam-australia%2Freact-env.svg)](https://badge.fury.io/js/%40beam-australia%2Freact-env)
+[![Coverage Status](https://coveralls.io/repos/github/beam-australia/react-env/badge.svg?branch=2.0.2)](https://coveralls.io/github/beam-australia/react-env?branch=2.0.2)
 
 Allows your react app's environment variables to be populated at **run-time** rather then **build-time**. Works with client and server rendered frameworks.
 
