@@ -8,6 +8,7 @@
   },
   "repository": "http://github.com/beam-australia/react-env",
   "main": "dist/index.js",
+  "types": "dist/types.d.ts",
   "bin": {
     "react-env": "dist/cli.js"
   },
