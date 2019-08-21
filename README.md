@@ -6,9 +6,9 @@
 
 Allows your react app's environment variables to be populated at **run-time** rather then **build-time**. Works with client and server rendered frameworks.
 
-* Example using [Create React APP](examples/create-react-app/README.md)
+* Example using [Create React APP](examples/create-react-app/README.md) (see README.md)
 
-* Example using [Next.js](examples/next.js/README.md)
+* Example using [Next.js](examples/next.js/README.md) (see README.md)
 
 ### Overview
 
