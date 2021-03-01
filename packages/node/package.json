@@ -1,6 +1,6 @@
 {
   "name": "@beam-australia/react-env",
-  "version": "0.1.0-dev",
+  "version": "3.0.3",
   "author": "andrewmclagan",
   "license": "MIT",
   "publishConfig": {

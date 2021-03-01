@@ -1,0 +1,31 @@
+---
+#--------------------------
+# Gateway service
+#--------------------------
+kind: pipeline
+type: docker
+name: default
+steps:
+  - name: test
+    image: node:13-alpine
+    environment:
+      COVERALLS_SERVICE_NAME: 'drone'
+      COVERALLS_GIT_BRANCH: ${DRONE_BRANCH}
+      COVERALLS_SERVICE_NUMBER: ${DRONE_TAG=${DRONE_COMMIT}}
+      COVERALLS_REPO_TOKEN: 
+          from_secret: COVERALLS_REPO_TOKEN
+    commands:
+      - cd packages/node
+      - yarn install
+      - yarn test:ci
+
+  - name: publish
+    image: plugins/npm
+    when:
+      event: [tag]    
+    settings:
+      folder: packages/node
+      username: andrewmclagan
+      email: andrewmclagan@gmail.com
+      password:
+        from_secret: NPM_PASSWORD

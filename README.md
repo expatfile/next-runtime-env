@@ -2,24 +2,31 @@
 
 [![Build Status](https://travis-ci.org/beam-australia/react-env.svg?branch=master)](https://travis-ci.org/beam-australia/react-env)
 [![npm version](https://badge.fury.io/js/%40beam-australia%2Freact-env.svg)](https://badge.fury.io/js/%40beam-australia%2Freact-env)
-[![Coverage Status](https://coveralls.io/repos/github/beam-australia/react-env/badge.svg?branch=2.0.2)](https://coveralls.io/github/beam-australia/react-env?branch=2.0.2)
+[![Coverage Status](https://coveralls.io/repos/github/beam-australia/react-env/badge.svg?branch=2.0.2)](https://coveralls.io/github/beam-australia/react-env?branch=3.0.0)
 
-Allows your react app's environment variables to be populated at **run-time** rather then **build-time**. Works with client and server rendered frameworks.
+Populates your environment from `.env` files at **run-time** rather than **build-time**.
 
-* Example using [Create React APP](examples/create-react-app/README.md) (see README.md)
+### Features
 
-* Example using [Next.js](examples/next.js/README.md) (see README.md)
+- Isomorphic - Server and browser compatible.
+- Supports static site generation.
+- Supports multiple `.env` files.
+
+### Examples
+
+- Example using [Next.js](examples/next.js/README.md) (see README.md)
+- Example using [Create React APP](examples/create-react-app/README.md) (see README.md)
 
 ### Overview
 
-This package generates a `env.js` file that contains white-listed environment variables that have a `REACT_APP_` preposition, as per the [CRA documentation](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables).
+This package generates a `__ENV.js` file from multiple `.env` files that contains white-listed environment variables that have a `REACT_APP_` preposition.
 
-In the browser your variables will be available at `window._env.REACT_APP_FOO` and on the server `process.env.REACT_APP_FOO`. We have included a helper function to make retrieving a value easier:
+In the browser your variables will be available at `window.__ENV.REACT_APP_FOO` and on the server `process.env.REACT_APP_FOO`. We have included a helper function to make retrieving a value easier:
 
 ```bash
 # .env
-REACT_APP_CRA="Create React App"
 REACT_APP_NEXT="Next.js"
+REACT_APP_CRA="Create React App"
 REACT_APP_NOT_SECRET_CODE="1234"
 ```
 
@@ -28,48 +35,71 @@ becomes...
 ```jsx
 import env from "@beam-australia/react-env";
 
-export default props => (
+export default (props) => (
   <div>
     <small>
       Works in the browser: <b>{env("CRA")}</b>.
     </small>
     <small>
       Also works for server side rendering: <b>{env("NEXT")}</b>.
-    </small>    
+    </small>
     <form>
       <input type="hidden" defaultValue={env("NOT_SECRET_CODE")} />
     </form>
+    <small>
+      Entire safe environment:
+      <pre>
+        <code>{{JSON.stringify(env())}}</code>
+      </pre>
+    </small>
   </div>
 );
 ```
 
-### Runtime environment variables
-
-The `env.js` environment configuration file is generated as the container boots. Therefore it will contain whitelisted env vars that are present at _container start_, any new environment variables needs a container restart. This is normal Docker behaviour.
-
 ### .env file order of priority
 
-We have replicated the order of priority as per the [CRA documentation](https://facebook.github.io/create-react-app/docs/adding-custom-environment-variables#what-other-env-files-can-be-used).
+We have implemented some sane defaults that will be have the following order of priority:
 
-e.g. `.env.development.local, .env.development, .env.local, .env`
+1. `.env.{key}`
+2. `.env.local`
+3. `.env`
+
+Where `.env.{key}` is defined by the `--key` argument. For example:
+
+```bash
+# .env.staging
+REACT_APP_API_HOST="api.staging.com"
+# .env.local
+REACT_APP_API_HOST="api.example.dev"
+# .env
+REACT_APP_API_HOST="localhost"
+```
+running `react-env --key APP_ENV` where the environment variable `APP_ENV=staging` would populate:
+
+```json
+{
+  "REACT_APP_API_HOST": "api.staging.com"
+}
+```
+
+in the browser and `process.env` on the server. This allows for overiding environments where there is defaults for a local environment. We suggest you add `.env.local` to `.gitignore`.
 
 ### Arguments and parameters
 
-
 ```bash
-$ react-env <command with arguments> --env /path/to/.env.foo --env /path/to/.env.bar --dest /path/to/build
+$ react-env --key APP_ENV --dest /path/to/build -- <command with arguments>
 ```
 
-This will generate a `env.js` file in the dest directory `/path/to/build` and then run the command. The command will have all the environment variable available in `process.env`, great for server side rending and other use-cases.
+This will generate a `__ENV.js` file in the dest directory `/path/to/build` and then run the command. The command will have all the environment variable available in `process.env`, great for server side rending and other use-cases.
 
-* `<command>` 
+- `<command>`
 
 You may pass a command, such as a nodejs entry file to the `react-env` cli tool. The command will have all the environment variable available in `process.env`, great for server side rending and other use-cases.
 
-* `--env` **(default: null)**
+- `--key`, `-k` **(default: null)**
 
-Read in another `.env` file for populating `env.js`. You may include multiple env files.
+Parse an environment specific env-file via the value of an exisitng environment variable. For example `--key APP_ENV` where `APP_ENV=staging` would read the env file `.env.staging`. This file takes priority over the defaults `.env` and `.env.local`
 
-* `--dest` **(default: ./public)**
+- `--dest` **(default: ./public)**
 
-Change the default destination for generating the `env.js` file
+Change the default destination for generating the `__ENV.js` file.

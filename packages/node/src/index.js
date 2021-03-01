@@ -1,31 +1,20 @@
-const NODE_ENV = process.env.NODE_ENV || "development";
-
 function isBrowser() {
-  return !!(typeof window !== "undefined" && window._env)
+  return Boolean(typeof window !== "undefined" && window.__ENV);
 }
 
 function getFiltered() {
   return Object.keys(process.env)
-    .filter(key => /^REACT_APP_/i.test(key))
-    .reduce(
-      (env, key) => {
-        env[key] = process.env[key];
-        return env;
-      },
-      { NODE_ENV }
-    );
+    .filter((key) => /^REACT_APP_/i.test(key))
+    .reduce((env, key) => {
+      env[key] = process.env[key];
+      return env;
+    }, {});
 }
 
 export default function env(key = "") {
   const safeKey = `REACT_APP_${key}`;
-  if (isBrowser() && key === "NODE_ENV") {
-    return window._env.NODE_ENV;
-  }
   if (isBrowser()) {
-    return key.length ? window._env[safeKey] : window._env;
-  } 
-  if (key === 'NODE_ENV') {
-    return process.env.NODE_ENV;
+    return key.length ? window.__ENV[safeKey] : window.__ENV;
   }
   return key.length ? process.env[safeKey] : getFiltered();
 }
