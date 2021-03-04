@@ -1,8 +1,8 @@
 # React Env - Runtime Environment Configuration
 
-[![Build Status](https://travis-ci.org/beam-australia/react-env.svg?branch=master)](https://travis-ci.org/beam-australia/react-env)
+[![Build Status](https://cloud.drone.io/api/badges/andrewmclagan/react-env/status.svg)](https://cloud.drone.io/andrewmclagan/react-env)
 [![npm version](https://badge.fury.io/js/%40beam-australia%2Freact-env.svg)](https://badge.fury.io/js/%40beam-australia%2Freact-env)
-[![Coverage Status](https://coveralls.io/repos/github/beam-australia/react-env/badge.svg?branch=2.0.2)](https://coveralls.io/github/beam-australia/react-env?branch=3.0.0)
+[![Coverage Status](https://coveralls.io/repos/github/beam-australia/react-env/badge.svg)](https://coveralls.io/github/beam-australia/react-env)
 
 Populates your environment from `.env` files at **run-time** rather than **build-time**.
 
@@ -103,3 +103,10 @@ Parse an environment specific env-file via the value of an exisitng environment 
 - `--dest` **(default: ./public)**
 
 Change the default destination for generating the `__ENV.js` file.
+
+
+### 3.x.x Breaking changes
+
+As a significant breaking change we have dropped the ability to specify specific files via the `--env` argument in favour of an env key `--key`. This allows specific environment configuration to be built depending on the running environment. It is very common for platforms to have `staging, qa, integration` environments that are still built in "production" mode with `NODE_ENV=production`. This allows for that usecase and many others.
+
+We have also dropped adding `NODE_ENV` by default.
