@@ -2,14 +2,16 @@
 
 const spawn = require("cross-spawn");
 const fs = require("fs");
-const argv = require("minimist")(process.argv.slice(2));
+const argv = require("minimist")(process.argv.slice(2), { "--": true });
 
 function writeBrowserEnvironment(env) {
-  const basePath = fs.realpathSync(process.cwd());
-  const destPath = argv.dest ? `${argv.dest}/` : "public/";
-  console.log("Runtime env: ", JSON.stringify(env, null, 2));
+  const base = fs.realpathSync(process.cwd());
+  const dest = argv.d || argv.dest || "public";
+  const path = `${base}/${dest}/__ENV.js`;
+  console.debug("Writing runtime env ", path);
+  console.debug(JSON.stringify(env, null, 2));
   const populate = `window.__ENV = ${JSON.stringify(env)};`;
-  fs.writeFileSync(`${basePath}/${destPath}__ENV.js`, populate);
+  fs.writeFileSync(path, populate);
 }
 
 function getEnvironment() {
@@ -27,9 +29,11 @@ function resolveFile(file) {
 }
 
 function getEnvFiles() {
-  const envKey = argv.k || argv.key || "";
+  const envKey = argv.e || argv.env || "";
   const envVal = process.env[envKey] ? process.env[envKey] : "";
+  const path = argv.p || argv.path || "";
   return [
+    resolveFile(path),
     resolveFile(`.env.${envVal}`),
     resolveFile(".env.local"),
     resolveFile(".env"),
@@ -52,8 +56,8 @@ const env = getEnvironment();
 
 writeBrowserEnvironment(env);
 
-if (argv._[0]) {
-  spawn(argv._[0], argv._.slice(1), { stdio: "inherit" }).on(
+if (argv["--"] && argv["--"].length) {
+  spawn(argv["--"][0], argv["--"].slice(1), { stdio: "inherit" }).on(
     "exit",
     function (exitCode) {
       process.exit(exitCode);

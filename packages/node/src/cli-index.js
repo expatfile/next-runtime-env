@@ -57,7 +57,7 @@ const env = getEnvironment();
 writeBrowserEnvironment(env);
 
 if (argv["--"] && argv["--"].length) {
-  spawn(argv["--"], argv["--"].slice(1), { stdio: "inherit" }).on(
+  spawn(argv["--"][0], argv["--"].slice(1), { stdio: "inherit" }).on(
     "exit",
     function (exitCode) {
       process.exit(exitCode);

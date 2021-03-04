@@ -58,10 +58,10 @@ export default (props) => (
 
 ### .env file order of priority
 
-We have implemented some sane defaults that will be have the following order of priority:
+We have implemented some sane defaults that have the following order of priority:
 
-1. `.env.{file}` // from the `--path, -p` argument
-2. `.env.{key}`  // from the `--env, -e` argument
+1. `.env.{file}  // from the --path, -p argument`
+2. `.env.{key}   // from the --env, -e argument`
 3. `.env.local`
 4. `.env`
 
@@ -90,13 +90,13 @@ REACT_APP_API_HOST="localhost"
 
 for staging you would simply set `APP_ENV=staging` where you run your app:
 
-```json
+```
 {
-  //...
+  ...
   "scripts": {
-    "start": "react-env --path APP_ENV -- next start" // where .env.${APP_ENV}
+    "start": "react-env --env APP_ENV -- next start" // where .env.${APP_ENV}
   }
-  //...
+  ...
 }
 ```
 Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
@@ -105,13 +105,13 @@ Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
 
 You are also able to specify the path to a specific env file:
 
-```json
+```
 {
-  //...
+  ...
   "scripts": {
     "start": "react-env --path config/.env.defaults -- next start" 
   }
-  //...
+  ...
 }
 ```
 
@@ -123,15 +123,13 @@ You can use any combination of these two arguments along with the default `.env,
 $ react-env <args> -- <command>
 ```
 
-This will generate a `__ENV.js` file in the dest directory `/path/to/build` and then run the command. The command will have all the environment variable available in `process.env`, great for server side rending and other use-cases.
-
 - `<command>`
 
-You may pass a command, such as a nodejs entry file to the `react-env` cli tool. The command will have all the environment variable available in `process.env`, great for server side rending and other use-cases.
+You may pass a command, such as a nodejs entry file to the `react-env` cli tool. For example `react-scripts`, `next dev`, `next start`
 
 - `--env`, `-e` **(default: null)**
 
-Parse an environment specific env-pile via the value of an exisitng environment variable. For example `--env APP_ENV` where `APP_ENV=staging` would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
+Parse an environment specific env-file via the value of an exisitng environment variable. For example `--env APP_ENV` where `APP_ENV=staging` would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
 
 - `--path`, `-p` **(default: null)**
 
@@ -146,6 +144,9 @@ Change the default destination for generating the `__ENV.js` file.
 
 ---
 As a significant breaking change we have dropped the ability to specify specific files via the `--env` argument. This argument now specifies environment file to be parsed depending on the running environment. For example `--env APP_ENV` or `-e APP_ENV` where `APP_ENV=staging` reads in `.env.staging`. It is very common for platforms to have `staging, qa, integration` environments that are still built in "production" mode with `NODE_ENV=production`. This allows for that usecase and many others.
+
+--
+You are still able to specify files via the `--path, -p` argument.
 
 ---
 We have also dropped adding `NODE_ENV` by default as this was a security risk.
