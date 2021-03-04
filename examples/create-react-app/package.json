@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
+    "@beam-australia/react-env": "3.0.4",
     "isomorphic-fetch": "^2.2.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "3.0.1",
-    "react-env": "latest"
+    "react": "latest",
+    "react-dom": "latest",
+    "react-env": "latest",
+    "react-scripts": "3.0.1"
   },
   "scripts": {
-    "prestart": "react-env --dest public",
-    "start": "react-scripts start",
+    "start": "react-env -- react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

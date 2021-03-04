@@ -11,8 +11,8 @@ coverage
 # production
 build
 
-# env.js
-public/env.js
+# env
+public/__ENV.js
 
 # misc
 .DS_Store

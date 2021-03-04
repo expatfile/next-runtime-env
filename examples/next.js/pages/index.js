@@ -22,7 +22,7 @@ export default class extends React.Component {
       <div style={{ width: 650, margin: "0 auto" }}>
         <Head>
           <title>React Env</title>
-          <script src="/static/env.js" />
+          <script src="/__ENV.js" />
         </Head>
         <h1>React Env - {env("FRAMEWORK")}</h1>
         <p>Runtime environment variables</p>

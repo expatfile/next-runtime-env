@@ -3,15 +3,16 @@
   "license": "ISC",
   "version": "1.0.0",
   "scripts": {
-    "dev": "react-env next --dest ./static",
+    "dev": "react-env -- next",
     "build": "next build",
-    "start": "react-env next start --dest ./static"
+    "start": "react-env -- next start"
   },
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
+    "@beam-australia/react-env": "3.0.4",
     "next": "latest",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "latest",
+    "react-dom": "latest",
     "react-env": "latest"
   }
 }
