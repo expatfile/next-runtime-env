@@ -54,8 +54,10 @@ it("returns entire safe environment from the browser", () => {
 });
 
 it("returns entire safe environment from the server", () => {
+  delete window.__ENV;
   process.env.REACT_APP_FOO = "bar";
   process.env.REACT_APP_BAR = "foo";
+  process.env.FOO_BAR = "123";
   expect(env()).toEqual({
     REACT_APP_FOO: "bar",
     REACT_APP_BAR: "foo",

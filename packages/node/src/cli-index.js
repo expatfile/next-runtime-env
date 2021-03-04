@@ -2,7 +2,7 @@
 
 const spawn = require("cross-spawn");
 const fs = require("fs");
-const argv = require("minimist")(process.argv.slice(2));
+const argv = require("minimist")(process.argv.slice(2), { "--": true });
 
 function writeBrowserEnvironment(env) {
   const basePath = fs.realpathSync(process.cwd());
@@ -52,8 +52,8 @@ const env = getEnvironment();
 
 writeBrowserEnvironment(env);
 
-if (argv._[0]) {
-  spawn(argv._[0], argv._.slice(1), { stdio: "inherit" }).on(
+if (argv["--"] && argv["--"].length) {
+  spawn(argv["--"], argv["--"].slice(1), { stdio: "inherit" }).on(
     "exit",
     function (exitCode) {
       process.exit(exitCode);
