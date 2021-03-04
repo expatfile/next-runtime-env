@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@beam-australia/react-env": "3.0.4",
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-env": "latest",

@@ -8,7 +8,7 @@
     "start": "react-env -- next start"
   },
   "dependencies": {
-    "isomorphic-fetch": "^2.2.1",
+    "isomorphic-fetch": "latest",
     "@beam-australia/react-env": "3.0.4",
     "next": "latest",
     "react": "latest",
