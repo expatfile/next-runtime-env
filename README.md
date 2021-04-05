@@ -78,7 +78,7 @@ Your config is available in the browser and `process.env` on the server. We sugg
 
 ### Common use cases
 
-##### 1. Environment specific config
+#### Environment specific config
 
 Frameworks such as Next allow for some nice defaults such as `.env.local, .env.production, .env`. This has the limitation where you may want to run your app in different environments such as "staging, integration, qa" but still build a "production" app with `NODE_ENV=production`. With react-env this is possible:
 
@@ -110,7 +110,7 @@ for staging you would simply set `APP_ENV=staging` where you run your app:
 ```
 Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
 
-##### 2. Specifing an env file
+#### Specifing an env file
 
 You are also able to specify the path to a specific env file:
 
@@ -126,7 +126,7 @@ You are also able to specify the path to a specific env file:
 
 You can use any combination of these two arguments along with the default `.env, .env.local` to build your runtime config. 
 
-##### 4. Using with Docker entrypoint
+#### Using with Docker entrypoint
 
 It is possible to use this package as an `ENTRYPOINT` script inside a Dockerfile. This will generate your `__ENV.js` config file when the container boots and allow your `package.json` scripts to remain the unchanged. Of course `node` binary must be present in your container.
 
