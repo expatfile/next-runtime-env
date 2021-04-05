@@ -128,7 +128,7 @@ You can use any combination of these two arguments along with the default `.env,
 
 #### Using with Docker entrypoint
 
-It is possible to use this package as an `ENTRYPOINT` script inside a Dockerfile. This will generate your `__ENV.js` config file when the container boots and allow your `package.json` scripts to remain the unchanged. Of course `node` binary must be present in your container.
+It is possible to use this package as an `ENTRYPOINT` script inside a Dockerfile. This will generate your `__ENV.js` config file when the container boots and allow your `package.json` scripts to remain unchanged. Of course `node` binary must be present in your container.
 
 ```dockerfile
 FROM node:alpine
