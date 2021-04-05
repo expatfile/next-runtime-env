@@ -6,11 +6,20 @@
 
 Populates your environment from `.env` files at **run-time** rather than **build-time**.
 
-### Features
-
 - Isomorphic - Server and browser compatible.
 - Supports static site generation.
 - Supports multiple `.env` files.
+
+## README
+
+* [Examples](#examples)
+* [Overview](#overview)
+* [File priority](#env-file-order-of-priority)
+* [Common use cases](#common-use-cases)
+  * [Environment specific config](#environment-specific-config)
+  * [Specify an env file](#Specify-an-env-file)
+  * [Using with Docker entrypoint](#using-with-docker-entrypoint)
+* [Arguments and parameters](#arguments-and-parameters)
 
 ### Examples
 
@@ -101,7 +110,7 @@ for staging you would simply set `APP_ENV=staging` where you run your app:
 ```
 Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
 
-##### 2. Specified env file
+##### 2. Specify an env file
 
 You are also able to specify the path to a specific env file:
 
@@ -117,7 +126,19 @@ You are also able to specify the path to a specific env file:
 
 You can use any combination of these two arguments along with the default `.env, .env.local` to build your runtime config. 
 
-### Arguments and parameters
+##### 4. Using with Docker entrypoint
+
+It is possible to use this package as an `ENTRYPOINT` script inside a Dockerfile. This will generate your `__ENV.js` config file when the container boots and allow your `package.json` scripts to remain the unchanged. Of course `node` binary must be present in your container.
+
+```dockerfile
+FROM node:alpine
+
+ENTRYPOINT yarn react-env --env APP_ENV
+
+CMD yarn start
+```
+
+### Arguments and parameters 
 
 ```bash
 $ react-env <args> -- <command>
