@@ -13,7 +13,7 @@ Populates your environment from `.env` files at **run-time** rather than **build
 ## README
 
 * [Examples](#examples)
-* [Overview](#overview)
+* [Getting started](#getting-started)
 * [File priority](#env-file-order-of-priority)
 * [Common use cases](#common-use-cases)
   * [Environment specific config](#environment-specific-config)
@@ -26,7 +26,7 @@ Populates your environment from `.env` files at **run-time** rather than **build
 - Example using [Next.js](examples/next.js/README.md) (see README.md)
 - Example using [Create React APP](examples/create-react-app/README.md) (see README.md)
 
-### Overview
+### Getting started
 
 This package generates a `__ENV.js` file from multiple `.env` files that contains white-listed environment variables that have a `REACT_APP_` preposition.
 
