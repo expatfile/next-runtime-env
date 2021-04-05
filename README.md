@@ -17,7 +17,7 @@ Populates your environment from `.env` files at **run-time** rather than **build
 * [File priority](#env-file-order-of-priority)
 * [Common use cases](#common-use-cases)
   * [Environment specific config](#environment-specific-config)
-  * [Specify an env file](#Specify-an-env-file)
+  * [Specifing an env file](#Specifing-an-env-file)
   * [Using with Docker entrypoint](#using-with-docker-entrypoint)
 * [Arguments and parameters](#arguments-and-parameters)
 
@@ -110,7 +110,7 @@ for staging you would simply set `APP_ENV=staging` where you run your app:
 ```
 Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
 
-##### 2. Specify an env file
+##### 2. Specifing an env file
 
 You are also able to specify the path to a specific env file:
 
