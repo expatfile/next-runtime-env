@@ -28,7 +28,7 @@ Populates your environment from `.env` files at **run-time** rather than **build
 
 ### Getting started
 
-This package generates a `__ENV.js` file from multiple `.env` files that contains white-listed environment variables that have a `REACT_APP_` preposition.
+This package generates a `__ENV.js` file from multiple `.env` files that contains white-listed environment variables that have a `REACT_APP_` prefix.
 
 In the browser your variables will be available at `window.__ENV.REACT_APP_FOO` and on the server `process.env.REACT_APP_FOO`. We have included a helper function to make retrieving a value easier:
 
