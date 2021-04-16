@@ -126,6 +126,28 @@ You are also able to specify the path to a specific env file:
 
 You can use any combination of these two arguments along with the default `.env, .env.local` to build your runtime config. 
 
+#### Specifing an prefix for white-listed environment variables
+
+You are also able to specify the prefix of white-listed environment variables:
+
+```
+{
+  ...
+  "scripts": {
+    "start": "react-env --prefix NEXT_APP -- next start" 
+  }
+  ...
+}
+```
+
+```bash
+# .env
+NEXT_APP_NEXT="Next.js"
+NEXT_APP_CRA="Create React App"
+NEXT_APP_NOT_SECRET_CODE="1234"
+```
+
+
 #### Using with Docker entrypoint
 
 It is possible to use this package as an `ENTRYPOINT` script inside a Dockerfile. This will generate your `__ENV.js` config file when the container boots and allow your `package.json` scripts to remain unchanged. Of course `node` binary must be present in your container.

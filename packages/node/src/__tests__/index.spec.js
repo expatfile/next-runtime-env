@@ -4,6 +4,7 @@ it("returns a safe value from the browser", () => {
   Object.defineProperty(global, "window", {
     value: {
       __ENV: {
+        REACT_ENV_PREFIX: 'REACT_APP',
         REACT_APP_FOO: "bar",
       },
     },
@@ -63,6 +64,25 @@ it("returns entire safe environment from the server", () => {
     REACT_APP_BAR: "foo",
   });
 });
+
+it('work with the prefix parameters', () => {
+  Object.defineProperty(global, "window", {
+    value: {
+      __ENV: {
+        REACT_ENV_PREFIX: 'CUSTOM_PREFIX',
+        CUSTOM_PREFIX_FOO: "bar",
+        CUSTOM_PREFIX_BAR: "foo",
+      },
+    },
+    writable: true,
+  });
+
+  expect(env()).toEqual({
+    REACT_ENV_PREFIX: 'CUSTOM_PREFIX',
+    CUSTOM_PREFIX_FOO: "bar",
+    CUSTOM_PREFIX_BAR: "foo",
+  });
+})
 
 it("returns undefined when variable does not exist in the browser", () => {
   expect(env("BAM_BAM")).toBe(undefined);
