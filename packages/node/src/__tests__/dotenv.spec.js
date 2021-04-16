@@ -53,13 +53,12 @@ it("reads env files via -e arg", () => {
 });
 
 it("reads files via --path arg", () => {
-  process.env.ENV = 'foo';
 
   Mock.writeEnvFile(".env.foo", `
   REACT_APP_FOO=10101
   REACT_APP_BAR=01010
   `);
-  Mock.run(["--path","ENV","--dest","."]);
+  Mock.run(["--path",".env.foo","--dest","."]);
 
   expect(window.__ENV.REACT_APP_FOO).toBe("10101");
   expect(window.__ENV.REACT_APP_BAR).toBe("01010");
@@ -70,13 +69,12 @@ it("reads files via --path arg", () => {
 });
 
 it("reads files via -p arg", () => {
-  process.env.ENV = 'bar';
 
   Mock.writeEnvFile(".env.bar", `
   REACT_APP_FOO=1983
   REACT_APP_BAR=3891
   `);
-  Mock.run(["-p","ENV","--dest","."]);
+  Mock.run(["-p",".env.bar","--dest","."]);
 
   expect(window.__ENV.REACT_APP_FOO).toBe("1983");
   expect(window.__ENV.REACT_APP_BAR).toBe("3891");
