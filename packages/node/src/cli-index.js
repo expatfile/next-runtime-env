@@ -15,12 +15,18 @@ function writeBrowserEnvironment(env) {
 }
 
 function getEnvironment() {
-  return Object.keys(process.env)
-    .filter((key) => /^REACT_APP_/i.test(key))
+  const prefix = argv.prefix || "REACT_APP";
+  const envList = Object.keys(process.env)
+    .filter((key) => new RegExp(`^${prefix}_`, 'i').test(key))
     .reduce((env, key) => {
       env[key] = process.env[key];
       return env;
     }, {});
+  if(argv.prefix) {
+    envList['REACT_ENV_PREFIX'] = prefix;
+    process.env.REACT_ENV_PREFIX = prefix;
+  }
+  return envList;
 }
 
 function resolveFile(file) {

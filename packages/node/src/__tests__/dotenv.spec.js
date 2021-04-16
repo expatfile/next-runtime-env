@@ -129,3 +129,23 @@ it("can expand env vars", () => {
 
   delete process.env.REACT_APP_ENV;
 });
+
+it('can use custom prefix via --prefix arg', () => {
+  Mock.writeEnvFile(".env", `
+  CUSTOM_PREFIX_FOO=10101
+  CUSTOM_PREFIX_BAR=01010
+  `);
+
+  Mock.run(["--prefix","CUSTOM_PREFIX","--dest","."]);
+
+  expect(process.env.REACT_ENV_PREFIX).toBe("CUSTOM_PREFIX");
+
+  expect(process.env.CUSTOM_PREFIX_FOO).toBe("10101");
+  expect(process.env.CUSTOM_PREFIX_BAR).toBe("01010");
+
+  expect(window.__ENV.CUSTOM_PREFIX_FOO).toBe("10101");
+  expect(window.__ENV.CUSTOM_PREFIX_BAR).toBe("01010");
+
+  delete process.env.CUSTOM_PREFIX_FOO;
+  delete process.env.CUSTOM_PREFIX_BAR;
+})
