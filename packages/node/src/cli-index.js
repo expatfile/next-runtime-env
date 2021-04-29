@@ -7,9 +7,12 @@ const argv = require("minimist")(process.argv.slice(2), { "--": true });
 function writeBrowserEnvironment(env) {
   const base = fs.realpathSync(process.cwd());
   const dest = argv.d || argv.dest || "public";
+  const debug = argv.debug;
   const path = `${base}/${dest}/__ENV.js`;
-  console.debug("Writing runtime env ", path);
-  console.debug(JSON.stringify(env, null, 2));
+  console.info("react-env: Writing runtime env", path);
+  if(debug) {
+    console.debug(`react-env: ${JSON.stringify(env, null, 2)}`);
+  }
   const populate = `window.__ENV = ${JSON.stringify(env)};`;
   fs.writeFileSync(path, populate);
 }

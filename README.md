@@ -147,6 +147,20 @@ NEXT_APP_CRA="Create React App"
 NEXT_APP_NOT_SECRET_CODE="1234"
 ```
 
+##### Using prefix with jest
+
+You need to add `REACT_ENV_PREFIX` env variable before jest command if you use `env()` during your tests:
+
+```
+{
+  ...
+  "scripts": {
+    "test": "REACT_ENV_PREFIX=NEXT_APP jest --maxWorkers=3"
+  }
+  ...
+}
+```
+
 
 #### Using with Docker entrypoint
 
@@ -182,6 +196,13 @@ Specify a specific env file to load e.g. `react-env --path testing` would load `
 
 Change the default destination for generating the `__ENV.js` file.
 
+- `--prefix` **(default: REACT_APP)**
+
+Change the default prefix for white-listed env variables. For exemple `react-env --prefix CUSTOM_PREFIX` will white-list variables like: `CUSTOM_PREFIX_PUBLIC_KEY=my-public-key`
+
+- `--debug` **(default: false)**
+
+Enable debugging for react-env. This will log loaded browser environment variables into your console when running `react-env --debug`
 
 ### 3.x.x Breaking changes
 

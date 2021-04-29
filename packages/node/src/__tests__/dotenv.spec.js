@@ -1,21 +1,50 @@
 import Mock from "../../testing/mockEnv";
+import fs from 'fs';
+
+const debugSpy = jest.spyOn(console, "debug");
+const infoSpy = jest.spyOn(console, "info");
+
+beforeAll(() => {
+  debugSpy.mockImplementation()
+  infoSpy.mockImplementation()
+});
+
+afterAll(() => {
+  debugSpy.mockRestore();
+  infoSpy.mockRestore();
+});
 
 afterEach(() => {
   Mock.reset();
 });
 
-it("parses safe env vars", () => {
+it("parses safe env vars and", () => {
+  const dest = '.';
+  const base = fs.realpathSync(process.cwd());
+  const pathToEnv = `${base}/${dest}/__ENV.js`;
+
   Mock.writeEnvFile(".env", `
   REACT_APP_FOO=123
   REACT_APP_BAR='hello world'
   `);
-  Mock.run(["--dest","."]);
+  
+  const jsonEnv = JSON.stringify({
+    REACT_APP_FOO: "123",
+    REACT_APP_BAR: 'hello world'
+  }, null, 2)
+
+  Mock.run(["--dest", dest]);
+  
 
   expect(window.__ENV.REACT_APP_FOO).toBe("123");
   expect(window.__ENV.REACT_APP_BAR).toBe("hello world");
 
   delete process.env.REACT_APP_FOO;
   delete process.env.REACT_APP_BAR;
+
+   
+  expect(infoSpy).toHaveBeenCalledWith('react-env: Writing runtime env', pathToEnv)
+  expect(debugSpy).not.toHaveBeenCalledWith(jsonEnv)
 });
 
 it("reads env files via --env arg", () => {
@@ -146,4 +175,26 @@ it('can use custom prefix via --prefix arg', () => {
 
   delete process.env.CUSTOM_PREFIX_FOO;
   delete process.env.CUSTOM_PREFIX_BAR;
+})
+
+it("should show log only if debug params is enabled", () => {
+  Mock.writeEnvFile(".env", `
+  REACT_APP_FOO=123
+  REACT_APP_BAR='hello world'
+  `);
+
+  const jsonEnv = JSON.stringify({
+    REACT_APP_FOO: "123",
+    REACT_APP_BAR: 'hello world'
+  }, null, 2)
+
+  Mock.run(["--debug", '--dest', '.']);
+
+  expect(window.__ENV.REACT_APP_FOO).toBe("123");
+  expect(window.__ENV.REACT_APP_BAR).toBe("hello world");
+
+  delete process.env.REACT_APP_FOO;
+  delete process.env.REACT_APP_BAR;
+
+  expect(debugSpy).toHaveBeenCalledWith(`react-env: ${jsonEnv}`)
 })
