@@ -69,7 +69,7 @@ export default (props) => (
 
 We have implemented some sane defaults that have the following order of priority:
 
-1. `.env.{file} // from the --path, -p argument`
+1. `{path-to-file} // from the --path, -p argument`
 2. `.env.{key} // from the --env, -e argument`
 3. `.env.local`
 4. `.env`
