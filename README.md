@@ -12,14 +12,14 @@ Populates your environment from `.env` files at **run-time** rather than **build
 
 ## README
 
-* [Examples](#examples)
-* [Getting started](#getting-started)
-* [File priority](#env-file-order-of-priority)
-* [Common use cases](#common-use-cases)
-  * [Environment specific config](#environment-specific-config)
-  * [Specifing an env file](#Specifing-an-env-file)
-  * [Using with Docker entrypoint](#using-with-docker-entrypoint)
-* [Arguments and parameters](#arguments-and-parameters)
+- [Examples](#examples)
+- [Getting started](#getting-started)
+- [File priority](#env-file-order-of-priority)
+- [Common use cases](#common-use-cases)
+  - [Environment specific config](#environment-specific-config)
+  - [Specifing an env file](#Specifing-an-env-file)
+  - [Using with Docker entrypoint](#using-with-docker-entrypoint)
+- [Arguments and parameters](#arguments-and-parameters)
 
 ### Examples
 
@@ -69,8 +69,8 @@ export default (props) => (
 
 We have implemented some sane defaults that have the following order of priority:
 
-1. `.env.{file}  // from the --path, -p argument`
-2. `.env.{key}   // from the --env, -e argument`
+1. `.env.{file} // from the --path, -p argument`
+2. `.env.{key} // from the --env, -e argument`
 3. `.env.local`
 4. `.env`
 
@@ -108,6 +108,7 @@ for staging you would simply set `APP_ENV=staging` where you run your app:
   ...
 }
 ```
+
 Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
 
 #### Specifing an env file
@@ -118,13 +119,13 @@ You are also able to specify the path to a specific env file:
 {
   ...
   "scripts": {
-    "start": "react-env --path config/.env.defaults -- next start" 
+    "start": "react-env --path config/.env.defaults -- next start"
   }
   ...
 }
 ```
 
-You can use any combination of these two arguments along with the default `.env, .env.local` to build your runtime config. 
+You can use any combination of these two arguments along with the default `.env, .env.local` to build your runtime config.
 
 #### Specifing an prefix for white-listed environment variables
 
@@ -134,7 +135,7 @@ You are also able to specify the prefix of white-listed environment variables:
 {
   ...
   "scripts": {
-    "start": "react-env --prefix NEXT_APP -- next start" 
+    "start": "react-env --prefix NEXT_APP -- next start"
   }
   ...
 }
@@ -161,7 +162,6 @@ You need to add `REACT_ENV_PREFIX` env variable before jest command if you use `
 }
 ```
 
-
 #### Using with Docker entrypoint
 
 It is possible to use this package as an `ENTRYPOINT` script inside a Dockerfile. This will generate your `__ENV.js` config file when the container boots and allow your `package.json` scripts to remain unchanged. Of course `node` binary must be present in your container.
@@ -174,7 +174,7 @@ ENTRYPOINT yarn react-env --env APP_ENV
 CMD yarn start
 ```
 
-### Arguments and parameters 
+### Arguments and parameters
 
 ```bash
 $ react-env <args> -- <command>
@@ -190,7 +190,7 @@ Parse an environment specific env-file via the value of an exisitng environment 
 
 - `--path`, `-p` **(default: null)**
 
-Specify a specific env file to load e.g. `react-env --path testing` would load `.env.testing, .env.local, .env` in that order with the latter taking priority. a Combination of `--env APP_ENV --path testing` where `APP_ENV=staging` loads `.env.testing, .env.staging, .env.local, .env` as the priority order.
+Specify a specific env file to load e.g. `react-env --path .env.testing` would load `.env.testing, .env.local, .env` in that order with the latter taking priority. a Combination of `--env APP_ENV --path testing` where `APP_ENV=staging` loads `.env.testing, .env.staging, .env.local, .env` as the priority order.
 
 - `--dest`, `-d` **(default: ./public)**
 
@@ -207,16 +207,20 @@ Enable debugging for react-env. This will log loaded browser environment variabl
 ### 3.x.x Breaking changes
 
 ---
+
 As a significant breaking change we have dropped the ability to specify specific files via the `--env` argument. This argument now specifies environment file to be parsed depending on the running environment. For example `--env APP_ENV` or `-e APP_ENV` where `APP_ENV=staging` reads in `.env.staging`. It is very common for platforms to have `staging, qa, integration` environments that are still built in "production" mode with `NODE_ENV=production`. This allows for that usecase and many others.
 
 --
 You are still able to specify files via the `--path, -p` argument.
 
 ---
+
 We have also dropped adding `NODE_ENV` by default as this was a security risk.
 
 ---
+
 File is now named `__ENV.js`
 
 ---
+
 Depandand command is now in the format `react-env <args> -- <command>`
