@@ -115,6 +115,10 @@ for staging you would simply set `APP_ENV=staging` where you run your app:
 
 Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
 
+> Please keep in mind that you have to pass the name of an environment variable to `--env`, not the value of it.
+> - ✔ valid usage (macOS): `APP_ENV=staging react-env --env APP_ENV -- next start`
+> - ❌ common mistake: `react-env --env staging -- next start`
+
 #### Specifing an env file
 
 You are also able to specify the path to a specific env file:
@@ -190,7 +194,7 @@ You may pass a command, such as a nodejs entry file to the `react-env` cli tool.
 
 - `--env`, `-e` **(default: null)**
 
-Parse an environment specific env-file via the value of an exisitng environment variable. For example `--env APP_ENV` where `APP_ENV=staging` would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
+Specify the name of an existing environment variable, whose value is the name of an environment you want, to make react-env parse an environment specific env-file. For example, you may set `APP_ENV=staging` first and then apply `--env APP_ENV` flag. react-env would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
 
 - `--path`, `-p` **(default: null)**
 
