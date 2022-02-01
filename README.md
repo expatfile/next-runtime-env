@@ -90,11 +90,11 @@ Frameworks such as Next allow for some nice defaults such as `.env.local, .env.p
 # .env.staging
 REACT_APP_API_HOST="api.staging.com"
 # .env.production
-REACT_APP_API_HOST="api.staging.com"
+REACT_APP_API_HOST="api.production.com"
 # .env.qa
-REACT_APP_API_HOST="api.staging.com"
+REACT_APP_API_HOST="api.qa.com"
 # .env.integration
-REACT_APP_API_HOST="api.staging.com"
+REACT_APP_API_HOST="api.integration.com"
 # .env.local
 REACT_APP_API_HOST="api.example.dev"
 # .env
