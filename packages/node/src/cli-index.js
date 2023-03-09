@@ -10,7 +10,7 @@ function writeBrowserEnvironment(env) {
   const debug = argv.debug;
   const path = `${base}/${dest}/__ENV.js`;
   console.info("react-env: Writing runtime env", path);
-  if(debug) {
+  if (debug) {
     console.debug(`react-env: ${JSON.stringify(env, null, 2)}`);
   }
   const populate = `window.__ENV = ${JSON.stringify(env)};`;
@@ -18,17 +18,13 @@ function writeBrowserEnvironment(env) {
 }
 
 function getEnvironment() {
-  const prefix = argv.prefix || "REACT_APP";
   const envList = Object.keys(process.env)
-    .filter((key) => new RegExp(`^${prefix}_`, 'i').test(key))
+    .filter((key) => new RegExp(`^NEXT_PUBLIC_`, "i").test(key))
     .reduce((env, key) => {
       env[key] = process.env[key];
       return env;
     }, {});
-  if(argv.prefix) {
-    envList['REACT_ENV_PREFIX'] = prefix;
-    process.env.REACT_ENV_PREFIX = prefix;
-  }
+
   return envList;
 }
 
