@@ -30,10 +30,6 @@ Populates your environment from `.env` files at **run-time** rather than **build
 
 This package generates a `__ENV.js` file from multiple `.env` files that contains white-listed environment variables that have a `REACT_APP_` prefix.
 
-```html
-<script src="/public/__ENV.js" />
-```
-
 In the browser your variables will be available at `window.__ENV.REACT_APP_FOO` and on the server `process.env.REACT_APP_FOO`. We have included a helper function to make retrieving a value easier:
 
 ```bash
@@ -73,7 +69,7 @@ export default (props) => (
 
 We have implemented some sane defaults that have the following order of priority:
 
-1. `{path-to-file} // from the --path, -p argument`
+1. `.env.{file} // from the --path, -p argument`
 2. `.env.{key} // from the --env, -e argument`
 3. `.env.local`
 4. `.env`
@@ -90,11 +86,11 @@ Frameworks such as Next allow for some nice defaults such as `.env.local, .env.p
 # .env.staging
 REACT_APP_API_HOST="api.staging.com"
 # .env.production
-REACT_APP_API_HOST="api.production.com"
+REACT_APP_API_HOST="api.staging.com"
 # .env.qa
-REACT_APP_API_HOST="api.qa.com"
+REACT_APP_API_HOST="api.staging.com"
 # .env.integration
-REACT_APP_API_HOST="api.integration.com"
+REACT_APP_API_HOST="api.staging.com"
 # .env.local
 REACT_APP_API_HOST="api.example.dev"
 # .env
@@ -114,10 +110,6 @@ for staging you would simply set `APP_ENV=staging` where you run your app:
 ```
 
 Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
-
-> Please keep in mind that you have to pass the name of an environment variable to `--env`, not the value of it.
-> - ✔ valid usage (macOS): `APP_ENV=staging react-env --env APP_ENV -- next start`
-> - ❌ common mistake: `react-env --env staging -- next start`
 
 #### Specifing an env file
 
@@ -194,7 +186,7 @@ You may pass a command, such as a nodejs entry file to the `react-env` cli tool.
 
 - `--env`, `-e` **(default: null)**
 
-Specify the name of an existing environment variable, whose value is the name of an environment you want, to make react-env parse an environment specific env-file. For example, you may set `APP_ENV=staging` first and then apply `--env APP_ENV` flag. react-env would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
+Parse an environment specific env-file via the value of an exisitng environment variable. For example `--env APP_ENV` where `APP_ENV=staging` would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
 
 - `--path`, `-p` **(default: null)**
 
