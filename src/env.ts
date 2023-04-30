@@ -1,7 +1,8 @@
 import { isBrowser } from './utils/is-browser';
 
 /**
- * Reads an environment variable from the server or the browser.
+ * Reads a safe environment variable from the browser or any environment
+ * variable from the server (process.env).
  */
 export function env(key: string) {
   if (isBrowser()) {
