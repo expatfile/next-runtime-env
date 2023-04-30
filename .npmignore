@@ -12,6 +12,7 @@ jest.config.js
 prettier.config.js
 tsconfig.json
 /.github
+/.vscode
 
 # source
 /src
