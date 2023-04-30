@@ -1,5 +1,7 @@
 # next-runtime-env - Runtime Environment Configuration
 
+[![codecov](https://codecov.io/gh/expatfile/next-runtime-env/branch/main/graph/badge.svg?token=mbGgsweFuP)](https://codecov.io/gh/expatfile/next-runtime-env)
+
 Populates your environment at **run-time** rather than **build-time**.
 
 - Isomorphic - Server, browser and middleware compatible.
@@ -20,7 +22,7 @@ const {
 configureRuntimeEnv();
 ```
 
-This will generates a `__ENV.js` file that contains white-listed environment variables that have a `NEXT_PUBLIC_` prefix.
+This will generates a `__ENV.js` file that contains allow-listed environment variables that have a `NEXT_PUBLIC_` prefix.
 
 2. Add the following to the head section fo your `pages/_document.js`:
 

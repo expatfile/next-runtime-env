@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 // This allows TypeScript to detect our global value.
 declare global {
   interface Window {
