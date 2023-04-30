@@ -13,7 +13,9 @@ Runtime environment variables are used in common best-practice patterns for buil
 1. Add the following lines to your `next.config.js`:
 
 ```js
-const { configureRuntimeEnv } = require('next-runtime-env');
+const {
+  configureRuntimeEnv,
+} = require('next-runtime-env/build/configure-runtime-env');
 
 configureRuntimeEnv();
 ```

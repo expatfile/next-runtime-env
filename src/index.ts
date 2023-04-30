@@ -5,5 +5,4 @@ declare global {
   }
 }
 
-export { configureRuntimeEnv } from './configure-runtime-env';
 export { env } from './env';
