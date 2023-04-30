@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import fs from 'fs';
 
 /**
  * Writes the environment variables to the public __ENV.js file and make them
@@ -11,7 +11,7 @@ export function writeBrowserEnv(env: NodeJS.ProcessEnv) {
   // eslint-disable-next-line no-console
   console.info('next-runtime-env: Writing browser runtime env', path);
 
-  const populate = `window.__ENV = ${JSON.stringify(env)};`;
+  const content = `window.__ENV = ${JSON.stringify(env)};`;
 
-  fs.writeFileSync(path, populate);
+  fs.writeFileSync(path, content);
 }

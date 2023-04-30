@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 // This allows TypeScript to detect our global value.
 declare global {
   interface Window {
@@ -5,5 +7,4 @@ declare global {
   }
 }
 
-export { configureRuntimeEnv } from './configure-runtime-env';
 export { env } from './env';

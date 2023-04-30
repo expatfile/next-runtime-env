@@ -1,5 +1,7 @@
 # next-runtime-env - Runtime Environment Configuration
 
+[![codecov](https://codecov.io/gh/expatfile/next-runtime-env/branch/main/graph/badge.svg?token=mbGgsweFuP)](https://codecov.io/gh/expatfile/next-runtime-env)
+
 Populates your environment at **run-time** rather than **build-time**.
 
 - Isomorphic - Server, browser and middleware compatible.
@@ -13,12 +15,14 @@ Runtime environment variables are used in common best-practice patterns for buil
 1. Add the following lines to your `next.config.js`:
 
 ```js
-const { configureRuntimeEnv } = require('next-runtime-env');
+const {
+  configureRuntimeEnv,
+} = require('next-runtime-env/build/configure-runtime-env');
 
 configureRuntimeEnv();
 ```
 
-This will generates a `__ENV.js` file that contains white-listed environment variables that have a `NEXT_PUBLIC_` prefix.
+This will generates a `__ENV.js` file that contains allow-listed environment variables that have a `NEXT_PUBLIC_` prefix.
 
 2. Add the following to the head section fo your `pages/_document.js`:
 
@@ -27,11 +31,15 @@ This will generates a `__ENV.js` file that contains white-listed environment var
 <script src="/__ENV.js" />
 ```
 
-Done! ✅
+Done!
 
 ### Usage 🧑‍💻
 
-In the browser your variables will be available at `window.__ENV.NEXT_PUBLIC_FOO` and on the server `process.env.NEXT_PUBLIC_FOO`. We have included a helper function to make retrieving a value easier:
+In the browser your variables will be available at `window.__ENV.NEXT_PUBLIC_FOO` and on the server `process.env.NEXT_PUBLIC_FOO`.
+
+#### Helper 😉
+
+We have included a helper function to make retrieving a value easier:
 
 ```bash
 # .env
