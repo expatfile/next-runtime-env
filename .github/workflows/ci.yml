@@ -1,0 +1,85 @@
+name: Continuous Integration
+
+on:
+  push:
+    # branches-ignore:
+    #   - main
+    #   - development
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  audit:
+    name: Audit
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14, 16, 18]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: ./.github/actions/setup-pnpm
+        with:
+          npm_token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Perform dependency audit
+        run: |
+          pnpm audit-ci --config .audit-ci.json
+
+  lint:
+    name: Lint
+    needs: audit
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: ./.github/actions/setup-pnpm
+        with:
+          npm_token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Execute lint
+        run: |
+          pnpm lint
+
+  coverage:
+    name: Coverage
+    needs: audit
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: ./.github/actions/setup-pnpm
+        with:
+          npm_token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Generate code coverage
+        run: |
+          pnpm test -- \
+            --ci \
+            --runInBand \
+            --coverage
+
+      - name: Upload code coverage
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}

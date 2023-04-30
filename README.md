@@ -1,226 +1,69 @@
-# React Env - Runtime Environment Configuration
+# next-runtime-env - Runtime Environment Configuration
 
-[![Build Status](https://cloud.drone.io/api/badges/andrewmclagan/react-env/status.svg)](https://cloud.drone.io/andrewmclagan/react-env)
-[![npm version](https://badge.fury.io/js/%40beam-australia%2Freact-env.svg)](https://badge.fury.io/js/%40beam-australia%2Freact-env)
-[![Coverage Status](https://coveralls.io/repos/github/beam-australia/react-env/badge.svg)](https://coveralls.io/github/beam-australia/react-env)
+Populates your environment at **run-time** rather than **build-time**.
 
-Populates your environment from `.env` files at **run-time** rather than **build-time**.
-
-- Isomorphic - Server and browser compatible.
+- Isomorphic - Server, browser and middleware compatible.
 - Supports static site generation.
-- Supports multiple `.env` files.
+- Supports `.env`, just like [Next.js](https://nextjs.org/docs/basic-features/environment-variables).
 
-## README
+Runtime environment variables are used in common best-practice patterns for building modern apps deployed via Docker. A big selling point of using Docker to begin with is to be able to build one image and have it work everywhere - dev, test, staging, production, etc - and having to "bake" in environment-specific configuration at build-time is antithetical to that goal. `next-runtime-env` aims to remove this hurdle by adding support for runtime environment variables to Next.js without sacrificing static site generation support.
 
-- [Examples](#examples)
-- [Getting started](#getting-started)
-- [File priority](#env-file-order-of-priority)
-- [Common use cases](#common-use-cases)
-  - [Environment specific config](#environment-specific-config)
-  - [Specifing an env file](#Specifing-an-env-file)
-  - [Using with Docker entrypoint](#using-with-docker-entrypoint)
-- [Arguments and parameters](#arguments-and-parameters)
+### Getting started 🚀
 
-### Examples
+1. Add the following lines to your `next.config.js`:
 
-- Example using [Next.js](examples/next.js/README.md) (see README.md)
-- Example using [Create React APP](examples/create-react-app/README.md) (see README.md)
+```js
+const { configureRuntimeEnv } = require('next-runtime-env');
 
-### Getting started
+configureRuntimeEnv();
+```
 
-This package generates a `__ENV.js` file from multiple `.env` files that contains white-listed environment variables that have a `REACT_APP_` prefix.
+This will generates a `__ENV.js` file that contains white-listed environment variables that have a `NEXT_PUBLIC_` prefix.
 
-In the browser your variables will be available at `window.__ENV.REACT_APP_FOO` and on the server `process.env.REACT_APP_FOO`. We have included a helper function to make retrieving a value easier:
+2. Add the following to the head section fo your `pages/_document.js`:
+
+```jsx
+// pages/_document.tsx
+<script src="/__ENV.js" />
+```
+
+Done! ✅
+
+### Usage 🧑‍💻
+
+In the browser your variables will be available at `window.__ENV.NEXT_PUBLIC_FOO` and on the server `process.env.NEXT_PUBLIC_FOO`. We have included a helper function to make retrieving a value easier:
 
 ```bash
 # .env
-REACT_APP_NEXT="Next.js"
-REACT_APP_CRA="Create React App"
-REACT_APP_NOT_SECRET_CODE="1234"
+NEXT_PUBLIC_NEXT="Next.js"
+NEXT_PUBLIC_CRA="Create React App"
+NEXT_PUBLIC_NOT_SECRET_CODE="1234"
 ```
 
-becomes...
+Becomes...
 
 ```jsx
-import env from "@beam-australia/react-env";
+import { env } from 'next-runtime-env';
 
 export default (props) => (
   <div>
     <small>
-      Works in the browser: <b>{env("CRA")}</b>.
+      Works in the browser: <b>{env('NEXT_PUBLIC_CRA')}</b>.
     </small>
     <small>
-      Also works for server side rendering: <b>{env("NEXT")}</b>.
+      Also works for server side rendering: <b>{env('NEXT_PUBLIC_NEXT')}</b>.
     </small>
     <form>
-      <input type="hidden" defaultValue={env("NOT_SECRET_CODE")} />
+      <input type="hidden" defaultValue={env('NEXT_PUBLIC_NOT_SECRET_CODE')} />
     </form>
-    <small>
-      Entire safe environment:
-      <pre>
-        <code>{{JSON.stringify(env())}}</code>
-      </pre>
-    </small>
   </div>
 );
 ```
 
-### .env file order of priority
+### Maintenance 👷
 
-We have implemented some sane defaults that have the following order of priority:
+This package is maintained and used by [Expatfile.tax](https://expatfile.tax). The #1 US expat tax e-filing software. 🇺🇸
 
-1. `.env.{file} // from the --path, -p argument`
-2. `.env.{key} // from the --env, -e argument`
-3. `.env.local`
-4. `.env`
+### Other work 📚
 
-Your config is available in the browser and `process.env` on the server. We suggest you add `.env.local` to `.gitignore`.
-
-### Common use cases
-
-#### Environment specific config
-
-Frameworks such as Next allow for some nice defaults such as `.env.local, .env.production, .env`. This has the limitation where you may want to run your app in different environments such as "staging, integration, qa" but still build a "production" app with `NODE_ENV=production`. With react-env this is possible:
-
-```bash
-# .env.staging
-REACT_APP_API_HOST="api.staging.com"
-# .env.production
-REACT_APP_API_HOST="api.staging.com"
-# .env.qa
-REACT_APP_API_HOST="api.staging.com"
-# .env.integration
-REACT_APP_API_HOST="api.staging.com"
-# .env.local
-REACT_APP_API_HOST="api.example.dev"
-# .env
-REACT_APP_API_HOST="localhost"
-```
-
-for staging you would simply set `APP_ENV=staging` where you run your app:
-
-```
-{
-  ...
-  "scripts": {
-    "start": "react-env --env APP_ENV -- next start" // where .env.${APP_ENV}
-  }
-  ...
-}
-```
-
-Thus `REACT_APP_API_HOST=api.staging.com` in your staging environment.
-
-#### Specifing an env file
-
-You are also able to specify the path to a specific env file:
-
-```
-{
-  ...
-  "scripts": {
-    "start": "react-env --path config/.env.defaults -- next start"
-  }
-  ...
-}
-```
-
-You can use any combination of these two arguments along with the default `.env, .env.local` to build your runtime config.
-
-#### Specifing an prefix for white-listed environment variables
-
-You are also able to specify the prefix of white-listed environment variables:
-
-```
-{
-  ...
-  "scripts": {
-    "start": "react-env --prefix NEXT_APP -- next start"
-  }
-  ...
-}
-```
-
-```bash
-# .env
-NEXT_APP_NEXT="Next.js"
-NEXT_APP_CRA="Create React App"
-NEXT_APP_NOT_SECRET_CODE="1234"
-```
-
-##### Using prefix with jest
-
-You need to add `REACT_ENV_PREFIX` env variable before jest command if you use `env()` during your tests:
-
-```
-{
-  ...
-  "scripts": {
-    "test": "REACT_ENV_PREFIX=NEXT_APP jest --maxWorkers=3"
-  }
-  ...
-}
-```
-
-#### Using with Docker entrypoint
-
-It is possible to use this package as an `ENTRYPOINT` script inside a Dockerfile. This will generate your `__ENV.js` config file when the container boots and allow your `package.json` scripts to remain unchanged. Of course `node` binary must be present in your container.
-
-```dockerfile
-FROM node:alpine
-
-ENTRYPOINT yarn react-env --env APP_ENV
-
-CMD yarn start
-```
-
-### Arguments and parameters
-
-```bash
-$ react-env <args> -- <command>
-```
-
-- `<command>`
-
-You may pass a command, such as a nodejs entry file to the `react-env` cli tool. For example `react-scripts`, `next dev`, `next start`
-
-- `--env`, `-e` **(default: null)**
-
-Parse an environment specific env-file via the value of an exisitng environment variable. For example `--env APP_ENV` where `APP_ENV=staging` would load `.env.staging, .env.local, .env` in that order with the latter taking priority.
-
-- `--path`, `-p` **(default: null)**
-
-Specify a specific env file to load e.g. `react-env --path .env.testing` would load `.env.testing, .env.local, .env` in that order with the latter taking priority. a Combination of `--env APP_ENV --path testing` where `APP_ENV=staging` loads `.env.testing, .env.staging, .env.local, .env` as the priority order.
-
-- `--dest`, `-d` **(default: ./public)**
-
-Change the default destination for generating the `__ENV.js` file.
-
-- `--prefix` **(default: REACT_APP)**
-
-Change the default prefix for white-listed env variables. For exemple `react-env --prefix CUSTOM_PREFIX` will white-list variables like: `CUSTOM_PREFIX_PUBLIC_KEY=my-public-key`
-
-- `--debug` **(default: false)**
-
-Enable debugging for react-env. This will log loaded browser environment variables into your console when running `react-env --debug`
-
-### 3.x.x Breaking changes
-
----
-
-As a significant breaking change we have dropped the ability to specify specific files via the `--env` argument. This argument now specifies environment file to be parsed depending on the running environment. For example `--env APP_ENV` or `-e APP_ENV` where `APP_ENV=staging` reads in `.env.staging`. It is very common for platforms to have `staging, qa, integration` environments that are still built in "production" mode with `NODE_ENV=production`. This allows for that usecase and many others.
-
---
-You are still able to specify files via the `--path, -p` argument.
-
----
-
-We have also dropped adding `NODE_ENV` by default as this was a security risk.
-
----
-
-File is now named `__ENV.js`
-
----
-
-Depandand command is now in the format `react-env <args> -- <command>`
+Big thanks to the [react-env](https://github.com/andrewmclagan/react-env) project, which inspired us. 🙏

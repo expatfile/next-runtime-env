@@ -1,0 +1,24 @@
+version: 2
+
+updates:
+
+# Maintain dependencies for GitHub Actions
+- package-ecosystem: "github-actions"
+  directory: "/"
+  target-branch: "development"
+  schedule:
+    interval: "daily"
+  labels:
+  - "github-actions"
+  - "dependencies"
+
+# Maintain dependencies for npm
+- package-ecosystem: "npm"
+  directory: "/"
+  target-branch: "development"
+  versioning-strategy: increase
+  schedule:
+    interval: "daily"
+  labels:
+  - "npm"
+  - "dependencies"

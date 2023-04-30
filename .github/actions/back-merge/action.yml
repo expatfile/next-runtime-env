@@ -1,0 +1,42 @@
+name: Back-merge
+
+description: Back-merge main into development.
+
+inputs:
+  gh_token:
+    description: The Github token to use for authentication.
+    required: true
+  git_user_email:
+    description: The email of the user to use for the git commit.
+    required: true
+  git_user_name:
+    description: The name of the user to use for the git commit.
+    required: true
+  main_branch:
+    description: The main branch to back-merge from.
+    required: false
+    default: "main"
+
+runs:
+  using: "composite"
+
+  steps:
+  - name: Checkout
+    uses: actions/checkout@v3
+    with:
+      token: ${{ inputs.gh_token }}
+
+  - name: Setup git config
+    shell: bash
+    run: |
+      git config --global user.email ${{ inputs.git_user_email }}
+      git config --global user.name ${{ inputs.git_user_name }}
+
+  - name: Merge main back to development
+    shell: bash
+    run: |
+      git fetch --unshallow
+      git checkout development
+      git pull
+      git merge --no-ff origin/${{ inputs.main_branch }} -m "Back-merge ${{ inputs.main_branch }} into development"
+      git push

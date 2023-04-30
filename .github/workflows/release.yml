@@ -1,0 +1,48 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+      - development
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  release:
+    name: Tag Release and deploy to NPM
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [18]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup pnpm
+        uses: ./.github/actions/setup-pnpm
+        with:
+          npm_token: ${{ secrets.NPM_TOKEN }}
+
+      - name: Build
+        run: |
+          pnpm build
+
+      - name: Create version and publish to NPM
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
+          pnpm semantic-release
+
+      - name: Merge main into development
+        if: ${{ github.ref_name == 'main' }}
+        uses: ./.github/actions/back-merge
+        with:
+          gh_token: ${{ secrets.GH_TOKEN }}
+          git_user_email: ${{ secrets.GIT_USER_EMAIL }}
+          git_user_name: ${{ secrets.GIT_USER_NAME }}

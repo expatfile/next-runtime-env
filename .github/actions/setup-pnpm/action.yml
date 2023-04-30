@@ -1,0 +1,61 @@
+name: Setup pnpm
+
+description: Setup pnpm with caching and install dependencies.
+
+inputs:
+  npm_token:
+    description: The npm token to use for authentication.
+    required: true
+  install_dependencies:
+    description: Whether to install dependencies.
+    required: false
+    default: "true"
+
+runs:
+  using: "composite"
+
+  steps:
+  - name: Install Node.js ${{ matrix.node-version }}
+    uses: actions/setup-node@v3
+    with:
+      node-version: ${{ matrix.node-version }}
+
+  - name: Install pnpm
+    uses: pnpm/action-setup@v2
+    id: pnpm-install
+    with:
+      version: 8
+      run_install: false
+
+  - name: Set pnpm home
+    shell: bash
+    run: |
+      echo "PNPM_HOME=$HOME/.local/share/pnpm" >> $GITHUB_ENV
+      echo "$HOME/.local/share/pnpm" >> $GITHUB_PATH
+
+  - name: Get pnpm store directory
+    id: pnpm-cache
+    shell: bash
+    run: |
+      echo "pnpm_cache_dir=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+  - name: Setup pnpm cache
+    uses: actions/cache@v3
+    with:
+      path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+      key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+      restore-keys: |
+        ${{ runner.os }}-pnpm-store-
+
+  - name: Authenticate for private NPM package
+    shell: bash
+    env:
+      NPM_TOKEN: ${{ inputs.npm_token }}
+    run: |
+      echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+
+  - name: Install dependencies
+    shell: bash
+    if: ${{ inputs.install_dependencies == 'true' }}
+    run: |
+      pnpm install --frozen-lockfile

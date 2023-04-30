@@ -1,0 +1,46 @@
+{
+  "name": "next-runtime-env",
+  "version": "0.0.0-development",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "lint": "eslint ./src",
+    "lint:fix": "pnpm lint --fix",
+    "test": "jest",
+    "test:coverage": "pnpm test -- --coverage",
+    "test:watch": "pnpm test -- --maxWorkers=50% --watchAll",
+    "build": "tsc -p .",
+    "build:watch": "pnpm build --watch",
+    "audit-ci": "audit-ci",
+    "semantic-release": "semantic-release"
+  },
+  "keywords": [],
+  "author": "Expatfile.tax LLC",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/expatfile/next-runtime-env.git"
+  },
+  "bugs": {
+    "url": "https://github.com/expatfile/next-runtime-env/issues"
+  },
+  "homepage": "https://github.com/expatfile/next-runtime-env#readme",
+  "devDependencies": {
+    "@types/eslint": "^8.37.0",
+    "@types/jest": "^29.5.1",
+    "@types/node": "^18.16.3",
+    "@typescript-eslint/eslint-plugin": "^5.59.1",
+    "@typescript-eslint/parser": "^5.59.1",
+    "audit-ci": "^6.6.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "jest": "^29.5.0",
+    "prettier": "^2.8.8",
+    "semantic-release": "^21.0.2",
+    "ts-jest": "^29.1.0",
+    "typescript": "^5.0.4"
+  }
+}

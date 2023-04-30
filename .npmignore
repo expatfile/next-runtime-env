@@ -1,0 +1,30 @@
+# testing
+/coverage
+
+# server
+.audit-ci.json
+.env.sample
+.eslintignore
+.eslintrc.js
+.releaserc.yaml
+codecov.yml
+jest.config.js
+prettier.config.js
+tsconfig.json
+/.github
+
+# source
+/src
+
+# misc
+.DS_Store
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Webstorm
+.idea
+
+# Typescript
+tsconfig.tsbuildinfo
