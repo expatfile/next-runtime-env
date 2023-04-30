@@ -1,6 +1,6 @@
 import { getPublicEnv } from './get-public-env';
 
-describe('getPublicEnv', () => {
+describe('getPublicEnv()', () => {
   afterEach(() => {
     delete process.env.FOO;
     delete process.env.BAR;

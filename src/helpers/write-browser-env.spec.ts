@@ -20,7 +20,7 @@ afterAll(() => {
   fs.rmdirSync(path);
 });
 
-describe('writeBrowserEnv', () => {
+describe('writeBrowserEnv()', () => {
   afterEach(() => {
     fs.rmSync(file);
   });

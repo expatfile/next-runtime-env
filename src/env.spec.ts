@@ -1,6 +1,6 @@
 import { env } from './env';
 
-describe('env', () => {
+describe('env()', () => {
   afterEach(() => {
     delete process.env.FOO;
 
@@ -9,22 +9,22 @@ describe('env', () => {
   });
 
   it('should return a value from the server', () => {
-    process.env.FOO = 'bar';
+    process.env.FOO = 'foo';
 
-    expect(env('FOO')).toBe('bar');
+    expect(env('FOO')).toBe('foo');
   });
 
   it('should return a value from the browser', () => {
     Object.defineProperty(global, 'window', {
       value: {
         __ENV: {
-          NEXT_PUBLIC_FOO: 'bar',
+          NEXT_PUBLIC_FOO: 'foo',
         },
       },
       writable: true,
     });
 
-    expect(env('NEXT_PUBLIC_FOO')).toBe('bar');
+    expect(env('NEXT_PUBLIC_FOO')).toBe('foo');
   });
 
   it('should return undefined when variable does not exist on the server', () => {
@@ -35,7 +35,7 @@ describe('env', () => {
     Object.defineProperty(global, 'window', {
       value: {
         __ENV: {
-          NEXT_PUBLIC_FOO: 'bar',
+          NEXT_PUBLIC_FOO: 'foo',
         },
       },
       writable: true,
