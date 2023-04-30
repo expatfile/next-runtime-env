@@ -1,4 +1,4 @@
-import { configureRuntimeEnv } from './configure-runtime-env';
+import { configureRuntimeEnv } from './configure';
 import { getPublicEnv } from './helpers/get-public-env';
 import { writeBrowserEnv } from './helpers/write-browser-env';
 
