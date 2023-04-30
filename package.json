@@ -14,7 +14,13 @@
     "audit-ci": "audit-ci",
     "semantic-release": "semantic-release"
   },
-  "keywords": [],
+  "keywords": [
+    "nextjs",
+    "runtime",
+    "env",
+    "runtime env",
+    "next-runtime-env"
+  ],
   "author": "Expatfile.tax LLC",
   "license": "MIT",
   "repository": {
