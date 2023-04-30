@@ -1,4 +1,4 @@
-import fs from 'node:fs';
+import fs from 'fs';
 
 /**
  * Writes the environment variables to the public __ENV.js file and make them
