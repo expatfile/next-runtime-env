@@ -27,11 +27,15 @@ This will generates a `__ENV.js` file that contains white-listed environment var
 <script src="/__ENV.js" />
 ```
 
-Done! ✅
+Done!
 
 ### Usage 🧑‍💻
 
-In the browser your variables will be available at `window.__ENV.NEXT_PUBLIC_FOO` and on the server `process.env.NEXT_PUBLIC_FOO`. We have included a helper function to make retrieving a value easier:
+In the browser your variables will be available at `window.__ENV.NEXT_PUBLIC_FOO` and on the server `process.env.NEXT_PUBLIC_FOO`.
+
+#### Helper 😉
+
+We have included a helper function to make retrieving a value easier:
 
 ```bash
 # .env
