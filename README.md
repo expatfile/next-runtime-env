@@ -1,20 +1,38 @@
-# next-runtime-env - Runtime Environment Configuration
+# Next.js Runtime Environment Configuration
 
 ![GitHub branch checks state][build-url] [![codecov][cov-img]][cov-url]
 
-Populates your environment at **run-time** rather than **build-time**.
+Populates your environment at **runtime** rather than **build time**.
 
-- Isomorphic - Server, browser and middleware compatible.
-- Supports static site generation.
-- Supports `.env`, just like [Next.js][nextjs-env-vars].
+- Isomorphic - Server and browser compatible (and even in middleware.)
+- Static site generation support.
+- `.env` support during development, just like [Next.js][nextjs-env-vars-order].
 
-Runtime environment variables are used in common best-practice patterns for
-building modern apps deployed via Docker. A big selling point of using Docker to
-begin with is to be able to build one image and have it work everywhere - dev,
-test, staging, production, etc - and having to "bake" in environment-specific
-configuration at build-time is antithetical to that goal. `next-runtime-env`
-aims to remove this hurdle by adding support for runtime environment variables
-to Next.js without sacrificing static site generation support.
+### The problem 🤔
+
+[Build once, deploy many][build-once-deploy-many-link] is an essential principle
+of software development. The main idea is to use the same bundle for all
+environments, from testing to production. This approach enables easy deployment
+and testability and is considered a
+[fundamental principle of continuous delivery][fundamental-principle-link]. It
+is also part of the [twelve-factor methodology][twelve-factor-link]. As crucial
+as it is, it has yet to receive significant support in the world of front-end
+development, and Next.js is no exception.
+
+Next.js supports [environment variables][nextjs-env-vars], but only at
+build time. This means you must rebuild your app for each target environment,
+which violates the principle. And it is the most common approach nowadays. But
+what if you want, or need, to follow the build once, deploy many principle?
+
+### The solution 🤓
+
+`next-runtime-env` solves this problem by generating a JavaScript file that is
+loaded by the browser and contains the environment variables. We generate this
+file at runtime, so you don't have to declare your environment variables at
+build time. This approach is also compatible with
+[static site generation][static-generation-link], and it works on the server as
+well. It also supports middleware, so you can use it to populate your
+environment variables in your API routes.
 
 ### Getting started 🚀
 
@@ -26,27 +44,26 @@ const { configureRuntimeEnv } = require('next-runtime-env/build/configure');
 configureRuntimeEnv();
 ```
 
-When the server starts this will generates a `__ENV.js` file in the `public`
-folder that contains allow-listed environment variables that have a
-`NEXT_PUBLIC_` prefix.
+When the server starts, this generates an `__ENV.js` file in the `public` folder
+containing allow-listed environment variables with a `NEXT_PUBLIC_` prefix.
 
-2. Add the following to the head section fo your `pages/_document.js`:
+2. Add the following to the head section of your `pages/_document.js`:
 
 ```jsx
 // pages/_document.tsx
 <script src="/__ENV.js" />
 ```
 
-Done!
+This will load the generated file in the browser.
 
 ### Usage 🧑‍💻
 
-In the browser your variables will be available at
-`window.__ENV.NEXT_PUBLIC_FOO` and on the server `process.env.NEXT_PUBLIC_FOO`.
+In the browser, your variables will now be available at
+`window.__ENV.NEXT_PUBLIC_FOO` and on the server at `process.env.NEXT_PUBLIC_FOO`.
 
-#### Helper 😉
+#### Helper function 🙌
 
-We have included a helper function to make retrieving a value easier:
+We have included the `env()` helper function to make retrieving a value easier:
 
 ```bash
 # .env
@@ -104,17 +121,21 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 ### Maintenance 👷
 
-This package is maintained and used by [Expatfile.tax][expatfile-site].
+This package is maintained and actively used by [Expatfile.tax][expatfile-site].
 The #1 US expat tax e-filing software. 🇺🇸
 
 ### Other work 📚
 
-Big thanks to the [react-env][react-env-repo]
-project, which inspired us. 🙏
+Big thanks to the [react-env][react-env-repo] project, which inspired us. 🙏
 
 [build-url]: https://img.shields.io/github/checks-status/expatfile/next-runtime-env/main
 [cov-img]: https://codecov.io/gh/expatfile/next-runtime-env/branch/main/graph/badge.svg?token=mbGgsweFuP
 [cov-url]: https://codecov.io/gh/expatfile/next-runtime-env
+[nextjs-env-vars-order]: https://nextjs.org/docs/basic-features/environment-variables#environment-variable-load-order
+[build-once-deploy-many-link]: https://www.mikemcgarr.com/blog/build-once-deploy-many.html
+[fundamental-principle-link]: https://cloud.redhat.com/blog/build-once-deploy-anywhere
+[twelve-factor-link]: https://12factor.net
+[static-generation-link]: https://nextjs.org/docs/basic-features/pages#static-generation
 [nextjs-env-vars]: https://nextjs.org/docs/basic-features/environment-variables
 [react-env-repo]: https://github.com/andrewmclagan/react-env
 [expatfile-site]: https://expatfile.tax
