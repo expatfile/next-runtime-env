@@ -9,7 +9,7 @@ export function writeBrowserEnv(env: NodeJS.ProcessEnv) {
   const path = `${base}/public/__ENV.js`;
 
   // eslint-disable-next-line no-console
-  console.info('next-runtime-env: Writing browser runtime env', path);
+  console.info('> [next-runtime-env] Writing browser runtime env', path);
 
   const content = `window.__ENV = ${JSON.stringify(env)};`;
 

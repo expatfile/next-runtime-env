@@ -29,7 +29,7 @@ describe('writeBrowserEnv()', () => {
     writeBrowserEnv({});
 
     expect(infoSpy).toHaveBeenCalledWith(
-      'next-runtime-env: Writing browser runtime env',
+      '> [next-runtime-env] Writing browser runtime env',
       file
     );
 
@@ -44,7 +44,7 @@ describe('writeBrowserEnv()', () => {
     });
 
     expect(infoSpy).toHaveBeenCalledWith(
-      'next-runtime-env: Writing browser runtime env',
+      '> [next-runtime-env] Writing browser runtime env',
       file
     );
 
@@ -61,7 +61,7 @@ describe('writeBrowserEnv()', () => {
     });
 
     expect(infoSpy).toHaveBeenCalledWith(
-      'next-runtime-env: Writing browser runtime env',
+      '> [next-runtime-env] Writing browser runtime env',
       file
     );
 
