@@ -1,5 +1,16 @@
 import { allEnv } from './all-env';
 
+let envBackup: NodeJS.ProcessEnv;
+
+beforeAll(() => {
+  envBackup = process.env;
+  process.env = {};
+});
+
+afterAll(() => {
+  process.env = envBackup;
+});
+
 describe('allEnv()', () => {
   afterEach(() => {
     delete process.env.FOO;
@@ -15,7 +26,7 @@ describe('allEnv()', () => {
     process.env.NEXT_PUBLIC_BAR = 'bar';
     process.env.NEXT_PUBLIC_BAZ = 'baz';
 
-    expect(allEnv()).toBe({
+    expect(allEnv()).toEqual({
       FOO: 'foo',
       NEXT_PUBLIC_BAR: 'bar',
       NEXT_PUBLIC_BAZ: 'baz',
@@ -33,7 +44,7 @@ describe('allEnv()', () => {
       writable: true,
     });
 
-    expect(allEnv()).toBe({
+    expect(allEnv()).toEqual({
       NEXT_PUBLIC_BAR: 'bar',
       NEXT_PUBLIC_BAZ: 'baz',
     });
