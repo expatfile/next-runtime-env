@@ -1,13 +1,18 @@
+import chalk from 'chalk';
+
 import { makeEnvPublic } from './make-env-public';
 
 const warnSpy = jest.spyOn(console, 'warn');
+const infoSpy = jest.spyOn(console, 'info');
 
 beforeAll(() => {
   warnSpy.mockImplementation();
+  infoSpy.mockImplementation();
 });
 
 afterAll(() => {
   warnSpy.mockRestore();
+  infoSpy.mockRestore();
 });
 
 describe('makeEnvPublic()', () => {
@@ -24,6 +29,12 @@ describe('makeEnvPublic()', () => {
     process.env.FOO = 'foo';
 
     makeEnvPublic('FOO');
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Prefix environment variable 'FOO'.`
+    );
 
     expect(process.env.FOO).toEqual('foo');
     expect(process.env.NEXT_PUBLIC_FOO).toEqual('foo');
@@ -50,7 +61,9 @@ describe('makeEnvPublic()', () => {
     makeEnvPublic('NEXT_PUBLIC_FOO');
 
     expect(warnSpy).toHaveBeenCalledWith(
-      '> [next-runtime-env] The environment variable "NEXT_PUBLIC_FOO" is already public.'
+      `${chalk.yellow(
+        `warn`
+      )}  - [next-runtime-env] - Prefix environment variable 'NEXT_PUBLIC_FOO' is already public.`
     );
   });
 });

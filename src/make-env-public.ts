@@ -1,11 +1,12 @@
+import * as log from './output/log';
+
 function prefixKey(key: string) {
   // Check if the key already is already public.
   if (/^NEXT_PUBLIC_/i.test(key)) {
-    // eslint-disable-next-line no-console
-    console.warn(
-      `> [next-runtime-env] The environment variable "${key}" is already public.`
-    );
+    log.warn(`Prefix environment variable '${key}' is already public.`);
   }
+
+  log.info(`Prefix environment variable '${key}'.`);
 
   const prefixedKey = `NEXT_PUBLIC_${key}`;
 

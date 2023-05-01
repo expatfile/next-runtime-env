@@ -1,5 +1,15 @@
 import { getPublicEnv } from './get-public-env';
 
+const infoSpy = jest.spyOn(console, 'info');
+
+beforeAll(() => {
+  infoSpy.mockImplementation();
+});
+
+afterAll(() => {
+  infoSpy.mockRestore();
+});
+
 describe('getPublicEnv()', () => {
   afterEach(() => {
     delete process.env.FOO;

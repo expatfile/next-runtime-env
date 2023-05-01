@@ -31,6 +31,9 @@
     "url": "https://github.com/expatfile/next-runtime-env/issues"
   },
   "homepage": "https://github.com/expatfile/next-runtime-env#readme",
+  "dependencies": {
+    "chalk": "4.1.2"
+  },
   "devDependencies": {
     "@types/eslint": "^8.37.0",
     "@types/jest": "^29.5.1",
