@@ -166,11 +166,14 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 ```
 
-#### `makeEnvPublic(key: string): void`
+#### `makeEnvPublic(key: string | string[]): void`
 
-Makes the environment variable with the given key public. This is useful if you
+Makes an environment variable with a given key public. This is useful if you
 want to use an environment variable in the browser, but it was was not declared
 with a `NEXT_PUBLIC_` prefix.
+
+For ease of use you can also make multiple env vars public at once by passing an
+array of keys.
 
 ##### Example
 
@@ -182,6 +185,9 @@ const { makeEnvPublic } = require('next-runtime-env/build/make-env-public');
 // Given that `FOO` is declared as a regular env var, not a public one. This
 // will make it public and available as `NEXT_PUBLIC_FOO`.
 makeEnvPublic('FOO');
+
+// Or you can make multiple env vars public at once.
+makeEnvPublic(['BAR', 'BAZ']);
 
 // This will generate the `__ENV.js` file and include `NEXT_PUBLIC_FOO`.
 configureRuntimeEnv();
