@@ -1,8 +1,8 @@
-# Next.js Runtime Environment Configuration
-
 ![GitHub branch checks state][build-url] [![codecov][cov-img]][cov-url]
 
-Populates your environment at **runtime** rather than **build time**.
+# Next.js Runtime Environment Configuration
+
+Populate your environment at **runtime** rather than **build time**.
 
 - Isomorphic - Server and browser compatible (and even in middleware.)
 - Static site generation support.
@@ -49,7 +49,7 @@ containing allow-listed environment variables with a `NEXT_PUBLIC_` prefix.
 
 2. Add the following to the head section of your `pages/_document.js`:
 
-```jsx
+```tsx
 // pages/_document.tsx
 <script src="/__ENV.js" />
 ```
@@ -59,21 +59,20 @@ This will load the generated file in the browser.
 ### Usage 🧑‍💻
 
 In the browser, your variables will now be available at
-`window.__ENV.NEXT_PUBLIC_FOO` and on the server at `process.env.NEXT_PUBLIC_FOO`.
-
-#### Helper function 🙌
-
-We have included the `env()` helper function to make retrieving a value easier:
+`window.__ENV.NEXT_PUBLIC_FOO` and on the server at
+`process.env.NEXT_PUBLIC_FOO`. For example:
 
 ```bash
 # .env
 NEXT_PUBLIC_FOO="foo"
 BAR="bar"
+NEXT_PUBLIC_BAZ="baz"
 ```
 
-```jsx
+```tsx
+// pages/some-page.tsx
 type Props = {
-  bar: string,
+  bar: string;
 };
 
 export default function SomePage({ bar }: Props) {
@@ -93,13 +92,24 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 ```
 
-Becomes...
+### Utilities 🛠
 
-```jsx
+We have included some utility function to make it even easier to work with
+environment variables.
+
+#### `env(key: string): string | undefined`
+
+Returns the value of the environment variable with the given key. If the
+environment variable is not found, it returns undefined.
+
+##### Example
+
+```tsx
+// pages/some-page.tsx
 import { env } from 'next-runtime-env';
 
 type Props = {
-  bar: string,
+  bar: string;
 };
 
 export default function SomePage({ bar }: Props) {
@@ -117,6 +127,70 @@ export const getStaticProps: GetStaticProps = async (context) => {
     },
   };
 };
+```
+
+#### `allEnv(): NodeJS.ProcessEnv`
+
+Returns all environment variables as a `NodeJS.ProcessEnv` object regardless of
+the platform. This is useful if you want to destructure multiple env vars at
+once.
+
+##### Example
+
+```tsx
+// pages/some-page.tsx
+import { allEnv } from 'next-runtime-env';
+
+type Props = {
+  bar: string;
+};
+
+export default function SomePage({ bar }: Props) {
+  const { NEXT_PUBLIC_FOO, NEXT_PUBLIC_BAZ } = allEnv();
+
+  return (
+    <div>
+      {NEXT_PUBLIC_FOO} {NEXT_PUBLIC_BAZ} {bar}
+    </div>
+  );
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { BAR } = allEnv();
+
+  return {
+    props: {
+      bar: BAR,
+    },
+  };
+};
+```
+
+#### `makeEnvPublic(key: string | string[]): void`
+
+Makes an environment variable with a given key public. This is useful if you
+want to use an environment variable in the browser, but it was was not declared
+with a `NEXT_PUBLIC_` prefix.
+
+For ease of use you can also make multiple env vars public at once by passing an
+array of keys.
+
+##### Example
+
+```js
+// next.config.js
+const { configureRuntimeEnv } = require('next-runtime-env/build/configure');
+const { makeEnvPublic } = require('next-runtime-env/build/make-env-public');
+
+// Given that `FOO` is declared as a regular env var, not a public one. This
+// will make it public and available as `NEXT_PUBLIC_FOO`.
+makeEnvPublic('FOO');
+
+// Or you can make multiple env vars public at once.
+makeEnvPublic(['BAR', 'BAZ']);
+
+// This will generate the `__ENV.js` file and include `NEXT_PUBLIC_FOO`.
+configureRuntimeEnv();
 ```
 
 ### Maintenance 👷

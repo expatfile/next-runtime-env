@@ -7,4 +7,5 @@ declare global {
   }
 }
 
+export { allEnv } from './all-env';
 export { env } from './env';

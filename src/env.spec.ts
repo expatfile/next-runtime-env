@@ -11,7 +11,7 @@ describe('env()', () => {
   it('should return a value from the server', () => {
     process.env.FOO = 'foo';
 
-    expect(env('FOO')).toBe('foo');
+    expect(env('FOO')).toEqual('foo');
   });
 
   it('should return a value from the browser', () => {
@@ -24,11 +24,11 @@ describe('env()', () => {
       writable: true,
     });
 
-    expect(env('NEXT_PUBLIC_FOO')).toBe('foo');
+    expect(env('NEXT_PUBLIC_FOO')).toEqual('foo');
   });
 
   it('should return undefined when variable does not exist on the server', () => {
-    expect(env('BAM_BAM')).toBe(undefined);
+    expect(env('BAM_BAM')).toEqual(undefined);
   });
 
   it('should return undefined when variable does not exist in the browser', () => {
@@ -41,6 +41,6 @@ describe('env()', () => {
       writable: true,
     });
 
-    expect(env('BAM_BAM')).toBe(undefined);
+    expect(env('BAM_BAM')).toEqual(undefined);
   });
 });
