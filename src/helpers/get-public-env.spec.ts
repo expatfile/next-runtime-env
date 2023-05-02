@@ -22,16 +22,6 @@ describe('getPublicEnv()', () => {
     delete process.env.NEXT_PUBLIC_BAZ;
   });
 
-  it('should show an info message after reading the environment', () => {
-    getPublicEnv();
-
-    expect(infoSpy).toHaveBeenCalledWith(
-      `${chalk.cyan(
-        `info`
-      )}  - [next-runtime-env] - Read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`
-    );
-  });
-
   it('should return an allow-listed value', () => {
     process.env.NEXT_PUBLIC_FOO = 'foo';
 
@@ -75,5 +65,15 @@ describe('getPublicEnv()', () => {
       NEXT_PUBLIC_FOO: 'foo',
       NEXT_PUBLIC_BAZ: 'baz',
     });
+  });
+
+  it('should show an info message after reading the environment', () => {
+    getPublicEnv();
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`
+    );
   });
 });

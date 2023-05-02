@@ -10,7 +10,7 @@ const path = `${base}/public`;
 const file = `${path}/__ENV.js`;
 const message = `${chalk.cyan(
   `info`
-)}  - [next-runtime-env] - Wrote browser runtime environment variables to ${file}`;
+)}  - [next-runtime-env] - Wrote browser runtime environment variables to '${file}'.`;
 
 beforeAll(() => {
   infoSpy.mockImplementation();
