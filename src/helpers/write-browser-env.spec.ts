@@ -21,14 +21,10 @@ beforeAll(() => {
 afterAll(() => {
   infoSpy.mockRestore();
 
-  fs.rmdirSync(path);
+  fs.rmSync(path, { recursive: true, force: true });
 });
 
 describe('writeBrowserEnv()', () => {
-  afterEach(() => {
-    fs.rmSync(file);
-  });
-
   it('should write an empty env', () => {
     writeBrowserEnv({});
 
@@ -37,6 +33,8 @@ describe('writeBrowserEnv()', () => {
     const content = fs.readFileSync(file).toString();
 
     expect(content).toEqual('window.__ENV = {};');
+
+    fs.rmSync(file);
   });
 
   it('should write and env with a value', () => {
@@ -49,6 +47,8 @@ describe('writeBrowserEnv()', () => {
     const content = fs.readFileSync(file).toString();
 
     expect(content).toEqual('window.__ENV = {"NEXT_PUBLIC_FOO":"foo"};');
+
+    fs.rmSync(file);
   });
 
   it('should write and env with multiple values', () => {
@@ -65,5 +65,24 @@ describe('writeBrowserEnv()', () => {
     expect(content).toEqual(
       'window.__ENV = {"NEXT_PUBLIC_FOO":"foo","NEXT_PUBLIC_BAR":"bar","NEXT_PUBLIC_BAZ":"baz"};'
     );
+
+    fs.rmSync(file);
+  });
+
+  it('should write to a subdirectory', () => {
+    const fileInSubdirectory = `${path}/subdirectory/__ENV.js`;
+    const messageWithSubdirectory = `${chalk.cyan(
+      `info`
+    )}  - [next-runtime-env] - Wrote browser runtime environment variables to '${fileInSubdirectory}'.`;
+
+    writeBrowserEnv({}, 'subdirectory/');
+
+    expect(infoSpy).toHaveBeenCalledWith(messageWithSubdirectory);
+
+    const content = fs.readFileSync(fileInSubdirectory).toString();
+
+    expect(content).toEqual('window.__ENV = {};');
+
+    fs.rmSync(fileInSubdirectory);
   });
 });
