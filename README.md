@@ -21,18 +21,19 @@ development, and Next.js is no exception.
 
 Next.js supports [environment variables][nextjs-env-vars], but only at
 build time. This means you must rebuild your app for each target environment,
-which violates the principle. And it is the most common approach nowadays. But
-what if you want, or need, to follow the build once, deploy many principle?
+which violates the principle. But what if you want, or need, to follow the build
+once, deploy many principle?
 
 ### The solution 🤓
 
 `next-runtime-env` solves this problem by generating a JavaScript file that is
 loaded by the browser and contains the environment variables. We generate this
 file at runtime, so you don't have to declare your environment variables at
-build time. This approach is also compatible with
-[static site generation][static-generation-link], and it works on the server as
-well. It also supports middleware, so you can use it to populate your
-environment variables in your API routes.
+build time.
+
+Our approach is compatible with
+[static site generation][static-generation-link], and it also supports
+middleware.
 
 ### Getting started 🚀
 

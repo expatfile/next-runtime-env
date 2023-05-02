@@ -31,12 +31,15 @@
     "url": "https://github.com/expatfile/next-runtime-env/issues"
   },
   "homepage": "https://github.com/expatfile/next-runtime-env#readme",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  },
   "devDependencies": {
     "@types/eslint": "^8.37.0",
     "@types/jest": "^29.5.1",
     "@types/node": "^18.16.3",
-    "@typescript-eslint/eslint-plugin": "^5.59.1",
-    "@typescript-eslint/parser": "^5.59.1",
+    "@typescript-eslint/eslint-plugin": "^5.59.2",
+    "@typescript-eslint/parser": "^5.59.2",
     "audit-ci": "^6.6.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.8.0",
