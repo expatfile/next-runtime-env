@@ -8,7 +8,7 @@ const libraryPrefix = `${libraryName} ${librarySeperator}`;
 
 const prefixes = {
   warn: `${chalk.yellow(`warn`)}  - ${libraryPrefix}`,
-  info: `${chalk.cyan(`info`)}  - ${libraryPrefix}`,
+  info: `${chalk.cyan(`info`)}  - ${libraryPrefix}`, // Double space before the dash aligns messages in the terminal and improves readability.
 };
 
 export function warn(message: string) {
