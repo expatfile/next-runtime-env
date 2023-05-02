@@ -30,12 +30,6 @@ describe('makeEnvPublic()', () => {
 
     makeEnvPublic('FOO');
 
-    expect(infoSpy).toHaveBeenCalledWith(
-      `${chalk.cyan(
-        `info`
-      )}  - [next-runtime-env] - Prefix environment variable 'FOO'.`
-    );
-
     expect(process.env.FOO).toEqual('foo');
     expect(process.env.NEXT_PUBLIC_FOO).toEqual('foo');
   });
@@ -49,10 +43,39 @@ describe('makeEnvPublic()', () => {
 
     expect(process.env.FOO).toEqual('foo');
     expect(process.env.NEXT_PUBLIC_FOO).toEqual('foo');
+
     expect(process.env.BAR).toEqual('bar');
     expect(process.env.NEXT_PUBLIC_BAR).toEqual('bar');
+
     expect(process.env.BAZ).toEqual('baz');
     expect(process.env.NEXT_PUBLIC_BAZ).toEqual('baz');
+  });
+
+  it('should show an info message when env vars are prefixed', () => {
+    process.env.FOO = 'foo';
+    process.env.BAR = 'bar';
+    process.env.BAZ = 'baz';
+
+    makeEnvPublic('FOO');
+    makeEnvPublic(['BAR', 'BAZ']);
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Prefixed environment variable 'FOO'.`
+    );
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Prefixed environment variable 'BAR'.`
+    );
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Prefixed environment variable 'BAZ'.`
+    );
   });
 
   it('should warn when the env var already starts with NEXT_PUBLIC_', () => {
@@ -63,7 +86,7 @@ describe('makeEnvPublic()', () => {
     expect(warnSpy).toHaveBeenCalledWith(
       `${chalk.yellow(
         `warn`
-      )}  - [next-runtime-env] - Prefix environment variable 'NEXT_PUBLIC_FOO' is already public.`
+      )}  - [next-runtime-env] - Environment variable 'NEXT_PUBLIC_FOO' is already public.`
     );
   });
 });

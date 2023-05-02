@@ -1,16 +1,16 @@
-import * as log from './output/log';
+import * as log from './utils/log';
 
 function prefixKey(key: string) {
   // Check if the key already is already public.
   if (/^NEXT_PUBLIC_/i.test(key)) {
-    log.warn(`Prefix environment variable '${key}' is already public.`);
+    log.warn(`Environment variable '${key}' is already public.`);
   }
-
-  log.info(`Prefix environment variable '${key}'.`);
 
   const prefixedKey = `NEXT_PUBLIC_${key}`;
 
   process.env[prefixedKey] = process.env[key];
+
+  log.info(`Prefixed environment variable '${key}'.`);
 }
 
 /**
