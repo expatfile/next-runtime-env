@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import fs from 'fs';
 
 import { writeBrowserEnv } from './write-browser-env';
@@ -7,6 +8,9 @@ const infoSpy = jest.spyOn(console, 'info');
 const base = fs.realpathSync(process.cwd());
 const path = `${base}/public`;
 const file = `${path}/__ENV.js`;
+const message = `${chalk.cyan(
+  `info`
+)}  - [next-runtime-env] - Wrote browser runtime environment variables to ${file}`;
 
 beforeAll(() => {
   infoSpy.mockImplementation();
@@ -28,10 +32,7 @@ describe('writeBrowserEnv()', () => {
   it('should write an empty env', () => {
     writeBrowserEnv({});
 
-    expect(infoSpy).toHaveBeenCalledWith(
-      '> [next-runtime-env] Writing browser runtime env',
-      file
-    );
+    expect(infoSpy).toHaveBeenCalledWith(message);
 
     const content = fs.readFileSync(file).toString();
 
@@ -43,10 +44,7 @@ describe('writeBrowserEnv()', () => {
       NEXT_PUBLIC_FOO: 'foo',
     });
 
-    expect(infoSpy).toHaveBeenCalledWith(
-      '> [next-runtime-env] Writing browser runtime env',
-      file
-    );
+    expect(infoSpy).toHaveBeenCalledWith(message);
 
     const content = fs.readFileSync(file).toString();
 
@@ -60,10 +58,7 @@ describe('writeBrowserEnv()', () => {
       NEXT_PUBLIC_BAZ: 'baz',
     });
 
-    expect(infoSpy).toHaveBeenCalledWith(
-      '> [next-runtime-env] Writing browser runtime env',
-      file
-    );
+    expect(infoSpy).toHaveBeenCalledWith(message);
 
     const content = fs.readFileSync(file).toString();
 

@@ -1,13 +1,18 @@
+import chalk from 'chalk';
+
 import { makeEnvPublic } from './make-env-public';
 
 const warnSpy = jest.spyOn(console, 'warn');
+const infoSpy = jest.spyOn(console, 'info');
 
 beforeAll(() => {
   warnSpy.mockImplementation();
+  infoSpy.mockImplementation();
 });
 
 afterAll(() => {
   warnSpy.mockRestore();
+  infoSpy.mockRestore();
 });
 
 describe('makeEnvPublic()', () => {
@@ -38,10 +43,39 @@ describe('makeEnvPublic()', () => {
 
     expect(process.env.FOO).toEqual('foo');
     expect(process.env.NEXT_PUBLIC_FOO).toEqual('foo');
+
     expect(process.env.BAR).toEqual('bar');
     expect(process.env.NEXT_PUBLIC_BAR).toEqual('bar');
+
     expect(process.env.BAZ).toEqual('baz');
     expect(process.env.NEXT_PUBLIC_BAZ).toEqual('baz');
+  });
+
+  it('should show an info message when env vars are prefixed', () => {
+    process.env.FOO = 'foo';
+    process.env.BAR = 'bar';
+    process.env.BAZ = 'baz';
+
+    makeEnvPublic('FOO');
+    makeEnvPublic(['BAR', 'BAZ']);
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Prefixed environment variable 'FOO'.`
+    );
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Prefixed environment variable 'BAR'.`
+    );
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Prefixed environment variable 'BAZ'.`
+    );
   });
 
   it('should warn when the env var already starts with NEXT_PUBLIC_', () => {
@@ -50,7 +84,9 @@ describe('makeEnvPublic()', () => {
     makeEnvPublic('NEXT_PUBLIC_FOO');
 
     expect(warnSpy).toHaveBeenCalledWith(
-      '> [next-runtime-env] The environment variable "NEXT_PUBLIC_FOO" is already public.'
+      `${chalk.yellow(
+        `warn`
+      )}  - [next-runtime-env] - Environment variable 'NEXT_PUBLIC_FOO' is already public.`
     );
   });
 });

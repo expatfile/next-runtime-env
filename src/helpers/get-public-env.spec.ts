@@ -1,4 +1,16 @@
+import chalk from 'chalk';
+
 import { getPublicEnv } from './get-public-env';
+
+const infoSpy = jest.spyOn(console, 'info');
+
+beforeAll(() => {
+  infoSpy.mockImplementation();
+});
+
+afterAll(() => {
+  infoSpy.mockRestore();
+});
 
 describe('getPublicEnv()', () => {
   afterEach(() => {
@@ -10,7 +22,17 @@ describe('getPublicEnv()', () => {
     delete process.env.NEXT_PUBLIC_BAZ;
   });
 
-  it('should return a allow-listed value', () => {
+  it('should show an info message after reading the environment', () => {
+    getPublicEnv();
+
+    expect(infoSpy).toHaveBeenCalledWith(
+      `${chalk.cyan(
+        `info`
+      )}  - [next-runtime-env] - Read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`
+    );
+  });
+
+  it('should return an allow-listed value', () => {
     process.env.NEXT_PUBLIC_FOO = 'foo';
 
     expect(getPublicEnv()).toEqual({
