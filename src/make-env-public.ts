@@ -1,7 +1,16 @@
 import * as log from './utils/log';
 
 function prefixKey(key: string) {
-  // Check if the key already is already public.
+  // Check if key is available in process.env.
+  if (!process.env[key]) {
+    log.warn(
+      `Skipped prefixing environment variable '${key}'. Variable not in process.env.`
+    );
+
+    return;
+  }
+
+  // Check if key is already public.
   if (/^NEXT_PUBLIC_/i.test(key)) {
     log.warn(`Environment variable '${key}' is already public.`);
   }

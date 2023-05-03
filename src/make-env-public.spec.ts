@@ -78,6 +78,16 @@ describe('makeEnvPublic()', () => {
     );
   });
 
+  it('should warn when prefixing a variable that is not available in process.env', () => {
+    makeEnvPublic('FOO');
+
+    expect(warnSpy).toHaveBeenCalledWith(
+      `${chalk.yellow(
+        `warn`
+      )}  - [next-runtime-env] - Skipped prefixing environment variable 'FOO'. Variable not in process.env.`
+    );
+  });
+
   it('should warn when the env var already starts with NEXT_PUBLIC_', () => {
     process.env.NEXT_PUBLIC_FOO = 'foo';
 
