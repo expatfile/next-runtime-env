@@ -19,6 +19,11 @@ const mockWriteBrowserEnv = writeBrowserEnv as jest.MockedFunction<
   typeof writeBrowserEnv
 >;
 
+afterEach(() => {
+  mockGetPublicEnv.mockClear();
+  mockWriteBrowserEnv.mockClear();
+});
+
 describe('configureRuntimeEnv()', () => {
   it('should call the helper methods', () => {
     configureRuntimeEnv();
@@ -26,8 +31,27 @@ describe('configureRuntimeEnv()', () => {
     expect(mockGetPublicEnv).toHaveBeenCalledTimes(1);
 
     expect(mockWriteBrowserEnv).toHaveBeenCalledTimes(1);
-    expect(mockWriteBrowserEnv).toHaveBeenCalledWith({
-      NEXT_PUBLIC_FOO: 'foo',
+    expect(mockWriteBrowserEnv).toHaveBeenCalledWith(
+      {
+        NEXT_PUBLIC_FOO: 'foo',
+      },
+      undefined
+    );
+  });
+
+  it('should call the helper methods with options', () => {
+    configureRuntimeEnv({
+      subdirectory: 'subdirectory/',
     });
+
+    expect(mockGetPublicEnv).toHaveBeenCalledTimes(1);
+
+    expect(mockWriteBrowserEnv).toHaveBeenCalledTimes(1);
+    expect(mockWriteBrowserEnv).toHaveBeenCalledWith(
+      {
+        NEXT_PUBLIC_FOO: 'foo',
+      },
+      'subdirectory/'
+    );
   });
 });
