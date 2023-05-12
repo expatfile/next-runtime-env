@@ -8,7 +8,7 @@ Populate your environment at **runtime** rather than **build time**.
 - Static site generation support.
 - `.env` support during development, just like [Next.js][nextjs-env-vars-order].
 
-### The problem 🤔
+### Why we created this package 🤔
 
 [Build once, deploy many][build-once-deploy-many-link] is an essential principle
 of software development. The main idea is to use the same bundle for all
@@ -19,21 +19,24 @@ is also part of the [twelve-factor methodology][twelve-factor-link]. As crucial
 as it is, it has yet to receive significant support in the world of front-end
 development, and Next.js is no exception.
 
-Next.js supports [environment variables][nextjs-env-vars], but only at
+Next.js does support [environment variables][nextjs-env-vars], but only at
 build time. This means you must rebuild your app for each target environment,
 which violates the principle. But what if you want, or need, to follow the build
 once, deploy many principle?
 
-### The solution 🤓
+### This package 🤓
 
-`next-runtime-env` solves this problem by generating a JavaScript file that is
-loaded by the browser and contains the environment variables. We generate this
-file at runtime, so you don't have to declare your environment variables at
-build time.
+`next-runtime-env` solves this problem by generating a JavaScript file that
+contains the environment variables at runtime, so you no longer have to declare
+your environment variables at build time. This file is loaded in the client,
+safely exposing those variables to the browser. This allows you to follow the
+build once, deploy many principle by providing differed runtime variables to the
+same build.
+
+### Compatibility 🤝
 
 Our approach is compatible with
-[static site generation][static-generation-link], and it also supports
-middleware.
+[static site generation][static-generation-link] and supports middleware.
 
 ### Getting started 🚀
 
