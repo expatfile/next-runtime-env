@@ -6,11 +6,13 @@ module.exports = {
     '<rootDir>/node_modules/',
     '<rootDir>/*.js',
     '<rootDir>/build',
+    '<rootDir>/examples',
   ],
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/*.js',
     '<rootDir>/build',
+    '<rootDir>/examples',
   ],
 };

@@ -1,0 +1,1 @@
+window.__ENV = {"NEXT_PUBLIC_FOO":"foo-value"};
