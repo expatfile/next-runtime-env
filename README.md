@@ -24,7 +24,7 @@ build time. This means you must rebuild your app for each target environment,
 which violates the principle. But what if you want, or need, to follow the build
 once, deploy many principle?
 
-### This package 🤓
+### This package 📦
 
 `next-runtime-env` solves this problem by generating a JavaScript file that
 contains the environment variables at runtime, so you no longer have to declare

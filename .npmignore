@@ -17,6 +17,9 @@ tsconfig.json
 # source
 /src
 
+# expamples
+/examples
+
 # misc
 .DS_Store
 .env

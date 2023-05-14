@@ -21,5 +21,5 @@ export function writeBrowserEnv(env: NodeJS.ProcessEnv, subdirectory = '') {
 
   fs.writeFileSync(file, content);
 
-  log.info(`Wrote browser runtime environment variables to '${file}'.`);
+  log.ready(`wrote browser runtime environment variables to '${file}'.`);
 }
