@@ -3,7 +3,6 @@ import chalk from 'chalk';
 const libraryName = '[next-runtime-env]';
 
 const prefixes = {
-  info: `- ${chalk.cyan(`info`)} ${libraryName}`,
   warn: `- ${chalk.yellow(`warn`)} ${libraryName}`,
   event: `- ${chalk.magenta(`event`)} ${libraryName}`,
   ready: `- ${chalk.green(`ready`)} ${libraryName}`,
@@ -12,11 +11,6 @@ const prefixes = {
 export function warn(message: string) {
   // eslint-disable-next-line no-console
   console.warn(`${prefixes.warn} ${message}`);
-}
-
-export function info(message: string) {
-  // eslint-disable-next-line no-console
-  console.info(`${prefixes.info} ${message}`);
 }
 
 export function event(message: string) {
