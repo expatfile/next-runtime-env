@@ -8,9 +8,9 @@ const infoSpy = jest.spyOn(console, 'info');
 const base = fs.realpathSync(process.cwd());
 const path = `${base}/public`;
 const file = `${path}/__ENV.js`;
-const message = `${chalk.cyan(
-  `info`
-)}  - [next-runtime-env] - Wrote browser runtime environment variables to '${file}'.`;
+const message = `- ${chalk.green(
+  `ready`
+)} [next-runtime-env] wrote browser runtime environment variables to '${file}'.`;
 
 beforeAll(() => {
   infoSpy.mockImplementation();
@@ -71,9 +71,9 @@ describe('writeBrowserEnv()', () => {
 
   it('should write to a subdirectory', () => {
     const fileInSubdirectory = `${path}/subdirectory/__ENV.js`;
-    const messageWithSubdirectory = `${chalk.cyan(
-      `info`
-    )}  - [next-runtime-env] - Wrote browser runtime environment variables to '${fileInSubdirectory}'.`;
+    const messageWithSubdirectory = `- ${chalk.green(
+      `ready`
+    )} [next-runtime-env] wrote browser runtime environment variables to '${fileInSubdirectory}'.`;
 
     writeBrowserEnv({}, 'subdirectory/');
 

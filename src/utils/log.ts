@@ -1,13 +1,12 @@
 import chalk from 'chalk';
 
 const libraryName = '[next-runtime-env]';
-const librarySeparator = '-';
-const libraryPrefix = `${libraryName} ${librarySeparator}`;
 
 const prefixes = {
-  // Double space before the dash aligns messages in the terminal and improves readability.
-  warn: `${chalk.yellow(`warn`)}  - ${libraryPrefix}`,
-  info: `${chalk.cyan(`info`)}  - ${libraryPrefix}`,
+  info: `- ${chalk.cyan(`info`)} ${libraryName}`,
+  warn: `- ${chalk.yellow(`warn`)} ${libraryName}`,
+  event: `- ${chalk.magenta(`event`)} ${libraryName}`,
+  ready: `- ${chalk.green(`ready`)} ${libraryName}`,
 };
 
 export function warn(message: string) {
@@ -18,4 +17,14 @@ export function warn(message: string) {
 export function info(message: string) {
   // eslint-disable-next-line no-console
   console.info(`${prefixes.info} ${message}`);
+}
+
+export function event(message: string) {
+  // eslint-disable-next-line no-console
+  console.info(`${prefixes.event} ${message}`);
+}
+
+export function ready(message: string) {
+  // eslint-disable-next-line no-console
+  console.info(`${prefixes.ready} ${message}`);
 }

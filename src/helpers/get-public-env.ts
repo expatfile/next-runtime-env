@@ -14,8 +14,8 @@ export function getPublicEnv() {
       {} as NodeJS.ProcessEnv
     );
 
-  log.info(
-    `Read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`
+  log.event(
+    `read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`
   );
 
   return publicEnv;

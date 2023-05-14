@@ -4,7 +4,7 @@ function prefixKey(key: string) {
   // Check if key is available in process.env.
   if (!process.env[key]) {
     log.warn(
-      `Skipped prefixing environment variable '${key}'. Variable not in process.env.`
+      `skipped prefixing environment variable '${key}'. Variable not in process.env.`
     );
 
     return;
@@ -12,14 +12,14 @@ function prefixKey(key: string) {
 
   // Check if key is already public.
   if (/^NEXT_PUBLIC_/i.test(key)) {
-    log.warn(`Environment variable '${key}' is already public.`);
+    log.warn(`environment variable '${key}' is already public.`);
   }
 
   const prefixedKey = `NEXT_PUBLIC_${key}`;
 
   process.env[prefixedKey] = process.env[key];
 
-  log.info(`Prefixed environment variable '${key}'.`);
+  log.event(`prefixed environment variable '${key}'.`);
 }
 
 /**
