@@ -7,8 +7,8 @@ dependencies:
 
 devDependencies:
   '@types/eslint':
-    specifier: ^8.37.0
-    version: 8.37.0
+    specifier: ^8.40.2
+    version: 8.40.2
   '@types/jest':
     specifier: ^29.5.1
     version: 29.5.1
@@ -1029,8 +1029,8 @@ packages:
       '@babel/types': 7.21.5
     dev: true
 
-  /@types/eslint@8.37.0:
-    resolution: {integrity: sha512-Piet7dG2JBuDIfohBngQ3rCt7MgO9xCO4xIMKxBThCq5PNRB91IjlJ10eJVwfoNtvTErmxLzwBZ7rHZtbOMmFQ==}
+  /@types/eslint@8.40.2:
+    resolution: {integrity: sha512-PRVjQ4Eh9z9pmmtaq8nTjZjQwKFk7YIHIud3lRoKRBgUQjgjRmoGxxGEPXQkF+lH7QkHJRNr5F4aBgYCW0lqpQ==}
     dependencies:
       '@types/estree': 1.0.1
       '@types/json-schema': 7.0.11
