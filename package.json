@@ -32,7 +32,7 @@
   },
   "homepage": "https://github.com/expatfile/next-runtime-env#readme",
   "dependencies": {
-    "chalk": "^4.1.2"
+    "chalk": "^5.3.0"
   },
   "devDependencies": {
     "@types/eslint": "^8.37.0",
