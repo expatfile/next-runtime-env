@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   chalk:
     specifier: ^4.1.2
@@ -7,8 +11,8 @@ dependencies:
 
 devDependencies:
   '@types/eslint':
-    specifier: ^8.37.0
-    version: 8.37.0
+    specifier: ^8.44.1
+    version: 8.44.1
   '@types/jest':
     specifier: ^29.5.1
     version: 29.5.1
@@ -1029,8 +1033,8 @@ packages:
       '@babel/types': 7.21.5
     dev: true
 
-  /@types/eslint@8.37.0:
-    resolution: {integrity: sha512-Piet7dG2JBuDIfohBngQ3rCt7MgO9xCO4xIMKxBThCq5PNRB91IjlJ10eJVwfoNtvTErmxLzwBZ7rHZtbOMmFQ==}
+  /@types/eslint@8.44.1:
+    resolution: {integrity: sha512-XpNDc4Z5Tb4x+SW1MriMVeIsMoONHCkWFMkR/aPJbzEsxqHy+4Glu/BqTdPrApfDeMaXbtNh6bseNgl5KaWrSg==}
     dependencies:
       '@types/estree': 1.0.1
       '@types/json-schema': 7.0.11
