@@ -1,5 +1,7 @@
 ## Getting Started
 
+> NOTE: This example is a work in progress and is not yet functional.
+
 First, run the development server:
 
 ```bash

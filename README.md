@@ -38,6 +38,9 @@ same build.
 Our approach is compatible with
 [static site generation][static-generation-link] and supports middleware.
 
+> 🏗️ We are actively working on supporting the new App directory and Server
+> Components released in Next.js 13.
+
 ### Getting started 🚀
 
 1. Add the following lines to your `next.config.js`:
