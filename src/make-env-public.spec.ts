@@ -61,20 +61,20 @@ describe('makeEnvPublic()', () => {
 
     expect(infoSpy).toHaveBeenCalledWith(
       `- ${chalk.magenta(
-        `event`
-      )} [next-runtime-env] prefixed environment variable 'FOO'.`
+        `event`,
+      )} [next-runtime-env] prefixed environment variable 'FOO'.`,
     );
 
     expect(infoSpy).toHaveBeenCalledWith(
       `- ${chalk.magenta(
-        `event`
-      )} [next-runtime-env] prefixed environment variable 'BAR'.`
+        `event`,
+      )} [next-runtime-env] prefixed environment variable 'BAR'.`,
     );
 
     expect(infoSpy).toHaveBeenCalledWith(
       `- ${chalk.magenta(
-        `event`
-      )} [next-runtime-env] prefixed environment variable 'BAZ'.`
+        `event`,
+      )} [next-runtime-env] prefixed environment variable 'BAZ'.`,
     );
   });
 
@@ -83,8 +83,8 @@ describe('makeEnvPublic()', () => {
 
     expect(warnSpy).toHaveBeenCalledWith(
       `- ${chalk.yellow(
-        `warn`
-      )} [next-runtime-env] skipped prefixing environment variable 'FOO'. Variable not in process.env.`
+        `warn`,
+      )} [next-runtime-env] skipped prefixing environment variable 'FOO'. Variable not in process.env.`,
     );
   });
 
@@ -95,8 +95,8 @@ describe('makeEnvPublic()', () => {
 
     expect(warnSpy).toHaveBeenCalledWith(
       `- ${chalk.yellow(
-        `warn`
-      )} [next-runtime-env] environment variable 'NEXT_PUBLIC_FOO' is already public.`
+        `warn`,
+      )} [next-runtime-env] environment variable 'NEXT_PUBLIC_FOO' is already public.`,
     );
   });
 });

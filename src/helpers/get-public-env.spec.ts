@@ -72,8 +72,8 @@ describe('getPublicEnv()', () => {
 
     expect(infoSpy).toHaveBeenCalledWith(
       `- ${chalk.magenta(
-        `event`
-      )} [next-runtime-env] read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`
+        `event`,
+      )} [next-runtime-env] read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`,
     );
   });
 });
