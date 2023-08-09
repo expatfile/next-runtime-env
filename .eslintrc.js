@@ -19,6 +19,7 @@ module.exports = {
     'eol-last': ['error', 'always'],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'import/extensions': ['off'],
+    'import/order': ['off'],
     'import/prefer-default-export': ['off'],
     'simple-import-sort/imports': 'warn',
     'simple-import-sort/exports': 'warn',

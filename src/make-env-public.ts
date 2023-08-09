@@ -4,7 +4,7 @@ function prefixKey(key: string) {
   // Check if key is available in process.env.
   if (!process.env[key]) {
     log.warn(
-      `skipped prefixing environment variable '${key}'. Variable not in process.env.`
+      `skipped prefixing environment variable '${key}'. Variable not in process.env.`,
     );
 
     return;

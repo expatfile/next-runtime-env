@@ -35,7 +35,7 @@ describe('configureRuntimeEnv()', () => {
       {
         NEXT_PUBLIC_FOO: 'foo',
       },
-      undefined
+      undefined,
     );
   });
 
@@ -51,7 +51,7 @@ describe('configureRuntimeEnv()', () => {
       {
         NEXT_PUBLIC_FOO: 'foo',
       },
-      'subdirectory/'
+      'subdirectory/',
     );
   });
 });

@@ -11,11 +11,11 @@ export function getPublicEnv() {
         ...env,
         [key]: process.env[key],
       }),
-      {} as NodeJS.ProcessEnv
+      {} as NodeJS.ProcessEnv,
     );
 
   log.event(
-    `read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`
+    `read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`,
   );
 
   return publicEnv;
