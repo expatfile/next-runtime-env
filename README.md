@@ -136,9 +136,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 ```
 
-#### `allEnv(): NodeJS.ProcessEnv`
+#### `allEnv(): ProcessEnv`
 
-Returns all environment variables as a `NodeJS.ProcessEnv` object regardless of
+Returns all environment variables as a `ProcessEnv` object regardless of
 the platform. This is useful if you want to destructure multiple env vars at
 once.
 
