@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 
-import { type ProcessEnv } from '../typings';
+import { type ProcessEnv } from '../typings/process-env';
 import * as log from '../utils/log';
 import { getBrowserEnvScript } from './get-browser-env-script';
 

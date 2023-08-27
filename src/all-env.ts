@@ -1,4 +1,4 @@
-import { type ProcessEnv } from './typings';
+import { type ProcessEnv } from './typings/process-env';
 import { isBrowser } from './utils/is-browser';
 
 /**
