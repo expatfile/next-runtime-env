@@ -13,3 +13,5 @@ export default function ClientSide() {
     </main>
   );
 }
+
+export const dynamic = 'force-dynamic';
