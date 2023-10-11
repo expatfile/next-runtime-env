@@ -1,8 +1,10 @@
-const { configureRuntimeEnv } = require('next-runtime-env/build/configure');
-
-configureRuntimeEnv();
-
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  experimental: {
+    // This is optional incase you want to make some private env vars publicly
+    // available.
+    instrumentationHook: true,
+  },
+};
 
 module.exports = nextConfig;

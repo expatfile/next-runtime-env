@@ -1,6 +1,7 @@
 import './globals.css';
 
 import { Inter } from 'next/font/google';
+import { PublicEnvProvider } from 'next-runtime-env';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -16,11 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        {/* eslint-disable-next-line @next/next/no-sync-scripts */}
-        <script src="/__ENV.js" />
-      </head>
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <PublicEnvProvider>{children}</PublicEnvProvider>
+      </body>
     </html>
   );
 }
+
+// By default server components are statically generated at build-time. To make
+// sure the env vars are actually loaded use, add the following line to server
+// components that use [env]. 👇
+export const dynamic = 'force-dynamic';

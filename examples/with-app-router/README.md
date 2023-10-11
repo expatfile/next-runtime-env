@@ -1,15 +1,13 @@
 ## Getting Started
 
-> NOTE: This example is a work in progress and is not yet functional.
-
 First, run the development server:
 
 ```bash
-NEXT_PUBLIC_FOO=foo-value BAR=bar-value npm run dev
+NEXT_PUBLIC_FOO=foo-value BAR=bar-value BAZ=baz-value npm run dev
 # or
-NEXT_PUBLIC_FOO=foo-value BAR=bar-value yarn dev
+NEXT_PUBLIC_FOO=foo-value BAR=bar-value BAZ=baz-value yarn dev
 # or
-NEXT_PUBLIC_FOO=foo-value BAR=bar-value pnpm dev
+NEXT_PUBLIC_FOO=foo-value BAR=bar-value BAZ=baz-value pnpm dev
 ```
 
 Open [http://localhost:3000/client-side](http://localhost:3000/client-side) or
@@ -29,11 +27,11 @@ pnpm build
 Finally, run the production server with the environment variables:
 
 ```bash
-NEXT_PUBLIC_FOO=foo-value BAR=bar-value npm run start
+NEXT_PUBLIC_FOO=foo-value BAR=bar-value BAZ=baz-value npm run start
 # or
-NEXT_PUBLIC_FOO=foo-value BAR=bar-value yarn start
+NEXT_PUBLIC_FOO=foo-value BAR=bar-value BAZ=baz-value yarn start
 # or
-NEXT_PUBLIC_FOO=foo-value BAR=bar-value pnpm start
+NEXT_PUBLIC_FOO=foo-value BAR=bar-value BAZ=baz-value pnpm start
 ```
 
 Open [http://localhost:3000/client-side](http://localhost:3000/client-side) or
