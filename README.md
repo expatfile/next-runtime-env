@@ -140,6 +140,7 @@ The #1 US expat tax e-filing software. 🇺🇸
 ### Other work 📚
 
 Big thanks to the [react-env][react-env-repo] project, which inspired us. 🙏
+Also, a big shout out to @andonirdgz for the idea to use a context provider. 💪
 
 [build-url]: https://img.shields.io/github/checks-status/expatfile/next-runtime-env/main
 [cov-img]: https://codecov.io/gh/expatfile/next-runtime-env/branch/main/graph/badge.svg?token=mbGgsweFuP
