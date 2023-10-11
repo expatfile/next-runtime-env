@@ -1,9 +1,8 @@
-import * as log from './utils/log';
-
 function prefixKey(key: string) {
   // Check if key is available in process.env.
   if (!process.env[key]) {
-    log.warn(
+    // eslint-disable-next-line no-console
+    console.warn(
       `skipped prefixing environment variable '${key}'. Variable not in process.env.`,
     );
 
@@ -12,14 +11,16 @@ function prefixKey(key: string) {
 
   // Check if key is already public.
   if (/^NEXT_PUBLIC_/i.test(key)) {
-    log.warn(`environment variable '${key}' is already public.`);
+    // eslint-disable-next-line no-console
+    console.warn(`environment variable '${key}' is already public.`);
   }
 
   const prefixedKey = `NEXT_PUBLIC_${key}`;
 
   process.env[prefixedKey] = process.env[key];
 
-  log.event(`prefixed environment variable '${key}'.`);
+  // eslint-disable-next-line no-console
+  console.info(`prefixed environment variable '${key}'.`);
 }
 
 /**

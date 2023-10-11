@@ -1,4 +1,4 @@
-import * as log from '../utils/log';
+import { ProcessEnv } from '../typings/process-env';
 
 /**
  * Gets a list of environment variables that start with `NEXT_PUBLIC_`.
@@ -11,12 +11,8 @@ export function getPublicEnv() {
         ...env,
         [key]: process.env[key],
       }),
-      {} as NodeJS.ProcessEnv,
+      {} as ProcessEnv,
     );
-
-  log.event(
-    `read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`,
-  );
 
   return publicEnv;
 }

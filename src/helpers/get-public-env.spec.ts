@@ -1,16 +1,4 @@
-import chalk from 'chalk';
-
 import { getPublicEnv } from './get-public-env';
-
-const infoSpy = jest.spyOn(console, 'info');
-
-beforeAll(() => {
-  infoSpy.mockImplementation();
-});
-
-afterAll(() => {
-  infoSpy.mockRestore();
-});
 
 describe('getPublicEnv()', () => {
   afterEach(() => {
@@ -65,15 +53,5 @@ describe('getPublicEnv()', () => {
       NEXT_PUBLIC_FOO: 'foo',
       NEXT_PUBLIC_BAZ: 'baz',
     });
-  });
-
-  it('should show an info message after reading the environment', () => {
-    getPublicEnv();
-
-    expect(infoSpy).toHaveBeenCalledWith(
-      `- ${chalk.magenta(
-        `event`,
-      )} [next-runtime-env] read environment variables prefixed with 'NEXT_PUBLIC_' from process.env.`,
-    );
   });
 });
