@@ -1,5 +1,3 @@
-import chalk from 'chalk';
-
 import { makeEnvPublic } from './make-env-public';
 
 const warnSpy = jest.spyOn(console, 'warn');
@@ -60,21 +58,15 @@ describe('makeEnvPublic()', () => {
     makeEnvPublic(['BAR', 'BAZ']);
 
     expect(infoSpy).toHaveBeenCalledWith(
-      `- ${chalk.magenta(
-        `event`,
-      )} [next-runtime-env] prefixed environment variable 'FOO'.`,
+      `prefixed environment variable 'FOO'.`,
     );
 
     expect(infoSpy).toHaveBeenCalledWith(
-      `- ${chalk.magenta(
-        `event`,
-      )} [next-runtime-env] prefixed environment variable 'BAR'.`,
+      `prefixed environment variable 'BAR'.`,
     );
 
     expect(infoSpy).toHaveBeenCalledWith(
-      `- ${chalk.magenta(
-        `event`,
-      )} [next-runtime-env] prefixed environment variable 'BAZ'.`,
+      `prefixed environment variable 'BAZ'.`,
     );
   });
 
@@ -82,9 +74,7 @@ describe('makeEnvPublic()', () => {
     makeEnvPublic('FOO');
 
     expect(warnSpy).toHaveBeenCalledWith(
-      `- ${chalk.yellow(
-        `warn`,
-      )} [next-runtime-env] skipped prefixing environment variable 'FOO'. Variable not in process.env.`,
+      `skipped prefixing environment variable 'FOO'. Variable not in process.env.`,
     );
   });
 
@@ -94,9 +84,7 @@ describe('makeEnvPublic()', () => {
     makeEnvPublic('NEXT_PUBLIC_FOO');
 
     expect(warnSpy).toHaveBeenCalledWith(
-      `- ${chalk.yellow(
-        `warn`,
-      )} [next-runtime-env] environment variable 'NEXT_PUBLIC_FOO' is already public.`,
+      `environment variable 'NEXT_PUBLIC_FOO' is already public.`,
     );
   });
 });
