@@ -1,4 +1,4 @@
-![GitHub branch checks state][build-url] [![codecov][cov-img]][cov-url]
+![GitHub branch checks state][build-url] [![codecov][cov-img]][cov-url] [![Known Vulnerabilities][snyk-img]][snyk-url]
 
 # Next.js Runtime Environment Configuration
 
@@ -212,6 +212,8 @@ Big thanks to the [react-env][react-env-repo] project, which inspired us. 🙏
 [build-url]: https://img.shields.io/github/checks-status/expatfile/next-runtime-env/main
 [cov-img]: https://codecov.io/gh/expatfile/next-runtime-env/branch/main/graph/badge.svg?token=mbGgsweFuP
 [cov-url]: https://codecov.io/gh/expatfile/next-runtime-env
+[snyk-img]: https://snyk.io/test/github/expatfile/next-runtime-env/badge.svg
+[snyk-url]: https://snyk.io/test/github/expatfile/next-runtime-env
 [nextjs-env-vars-order]: https://nextjs.org/docs/basic-features/environment-variables#environment-variable-load-order
 [build-once-deploy-many-link]: https://www.mikemcgarr.com/blog/build-once-deploy-many.html
 [fundamental-principle-link]: https://cloud.redhat.com/blog/build-once-deploy-anywhere
