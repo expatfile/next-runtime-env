@@ -38,8 +38,7 @@ same build.
 Our approach is compatible with
 [static site generation][static-generation-link] and supports middleware.
 
-> 🏗️ We are actively working on supporting the new App directory and Server
-> Components released in Next.js 13.
+For Next.js 13 App Router support, user `next-runtime-env@2.0.0` or higher.
 
 ### Getting started 🚀
 
