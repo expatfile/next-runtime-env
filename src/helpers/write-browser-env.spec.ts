@@ -37,7 +37,7 @@ describe('writeBrowserEnv()', () => {
     fs.rmSync(file);
   });
 
-  it('should write and env with a value', () => {
+  it('should write an env with a value', () => {
     writeBrowserEnv({
       NEXT_PUBLIC_FOO: 'foo',
     });
@@ -51,7 +51,7 @@ describe('writeBrowserEnv()', () => {
     fs.rmSync(file);
   });
 
-  it('should write and env with multiple values', () => {
+  it('should write an env with multiple values', () => {
     writeBrowserEnv({
       NEXT_PUBLIC_FOO: 'foo',
       NEXT_PUBLIC_BAR: 'bar',
