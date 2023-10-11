@@ -1,20 +1,17 @@
 import { makeEnvPublic } from './make-env-public';
 
-const warnSpy = jest.spyOn(console, 'warn');
-const infoSpy = jest.spyOn(console, 'info');
+const warnMock = jest.fn();
+const eventMock = jest.fn();
 
-beforeAll(() => {
-  warnSpy.mockImplementation();
-  infoSpy.mockImplementation();
-});
-
-afterAll(() => {
-  warnSpy.mockRestore();
-  infoSpy.mockRestore();
-});
+jest.mock('../helpers/log', () => ({
+  warn: (...args: unknown[]) => warnMock(...args),
+  event: (...args: unknown[]) => eventMock(...args),
+}));
 
 describe('makeEnvPublic()', () => {
   afterEach(() => {
+    jest.clearAllMocks();
+
     delete process.env.FOO;
     delete process.env.BAR;
     delete process.env.BAZ;
@@ -57,24 +54,24 @@ describe('makeEnvPublic()', () => {
     makeEnvPublic('FOO');
     makeEnvPublic(['BAR', 'BAZ']);
 
-    expect(infoSpy).toHaveBeenCalledWith(
-      `prefixed environment variable 'FOO'.`,
+    expect(eventMock).toHaveBeenCalledWith(
+      `Prefixed environment variable 'FOO'`,
     );
 
-    expect(infoSpy).toHaveBeenCalledWith(
-      `prefixed environment variable 'BAR'.`,
+    expect(eventMock).toHaveBeenCalledWith(
+      `Prefixed environment variable 'BAR'`,
     );
 
-    expect(infoSpy).toHaveBeenCalledWith(
-      `prefixed environment variable 'BAZ'.`,
+    expect(eventMock).toHaveBeenCalledWith(
+      `Prefixed environment variable 'BAZ'`,
     );
   });
 
   it('should warn when prefixing a variable that is not available in process.env', () => {
     makeEnvPublic('FOO');
 
-    expect(warnSpy).toHaveBeenCalledWith(
-      `skipped prefixing environment variable 'FOO'. Variable not in process.env.`,
+    expect(warnMock).toHaveBeenCalledWith(
+      `Skipped prefixing environment variable 'FOO'. Variable not in process.env`,
     );
   });
 
@@ -83,8 +80,8 @@ describe('makeEnvPublic()', () => {
 
     makeEnvPublic('NEXT_PUBLIC_FOO');
 
-    expect(warnSpy).toHaveBeenCalledWith(
-      `environment variable 'NEXT_PUBLIC_FOO' is already public.`,
+    expect(warnMock).toHaveBeenCalledWith(
+      `Environment variable 'NEXT_PUBLIC_FOO' is already public`,
     );
   });
 });

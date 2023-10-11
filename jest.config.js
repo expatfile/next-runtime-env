@@ -14,5 +14,6 @@ module.exports = {
     '<rootDir>/*.js',
     '<rootDir>/build',
     '<rootDir>/examples',
+    '<rootDir>/src/lib',
   ],
 };
