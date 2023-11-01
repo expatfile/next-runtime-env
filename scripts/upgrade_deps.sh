@@ -2,7 +2,7 @@
 
 # Helper function to interactivly upgrade and install deps.
 function upgrade_and_install {
-    pnpm dlx npm-upgrade
+    pnpx npm-check-updates -i
 
     echo "ℹ️ Starting clean up..."
     rm -rf node_modules pnpm-lock.yaml
