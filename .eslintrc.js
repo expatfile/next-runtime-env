@@ -28,7 +28,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/__mocks__/.*', '**/*.spec.ts'],
+      files: ['src/__mocks__/.*', '**/*.spec.ts', '**/*.spec.tsx'],
       rules: {
         'import/no-extraneous-dependencies': [
           'error',
@@ -42,7 +42,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       node: {
-        extensions: ['.js', '.ts'],
+        extensions: ['.js', '.ts', '.jsx', '.tsx'],
       },
     },
   },

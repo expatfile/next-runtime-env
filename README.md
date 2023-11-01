@@ -5,7 +5,7 @@
 Populate your environment at **runtime** rather than **build time**.
 
 - Isomorphic - Server and browser compatible (and even in middleware.)
-- Static site generation support.
+- Next.js 13 App Router compatible.
 - `.env` support during development, just like [Next.js][nextjs-env-vars-order].
 
 ### Why we created this package 🤔
@@ -26,151 +26,88 @@ once, deploy many principle?
 
 ### This package 📦
 
-`next-runtime-env` solves this problem by generating a JavaScript file that
-contains the environment variables at runtime, so you no longer have to declare
-your environment variables at build time. This file is loaded in the client,
-safely exposing those variables to the browser. This allows you to follow the
-build once, deploy many principle by providing differed runtime variables to the
-same build.
+`next-runtime-env` solves this problem by creating a context that exposes your environment variables at runtime, so you no longer have to declare
+your environment variables at build time. The context provider safely exposes all environment variables prefixed with `NEXT_PUBLIC_` to the browser. This allows you to follow the build once, deploy many principle by providing differed runtime variables to the same build.
 
 ### Compatibility 🤝
 
-Our approach is compatible with
-[static site generation][static-generation-link] and supports middleware.
-
-For Next.js 13 App Router support, user `next-runtime-env@2.0.0` or higher.
+Because `next-runtime-env` is build on top of server components it is only compatible with Next.js 13 App Router. Use [version 1.x][pages-router-branch-link] for Next.js 13 Page Router support.
 
 ### Getting started 🚀
 
-1. Add the following lines to your `next.config.js`:
+Add the following lines to your `app/layout.tsx`:
 
 ```js
-const { configureRuntimeEnv } = require('next-runtime-env/build/configure');
+// app/layout.tsx
+import { PublicEnvProvider } from 'next-runtime-env';
 
-configureRuntimeEnv();
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body>
+        <PublicEnvProvider>{children}</PublicEnvProvider>
+      </body>
+    </html>
+  );
+}
+
+// By default server components are statically generated at build-time. To make
+// sure the env vars are actually loaded use, add the following line to server
+// components that use [env]. 👇
+export const dynamic = 'force-dynamic';
 ```
 
-When the server starts, this generates an `__ENV.js` file in the `public` folder
-containing allow-listed environment variables with a `NEXT_PUBLIC_` prefix.
-
-2. Add the following to the head section of your `pages/_document.js`:
-
-```tsx
-// pages/_document.tsx
-<script src="/__ENV.js" />
-```
-
-This will load the generated file in the browser.
+The `PublicEnvProvider` will automatically expose all environment variables prefixed with `NEXT_PUBLIC_` to the context. If you want more control over which variables are exposed to the context, you can use the `EnvProvider` and define the exposed variables manually.
 
 ### Usage 🧑‍💻
 
-In the browser, your variables will now be available at
-`window.__ENV.NEXT_PUBLIC_FOO` and on the server at
-`process.env.NEXT_PUBLIC_FOO`. For example:
+In the browser your environment variables are now accessible using the `useEnvContext` hook. On the server you can use `process.env` because the layout is forced to be dynamic. For example:
 
 ```bash
 # .env
 NEXT_PUBLIC_FOO="foo"
 BAR="bar"
-NEXT_PUBLIC_BAZ="baz"
+```
+
+> A `.env` file is not required, you can also declare your environment variables in whatever way you want.
+
+```tsx
+// app/client-page.tsx
+'use client';
+
+import { useEnvContext } from 'next-runtime-env';
+
+export default function SomePage() {
+    const { NEXT_PUBLIC_FOO } = useEnvContext();
+
+  return (
+    <main >
+      NEXT_PUBLIC_FOO: {NEXT_PUBLIC_FOO}
+    </main>
+  );
+}
 ```
 
 ```tsx
-// pages/some-page.tsx
-type Props = {
-  bar: string;
-};
+// app/server-page.tsx
 
-export default function SomePage({ bar }: Props) {
+export default function SomePage() {
   return (
-    <div>
-      {window.__ENV.NEXT_PUBLIC_FOO} {bar}
-    </div>
+    <main >
+      BAR: {process.env.BAR}
+    </main>
   );
 }
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  return {
-    props: {
-      bar: process.env.BAR,
-    },
-  };
-};
 ```
 
 ### Utilities 🛠
 
 We have included some utility function to make it even easier to work with
 environment variables.
-
-#### `env(key: string): string | undefined`
-
-Returns the value of the environment variable with the given key. If the
-environment variable is not found, it returns undefined.
-
-##### Example
-
-```tsx
-// pages/some-page.tsx
-import { env } from 'next-runtime-env';
-
-type Props = {
-  bar: string;
-};
-
-export default function SomePage({ bar }: Props) {
-  return (
-    <div>
-      {env('NEXT_PUBLIC_FOO')} {bar}
-    </div>
-  );
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  return {
-    props: {
-      bar: env('BAR'),
-    },
-  };
-};
-```
-
-#### `allEnv(): ProcessEnv`
-
-Returns all environment variables as a `ProcessEnv` object regardless of
-the platform. This is useful if you want to destructure multiple env vars at
-once.
-
-##### Example
-
-```tsx
-// pages/some-page.tsx
-import { allEnv } from 'next-runtime-env';
-
-type Props = {
-  bar: string;
-};
-
-export default function SomePage({ bar }: Props) {
-  const { NEXT_PUBLIC_FOO, NEXT_PUBLIC_BAZ } = allEnv();
-
-  return (
-    <div>
-      {NEXT_PUBLIC_FOO} {NEXT_PUBLIC_BAZ} {bar}
-    </div>
-  );
-}
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const { BAR } = allEnv();
-
-  return {
-    props: {
-      bar: BAR,
-    },
-  };
-};
-```
 
 #### `makeEnvPublic(key: string | string[]): void`
 
@@ -185,8 +122,7 @@ array of keys.
 
 ```js
 // next.config.js
-const { configureRuntimeEnv } = require('next-runtime-env/build/configure');
-const { makeEnvPublic } = require('next-runtime-env/build/make-env-public');
+const { makeEnvPublic } = require('next-runtime-env');
 
 // Given that `FOO` is declared as a regular env var, not a public one. This
 // will make it public and available as `NEXT_PUBLIC_FOO`.
@@ -194,9 +130,6 @@ makeEnvPublic('FOO');
 
 // Or you can make multiple env vars public at once.
 makeEnvPublic(['BAR', 'BAZ']);
-
-// This will generate the `__ENV.js` file and include `NEXT_PUBLIC_FOO`.
-configureRuntimeEnv();
 ```
 
 ### Maintenance 👷
@@ -207,6 +140,7 @@ The #1 US expat tax e-filing software. 🇺🇸
 ### Other work 📚
 
 Big thanks to the [react-env][react-env-repo] project, which inspired us. 🙏
+Also, a big shout out to @andonirdgz for the idea to use a context provider. 💪
 
 [build-url]: https://img.shields.io/github/checks-status/expatfile/next-runtime-env/main
 [cov-img]: https://codecov.io/gh/expatfile/next-runtime-env/branch/main/graph/badge.svg?token=mbGgsweFuP
@@ -217,7 +151,7 @@ Big thanks to the [react-env][react-env-repo] project, which inspired us. 🙏
 [build-once-deploy-many-link]: https://www.mikemcgarr.com/blog/build-once-deploy-many.html
 [fundamental-principle-link]: https://cloud.redhat.com/blog/build-once-deploy-anywhere
 [twelve-factor-link]: https://12factor.net
-[static-generation-link]: https://nextjs.org/docs/basic-features/pages#static-generation
+[pages-router-branch-link]: https://github.com/expatfile/next-runtime-env/tree/1.x
 [nextjs-env-vars]: https://nextjs.org/docs/basic-features/environment-variables
 [react-env-repo]: https://github.com/andrewmclagan/react-env
 [expatfile-site]: https://expatfile.tax
