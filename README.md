@@ -31,7 +31,17 @@ your environment variables at build time. The context provider safely exposes al
 
 ### Compatibility 🤝
 
-Because `next-runtime-env` is build on top of server components it is only compatible with Next.js 13 App Router. Use [version 1.x][pages-router-branch-link] for Next.js 13 Page Router support.
+Because `next-runtime-env` uses Next.js 14 caching, it is only compatible with Next.js 14 and up.
+
+To use with Next.js 13 use [version 2.x][pages-router-branch-link]. Version 2.x is build on top of server components it is only compatible with Next.js 13 App Router.
+
+Use [version 1.x][pages-router-branch-link] for Next.js 12/13 Page Router support.
+
+### Versions 🔖
+
+- `next-runtime-env@1.x` - Next.js 12/13 Page Router support.
+- `next-runtime-env@2.x` - Next.js 13 App Router support.
+- `next-runtime-env@3.x` - Next.js 14 caching support.
 
 ### Getting started 🚀
 
@@ -54,11 +64,6 @@ export default function RootLayout({
     </html>
   );
 }
-
-// By default server components are statically generated at build-time. To make
-// sure the env vars are actually loaded use, add the following line to server
-// components that use [env]. 👇
-export const dynamic = 'force-dynamic';
 ```
 
 The `PublicEnvProvider` will automatically expose all environment variables prefixed with `NEXT_PUBLIC_` to the context. If you want more control over which variables are exposed to the context, you can use the `EnvProvider` and define the exposed variables manually.
@@ -94,8 +99,13 @@ export default function SomePage() {
 
 ```tsx
 // app/server-page.tsx
+// This is as of Next.js 14, but you could also use other dynamic functions
+import { unstable_noStore as noStore } from 'next/cache';
 
 export default function SomePage() {
+  noStore(); // Opt into dynamic rendering
+
+  // This value will be evaluated at runtime
   return (
     <main >
       BAR: {process.env.BAR}
@@ -132,6 +142,8 @@ makeEnvPublic('FOO');
 makeEnvPublic(['BAR', 'BAZ']);
 ```
 
+> You can also use the experimental instrumentation hook introduced in Next.js 13. See the `with-app-router` example for more details.
+
 ### Maintenance 👷
 
 This package is maintained and actively used by [Expatfile.tax][expatfile-site].
@@ -152,6 +164,7 @@ Also, a big shout out to @andonirdgz for the idea to use a context provider. �
 [fundamental-principle-link]: https://cloud.redhat.com/blog/build-once-deploy-anywhere
 [twelve-factor-link]: https://12factor.net
 [pages-router-branch-link]: https://github.com/expatfile/next-runtime-env/tree/1.x
+[app-router-branch-link]: https://github.com/expatfile/next-runtime-env/tree/2.x
 [nextjs-env-vars]: https://nextjs.org/docs/basic-features/environment-variables
 [react-env-repo]: https://github.com/andrewmclagan/react-env
 [expatfile-site]: https://expatfile.tax

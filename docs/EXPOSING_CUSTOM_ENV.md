@@ -6,7 +6,8 @@ You might not only want to expose environment variables that are prefixed with `
 
 ```tsx
 // app/layout.tsx
-
+// This is as of Next.js 14, but you could also use other dynamic functions
+import { unstable_noStore as noStore } from 'next/cache';
 import { EnvProvider } from 'next-runtime-env';
 
 export default function RootLayout({
@@ -14,6 +15,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  noStore(); // Opt into dynamic rendering
+
+  // This value will be evaluated at runtime
   return (
     <html lang="en">
       <body>
@@ -31,9 +35,4 @@ export default function RootLayout({
     </html>
   );
 }
-
-// By default server components are statically generated at build-time. To make
-// sure the env vars are actually loaded use, add the following line to server
-// components that use [env]. 👇
-export const dynamic = 'force-dynamic';
 ```
