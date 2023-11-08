@@ -70,7 +70,7 @@ describe('PublicEnvProvider', () => {
     expect(getByText(/^BAR:/).textContent).toBe('BAR: ');
   });
 
-  it("should only make public env available to it's children ", () => {
+  it("should only make public env available to it's children", () => {
     process.env = {
       NEXT_PUBLIC_FOO: 'foo-value',
       BAR: 'bar-value',
