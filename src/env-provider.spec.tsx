@@ -20,7 +20,7 @@ describe('EnvProvider', () => {
     process.env = {};
   });
 
-  it("should make the env available to it's children ", () => {
+  it("should make the env available to it's children", () => {
     const env = { NODE_ENV: 'test', API_URL: 'http://localhost:3000' };
 
     const SomeClientComponent = () => {
