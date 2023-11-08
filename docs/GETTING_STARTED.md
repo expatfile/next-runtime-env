@@ -33,19 +33,7 @@ export default function RootLayout({
 
 > Keep in mind that the RuntimeEnvProvider must be added in a Server Component.
 
-3. Next force dynamic generation for the Server Component by adding the following line:
-
-```tsx
-// src/app/layout.tsx
-
-// ...
-
-export const dynamic = 'force-dynamic';
-```
-
-> By default server components are statically generated at build-time. To make sure the env vars are actually loaded during runtime, you need to force dynamic generation.
-
-4. Finally, use `useEnvContext` hook to access the runtime environment variables in your components:
+3. Finally, use `useEnvContext` hook to access the runtime environment variables in your components:
 
 ```tsx
 import { useEnvContext } from 'next-runtime-env';

@@ -16,3 +16,5 @@ makeEnvPublic('FOO');
 // Or you can make multiple env vars public at once.
 makeEnvPublic(['BAR', 'BAZ']);
 ```
+
+> You can also use the experimental instrumentation hook introduced in Next.js 13. See the `with-app-router` example for more details.
