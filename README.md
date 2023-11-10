@@ -33,7 +33,7 @@ your environment variables at build time. The context provider safely exposes al
 
 Because `next-runtime-env` uses Next.js 14 caching, it is only compatible with Next.js 14 and up.
 
-To use with Next.js 13 use [version 2.x][pages-router-branch-link]. Version 2.x is build on top of server components it is only compatible with Next.js 13 App Router.
+To use with Next.js 13 use [version 2.x][app-router-branch-link]. Version 2.x is build on top of server components it is only compatible with Next.js 13 App Router.
 
 Use [version 1.x][pages-router-branch-link] for Next.js 12/13 Page Router support.
 
