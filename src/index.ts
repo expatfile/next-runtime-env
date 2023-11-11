@@ -1,5 +1,12 @@
 /* istanbul ignore file */
-export { EnvProvider } from './env-provider';
-export { PublicEnvProvider } from './public-env-provider';
-export { useEnvContext } from './use-env-context';
+
+// This allows TypeScript to detect our global value.
+declare global {
+  interface Window {
+    __ENV: NodeJS.ProcessEnv;
+  }
+}
+
+export * from './provider';
+export * from './script';
 export { makeEnvPublic } from './utils/make-env-public';

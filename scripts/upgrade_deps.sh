@@ -2,7 +2,7 @@
 
 # Helper function to interactivly upgrade and install deps.
 function upgrade_and_install {
-    pnpx npm-check-updates -i
+    pnpx npm-check-updates -i --install never
 
     echo "ℹ️ Starting clean up..."
     rm -rf node_modules pnpm-lock.yaml
@@ -15,12 +15,17 @@ function upgrade_and_install {
 upgrade_and_install
 
 # Upgrade deps for the page router example.
-cd examples/with-pages-router || exit
+cd examples/with-pages-router || exit 1
 upgrade_and_install
 cd ../../
 
-# Upgrade deps for the app router example.
-cd examples/with-app-router || exit
+# Upgrade deps for the app router context example.
+cd examples/with-app-router-context || exit 1
+upgrade_and_install
+cd ../../
+
+# Upgrade deps for the app router script example.
+cd examples/with-app-router-script || exit 1
 upgrade_and_install
 cd ../../
 

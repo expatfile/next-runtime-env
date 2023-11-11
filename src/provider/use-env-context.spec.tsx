@@ -2,8 +2,8 @@ import '@testing-library/jest-dom';
 
 import { render } from '@testing-library/react';
 
+import { ProcessEnv } from '../typings/process-env';
 import { EnvProvider } from './env-provider';
-import { ProcessEnv } from './typings/process-env';
 import { useEnvContext } from './use-env-context';
 
 const errorSpy = jest.spyOn(console, 'error');
