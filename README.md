@@ -1,158 +1,86 @@
 ![GitHub branch checks state][build-url] [![codecov][cov-img]][cov-url] [![Known Vulnerabilities][snyk-img]][snyk-url]
 
-# Next.js Runtime Environment Configuration
+# 🌐 Next.js Runtime Environment Configuration
 
-Populate your environment at **runtime** rather than **build time**.
+**Effortlessly populate your environment at runtime, not just at build time, with `next-runtime-env`.**
 
-- Isomorphic - Server and browser compatible (and even in middleware.)
-- Next.js 13 App Router compatible.
-- `.env` support during development, just like [Next.js][nextjs-env-vars-order].
+🌟 **Highlights:**
+- **Isomorphic Design:** Works seamlessly on both server and browser, and even in middleware.
+- **Next.js 13 & 14 Ready:** Fully compatible with the latest Next.js features.
+- **`.env` Friendly:** Use `.env` files during development, just like standard Next.js.
 
-### Why we created this package 🤔
+### 🤔 Why `next-runtime-env`?
 
-[Build once, deploy many][build-once-deploy-many-link] is an essential principle
-of software development. The main idea is to use the same bundle for all
-environments, from testing to production. This approach enables easy deployment
-and testability and is considered a
-[fundamental principle of continuous delivery][fundamental-principle-link]. It
-is also part of the [twelve-factor methodology][twelve-factor-link]. As crucial
-as it is, it has yet to receive significant support in the world of front-end
-development, and Next.js is no exception.
+In the modern software development landscape, the "[Build once, deploy many][build-once-deploy-many-link]" philosophy is key. This principle, essential for easy deployment and testability, is a [cornerstone of continuous delivery][fundamental-principle-link] and is embraced by the [twelve-factor methodology][twelve-factor-link]. However, front-end development, particularly with Next.js, often lacks support for this - requiring separate builds for different environments. `next-runtime-env` is our solution to bridge this gap in Next.js.
 
-Next.js does support [environment variables][nextjs-env-vars], but only at
-build time. This means you must rebuild your app for each target environment,
-which violates the principle. But what if you want, or need, to follow the build
-once, deploy many principle?
+### 📦 Introducing `next-runtime-env`
 
-### This package 📦
+`next-runtime-env` dynamically injects environment variables into your Next.js application at runtime. This approach adheres to the "build once, deploy many" principle, allowing the same build to be used across various environments without rebuilds.
 
-`next-runtime-env` solves this problem by creating a context that exposes your environment variables at runtime, so you no longer have to declare
-your environment variables at build time. The context provider safely exposes all environment variables prefixed with `NEXT_PUBLIC_` to the browser. This allows you to follow the build once, deploy many principle by providing differed runtime variables to the same build.
+### 🤝 Compatibility Notes
 
-### Compatibility 🤝
+- **Next.js 14:** Use `next-runtime-env@3.x` for optimal caching support.
+- **Next.js 13:** Opt for [`next-runtime-env@2.x`][app-router-branch-link], tailored for the App Router.
+- **Next.js 12/13 Page Router:** Stick with [`next-runtime-env@1.x`][pages-router-branch-link].
 
-Because `next-runtime-env` uses Next.js 14 caching, it is only compatible with Next.js 14 and up.
+### 🔖 Version Guide
 
-To use with Next.js 13 use [version 2.x][app-router-branch-link]. Version 2.x is build on top of server components it is only compatible with Next.js 13 App Router.
+- **1.x:** Next.js 12/13 Page Router
+- **2.x:** Next.js 13 App Router
+- **3.x:** Next.js 14 with advanced caching
 
-Use [version 1.x][pages-router-branch-link] for Next.js 12/13 Page Router support.
+### 🚀 Getting Started
 
-### Versions 🔖
-
-- `next-runtime-env@1.x` - Next.js 12/13 Page Router support.
-- `next-runtime-env@2.x` - Next.js 13 App Router support.
-- `next-runtime-env@3.x` - Next.js 14 caching support.
-
-### Getting started 🚀
-
-Add the following lines to your `app/layout.tsx`:
+In your `app/layout.tsx`, add:
 
 ```js
 // app/layout.tsx
-import { PublicEnvProvider } from 'next-runtime-env';
+import { PublicEnvScript } from 'next-runtime-env';
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <PublicEnvScript />
+      </head>
       <body>
-        <PublicEnvProvider>{children}</PublicEnvProvider>
+        {children}
       </body>
     </html>
   );
 }
 ```
 
-The `PublicEnvProvider` will automatically expose all environment variables prefixed with `NEXT_PUBLIC_` to the context. If you want more control over which variables are exposed to the context, you can use the `EnvProvider` and define the exposed variables manually.
+The `PublicEnvScript` component automatically exposes all environment variables prefixed with `NEXT_PUBLIC_` to the browser. For custom variable exposure, refer to [EXPOSING_CUSTOM_ENV.md](docs/EXPOSING_CUSTOM_ENV.md).
 
-### Usage 🧑‍💻
+### 🧑‍💻 Usage
 
-In the browser your environment variables are now accessible using the `useEnvContext` hook. On the server you can use `process.env` because the layout is forced to be dynamic. For example:
-
-```bash
-# .env
-NEXT_PUBLIC_FOO="foo"
-BAR="bar"
-```
-
-> A `.env` file is not required, you can also declare your environment variables in whatever way you want.
+Access your environment variables easily:
 
 ```tsx
 // app/client-page.tsx
 'use client';
-
-import { useEnvContext } from 'next-runtime-env';
+import { env } from 'next-runtime-env';
 
 export default function SomePage() {
-    const { NEXT_PUBLIC_FOO } = useEnvContext();
-
-  return (
-    <main >
-      NEXT_PUBLIC_FOO: {NEXT_PUBLIC_FOO}
-    </main>
-  );
+  const NEXT_PUBLIC_FOO = env('NEXT_PUBLIC_FOO');
+  return <main>NEXT_PUBLIC_FOO: {NEXT_PUBLIC_FOO}</main>;
 }
 ```
 
-```tsx
-// app/server-page.tsx
-// This is as of Next.js 14, but you could also use other dynamic functions
-import { unstable_noStore as noStore } from 'next/cache';
+### 🛠 Utilities
 
-export default function SomePage() {
-  noStore(); // Opt into dynamic rendering
+Need to expose non-prefixed environment variables to the browser? Check out [MAKING_ENV_PUBLIC.md](docs/MAKING_ENV_PUBLIC.md).
 
-  // This value will be evaluated at runtime
-  return (
-    <main >
-      BAR: {process.env.BAR}
-    </main>
-  );
-}
-```
+### 👷 Maintenance
 
-### Utilities 🛠
+`next-runtime-env` is proudly maintained by [Expatfile.tax](expatfile-site), the leading US expat tax e-filing software.
 
-We have included some utility function to make it even easier to work with
-environment variables.
+### 📚 Acknowledgments
 
-#### `makeEnvPublic(key: string | string[]): void`
+Kudos to the [react-env](react-env-repo) project for the inspiration, and a shoutout to @andonirdgz for the innovative context provider idea!
 
-Makes an environment variable with a given key public. This is useful if you
-want to use an environment variable in the browser, but it was was not declared
-with a `NEXT_PUBLIC_` prefix.
-
-For ease of use you can also make multiple env vars public at once by passing an
-array of keys.
-
-##### Example
-
-```js
-// next.config.js
-const { makeEnvPublic } = require('next-runtime-env');
-
-// Given that `FOO` is declared as a regular env var, not a public one. This
-// will make it public and available as `NEXT_PUBLIC_FOO`.
-makeEnvPublic('FOO');
-
-// Or you can make multiple env vars public at once.
-makeEnvPublic(['BAR', 'BAZ']);
-```
-
-> You can also use the experimental instrumentation hook introduced in Next.js 13. See the `with-app-router` example for more details.
-
-### Maintenance 👷
-
-This package is maintained and actively used by [Expatfile.tax][expatfile-site].
-The #1 US expat tax e-filing software. 🇺🇸
-
-### Other work 📚
-
-Big thanks to the [react-env][react-env-repo] project, which inspired us. 🙏
-Also, a big shout out to @andonirdgz for the idea to use a context provider. 💪
+---
 
 [build-url]: https://img.shields.io/github/checks-status/expatfile/next-runtime-env/main
 [cov-img]: https://codecov.io/gh/expatfile/next-runtime-env/branch/main/graph/badge.svg?token=mbGgsweFuP
