@@ -27,7 +27,7 @@ describe('EnvProvider', () => {
     const { getByTestId } = render(<EnvScript env={env} />);
 
     expect(getByTestId('env-script').textContent).toBe(
-      `window[__ENV] = ${JSON.stringify(env)}`,
+      `window['__ENV'] = ${JSON.stringify(env)}`,
     );
   });
 

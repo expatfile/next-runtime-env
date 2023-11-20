@@ -29,7 +29,7 @@ describe('PublicEnvProvider', () => {
     const { getByTestId } = render(<PublicEnvScript />);
 
     expect(getByTestId('env-script').textContent).toBe(
-      `window[__ENV] = {"NEXT_PUBLIC_FOO":"foo-value"}`,
+      `window['__ENV'] = {"NEXT_PUBLIC_FOO":"foo-value"}`,
     );
   });
 
@@ -40,7 +40,7 @@ describe('PublicEnvProvider', () => {
 
     const { getByTestId } = render(<PublicEnvScript />);
 
-    expect(getByTestId('env-script').textContent).toBe(`window[__ENV] = {}`);
+    expect(getByTestId('env-script').textContent).toBe(`window['__ENV'] = {}`);
   });
 
   it('should only set public env in the script', () => {
@@ -52,7 +52,7 @@ describe('PublicEnvProvider', () => {
     const { getByTestId } = render(<PublicEnvScript />);
 
     expect(getByTestId('env-script').textContent).toBe(
-      `window[__ENV] = {"NEXT_PUBLIC_FOO":"foo-value"}`,
+      `window['__ENV'] = {"NEXT_PUBLIC_FOO":"foo-value"}`,
     );
   });
 
