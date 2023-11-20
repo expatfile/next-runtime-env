@@ -40,7 +40,7 @@ export const EnvScript: FC<EnvScriptProps> = ({ env, nonce }) => {
       data-testid="env-script"
       nonce={nonceString}
       dangerouslySetInnerHTML={{
-        __html: `window[${PUBLIC_ENV_KEY}] = ${JSON.stringify(env)}`,
+        __html: `window['${PUBLIC_ENV_KEY}'] = ${JSON.stringify(env)}`,
       }}
     />
   );
