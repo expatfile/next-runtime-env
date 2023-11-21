@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <PublicEnvScript />
+        <PublicEnvScript nonce={{ headerKey: 'x-nonce' }} />
       </head>
       <body className={inter.className}>{children}</body>
     </html>
