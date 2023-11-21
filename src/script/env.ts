@@ -1,3 +1,5 @@
+import { unstable_noStore as noStore } from 'next/cache';
+
 import { isBrowser } from '../helpers/is-browser';
 import { PUBLIC_ENV_KEY } from './constants';
 
@@ -20,6 +22,8 @@ export function env(key: string): string | undefined {
 
     return window[PUBLIC_ENV_KEY][key];
   }
+
+  noStore();
 
   return process.env[key];
 }

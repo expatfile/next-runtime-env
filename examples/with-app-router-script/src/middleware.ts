@@ -13,8 +13,6 @@ export function middleware(request: NextRequest) {
     base-uri 'self';
     form-action 'self';
     frame-ancestors 'none';
-    ${process.env.NODE_ENV === 'production' ? 'block-all-mixed-content;' : ''}
-    ${process.env.NODE_ENV === 'production' ? 'upgrade-insecure-requests;' : ''}
 `;
 
   // Replace newline characters and spaces
