@@ -1,6 +1,9 @@
 name: Continuous Integration
 
 on:
+  pull_request:
+    branches:
+      - development
   push:
     # branches-ignore:
     #   - main
