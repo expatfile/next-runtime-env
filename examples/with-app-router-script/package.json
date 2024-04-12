@@ -18,6 +18,6 @@
     "next-runtime-env": "link:../..",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "5.4.3"
+    "typescript": "5.4.5"
   }
 }
