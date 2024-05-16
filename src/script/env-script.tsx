@@ -1,5 +1,6 @@
 // XXX: Blocked by https://github.com/vercel/next.js/pull/58129
 // import { headers } from 'next/headers';
+import Script from 'next/script';
 import { type FC } from 'react';
 
 import { type NonceConfig } from '../typings/nonce';
@@ -36,8 +37,8 @@ export const EnvScript: FC<EnvScriptProps> = ({ env, nonce }) => {
   }
 
   return (
-    <script
-      data-testid="env-script"
+    <Script
+      strategy="beforeInteractive"
       nonce={nonceString}
       dangerouslySetInnerHTML={{
         __html: `window['${PUBLIC_ENV_KEY}'] = ${JSON.stringify(env)}`,

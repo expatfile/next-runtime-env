@@ -4,29 +4,26 @@ import { render } from '@testing-library/react';
 
 import { EnvScript } from './env-script';
 
-// TODO: mock next/headers
+jest.mock('next/script', () =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({ children, ...props }: any) => <script {...props}>{children}</script>,
+);
 
-let processEnv: NodeJS.ProcessEnv;
-
-beforeAll(() => {
-  processEnv = process.env;
+beforeEach(() => {
+  process.env = {};
 });
 
-afterAll(() => {
-  process.env = processEnv;
+afterEach(() => {
+  process.env = {};
 });
 
-describe('EnvProvider', () => {
-  beforeEach(() => {
-    process.env = {};
-  });
-
+describe('EnvScript', () => {
   it('should set the env in the script', () => {
     const env = { NODE_ENV: 'test', API_URL: 'http://localhost:3000' };
 
-    const { getByTestId } = render(<EnvScript env={env} />);
+    render(<EnvScript env={env} />);
 
-    expect(getByTestId('env-script').textContent).toBe(
+    expect(document.querySelector('script')?.textContent).toBe(
       `window['__ENV'] = ${JSON.stringify(env)}`,
     );
   });
@@ -35,17 +32,17 @@ describe('EnvProvider', () => {
     const env = { NODE_ENV: 'test', API_URL: 'http://localhost:3000' };
     const nonce = 'test-nonce-xyz';
 
-    const { getByTestId } = render(<EnvScript env={env} nonce={nonce} />);
+    render(<EnvScript env={env} nonce={nonce} />);
 
-    expect(getByTestId('env-script')).toHaveAttribute('nonce', nonce);
+    expect(document.querySelector('script')).toHaveAttribute('nonce', nonce);
   });
 
   it("should not set a nonce when it's not available", () => {
     const env = { NODE_ENV: 'test', API_URL: 'http://localhost:3000' };
 
-    const { getByTestId } = render(<EnvScript env={env} />);
+    render(<EnvScript env={env} />);
 
-    expect(getByTestId('env-script')).not.toHaveAttribute('nonce');
+    expect(document.querySelector('script')).not.toHaveAttribute('nonce');
   });
 
   it.todo(

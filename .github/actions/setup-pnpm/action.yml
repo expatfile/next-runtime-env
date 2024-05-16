@@ -24,7 +24,7 @@ runs:
     uses: pnpm/action-setup@v2
     id: pnpm-install
     with:
-      version: 8
+      version: 9
       run_install: false
 
   - name: Set pnpm home
