@@ -4,43 +4,43 @@ import { render } from '@testing-library/react';
 
 import { PublicEnvScript } from './public-env-script';
 
-// TODO: mock next/headers
+jest.mock('next/script', () =>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ({ children, ...props }: any) => <script {...props}>{children}</script>,
+);
 
-let processEnv: NodeJS.ProcessEnv;
-
-beforeAll(() => {
-  processEnv = process.env;
+beforeEach(() => {
+  process.env = {};
 });
 
-afterAll(() => {
-  process.env = processEnv;
+afterEach(() => {
+  process.env = {};
 });
 
-describe('PublicEnvProvider', () => {
-  beforeEach(() => {
-    process.env = {};
-  });
-
-  it('should set a public env in the script', () => {
+describe('PublicEnvScript', () => {
+  it('should set a public env in the script', async () => {
     process.env = {
       NEXT_PUBLIC_FOO: 'foo-value',
     };
 
-    const { getByTestId } = render(<PublicEnvScript />);
+    render(<PublicEnvScript />);
 
-    expect(getByTestId('env-script').textContent).toBe(
+    expect(document.querySelector('script')?.textContent).toBe(
       `window['__ENV'] = {"NEXT_PUBLIC_FOO":"foo-value"}`,
     );
   });
 
   it('should not set a private env in the script', () => {
     process.env = {
+      NEXT_PUBLIC_FOO: 'foo-value',
       BAR: 'bar-value',
     };
 
-    const { getByTestId } = render(<PublicEnvScript />);
+    render(<PublicEnvScript />);
 
-    expect(getByTestId('env-script').textContent).toBe(`window['__ENV'] = {}`);
+    expect(document.querySelector('script')?.textContent).toBe(
+      `window['__ENV'] = {"NEXT_PUBLIC_FOO":"foo-value"}`,
+    );
   });
 
   it('should only set public env in the script', () => {
@@ -49,9 +49,9 @@ describe('PublicEnvProvider', () => {
       BAR: 'bar-value',
     };
 
-    const { getByTestId } = render(<PublicEnvScript />);
+    render(<PublicEnvScript />);
 
-    expect(getByTestId('env-script').textContent).toBe(
+    expect(document.querySelector('script')?.textContent).toBe(
       `window['__ENV'] = {"NEXT_PUBLIC_FOO":"foo-value"}`,
     );
   });
@@ -61,11 +61,10 @@ describe('PublicEnvProvider', () => {
       NEXT_PUBLIC_FOO: 'foo-value',
       BAR: 'bar-value',
     };
-    const nonce = 'test-nonce-xyz';
 
-    const { getByTestId } = render(<PublicEnvScript nonce={nonce} />);
+    render(<PublicEnvScript nonce="test-nonce-xyz" />);
 
-    expect(getByTestId('env-script')).toHaveAttribute('nonce', nonce);
+    expect(document.querySelector('script')).toHaveAttribute('nonce');
   });
 
   it("should not set a nonce when it's not available", () => {
@@ -74,8 +73,8 @@ describe('PublicEnvProvider', () => {
       BAR: 'bar-value',
     };
 
-    const { getByTestId } = render(<PublicEnvScript />);
+    render(<PublicEnvScript />);
 
-    expect(getByTestId('env-script')).not.toHaveAttribute('nonce');
+    expect(document.querySelector('script')).not.toHaveAttribute('nonce');
   });
 });

@@ -38,5 +38,5 @@ runs:
       git fetch --unshallow
       git checkout development
       git pull
-      git merge --no-ff origin/${{ inputs.main_branch }} -m "Back-merge ${{ inputs.main_branch }} into development"
+      git merge --no-ff origin/${{ inputs.main_branch }} -m "🔀 Back-merge ${{ inputs.main_branch }} into development"
       git push
