@@ -16,6 +16,20 @@ afterAll(() => {
   errorSpy.mockRestore();
 });
 
+describe('silent', () => {
+  it('should not log an event message', () => {
+    error('foo', { logLevel: 'silent' });
+
+    expect(errorSpy).not.toHaveBeenCalled();
+  });
+
+  it('should respect log level', () => {
+    event('foo', { logLevel: 'warn' });
+
+    expect(logSpy).not.toHaveBeenCalled();
+  });
+});
+
 describe('error', () => {
   it('should log an error message', () => {
     error('foo');
