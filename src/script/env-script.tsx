@@ -1,6 +1,6 @@
 // XXX: Blocked by https://github.com/vercel/next.js/pull/58129
 // import { headers } from 'next/headers';
-import Script from 'next/script';
+import Script, { ScriptProps } from 'next/script';
 import { type FC } from 'react';
 
 import { type NonceConfig } from '../typings/nonce';
@@ -10,6 +10,7 @@ import { PUBLIC_ENV_KEY } from './constants';
 type EnvScriptProps = {
   env: ProcessEnv;
   nonce?: string | NonceConfig;
+  strategy?: ScriptProps['strategy'];
 };
 
 /**
@@ -23,7 +24,7 @@ type EnvScriptProps = {
  * </head>
  * ```
  */
-export const EnvScript: FC<EnvScriptProps> = ({ env, nonce }) => {
+export const EnvScript: FC<EnvScriptProps> = ({ env, nonce, strategy }) => {
   let nonceString: string | undefined;
 
   // XXX: Blocked by https://github.com/vercel/next.js/pull/58129
@@ -38,7 +39,7 @@ export const EnvScript: FC<EnvScriptProps> = ({ env, nonce }) => {
 
   return (
     <Script
-      strategy="beforeInteractive"
+      strategy={strategy || 'beforeInteractive'}
       nonce={nonceString}
       dangerouslySetInnerHTML={{
         __html: `window['${PUBLIC_ENV_KEY}'] = ${JSON.stringify(env)}`,
