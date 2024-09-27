@@ -1,6 +1,6 @@
 {
-  "name": "awesome-next-runtime-env",
-  "version": "1.0.0",
+  "name": "next-runtime-env",
+  "version": "0.0.0-development",
   "description": "Next.js Runtime Environment Configuration - Populates your environment at runtime rather than build time.",
   "main": "build/index.js",
   "scripts": {
@@ -25,12 +25,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Unsleeping/awesome-next-runtime-env.git"
+    "url": "https://github.com/expatfile/next-runtime-env.git"
   },
   "bugs": {
-    "url": "https://github.com/Unsleeping/awesome-next-runtime-env/issues"
+    "url": "https://github.com/expatfile/next-runtime-env/issues"
   },
-  "homepage": "https://github.com/Unsleeping/awesome-next-runtime-env#readme",
+  "homepage": "https://github.com/expatfile/next-runtime-env#readme",
   "dependencies": {
     "next": "^14",
     "react": "^18"
