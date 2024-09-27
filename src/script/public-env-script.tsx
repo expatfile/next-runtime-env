@@ -1,4 +1,5 @@
 import { unstable_noStore as noStore } from 'next/cache';
+import { ScriptProps } from 'next/script';
 import { type FC } from 'react';
 
 import { getPublicEnv } from '../helpers/get-public-env';
@@ -7,6 +8,7 @@ import { EnvScript } from './env-script';
 
 type PublicEnvScriptProps = {
   nonce?: string | NonceConfig;
+  strategy?: ScriptProps['strategy'];
 };
 
 /**
@@ -23,11 +25,14 @@ type PublicEnvScriptProps = {
  * </head>
  * ```
  */
-export const PublicEnvScript: FC<PublicEnvScriptProps> = ({ nonce }) => {
+export const PublicEnvScript: FC<PublicEnvScriptProps> = ({
+  nonce,
+  strategy,
+}) => {
   noStore(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
   const publicEnv = getPublicEnv();
 
-  return <EnvScript env={publicEnv} nonce={nonce} />;
+  return <EnvScript env={publicEnv} nonce={nonce} strategy={strategy} />;
 };
