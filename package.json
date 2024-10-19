@@ -38,7 +38,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
-    "@types/eslint": "^8.56.10",
+    "@types/eslint": "^9.0.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.12",
     "@types/react": "^18",
