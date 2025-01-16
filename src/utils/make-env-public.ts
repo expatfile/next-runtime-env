@@ -1,16 +1,23 @@
 import { event, LogOptions, warn } from '../helpers/log';
 
-export interface MakeEnvPublicOptions extends LogOptions {}
+export interface MakeEnvPublicOptions extends LogOptions {
+  skipNonExistingVar?: boolean
+}
 
 function prefixKey(key: string, options?: MakeEnvPublicOptions) {
+  const {skipNonExistingVar = true} = options || {};
   // Check if key is available in process.env.
   if (!process.env[key]) {
-    warn(
-      `Skipped prefixing environment variable '${key}'. Variable not in process.env`,
-      options,
-    );
+    if (skipNonExistingVar) {
+      warn(
+        `Skipped prefixing environment variable '${key}'. Variable not in process.env`,
+        options,
+      );
+  
+      return;
+    }
 
-    return;
+    process.env[key] = ''
   }
 
   // Check if key is already public.
@@ -20,7 +27,7 @@ function prefixKey(key: string, options?: MakeEnvPublicOptions) {
 
   const prefixedKey = `NEXT_PUBLIC_${key}`;
 
-  process.env[prefixedKey] = process.env[key];
+  process.env[prefixedKey] = process.env[key] || "";
 
   // eslint-disable-next-line no-console
   event(`Prefixed environment variable '${key}'`, options);
@@ -38,6 +45,9 @@ function prefixKey(key: string, options?: MakeEnvPublicOptions) {
  * // Make multiple variables public.
  * makeEnvPublic(['FOO', 'BAR', 'BAZ']);
  *
+ * // Enable prefixing vars not present on process.env
+ * makeEnvPublic('FOO', { skipNonExistingVar: false });
+ * 
  * // Disable logging.
  * makeEnvPublic('FOO', { logLevel: 'silent' });
  *
