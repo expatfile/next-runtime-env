@@ -70,7 +70,14 @@ describe('makeEnvPublic()', () => {
     );
   });
 
-  it('should warn when prefixing a variable that is not available in process.env', () => {
+  it('should warn when prefixing a variable that is not available in process.env and default options', () => {
+    makeEnvPublic('FOO', {skipNonExistingVar: false});
+
+    expect(process.env.FOO).toEqual("");
+    expect(process.env.NEXT_PUBLIC_FOO).toEqual("");
+  });
+
+  it('should prefixi a variable that is not available in process.env if skipNonExistingVar option is false', () => {
     makeEnvPublic('FOO');
 
     expect(warnMock).toHaveBeenCalledWith(
