@@ -15,15 +15,15 @@ You might not only want to expose environment variables that are prefixed with `
 ```tsx
 // app/layout.tsx
 // This is as of Next.js 14, but you could also use other dynamic functions
-import { unstable_noStore as noStore } from 'next/cache';
+import { connection } from 'next/server'
 import { EnvScript } from 'next-runtime-env';
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  noStore(); // Opt into dynamic rendering
+  await connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
   return (
@@ -55,15 +55,15 @@ You might not only want to expose environment variables that are prefixed with `
 ```tsx
 // app/layout.tsx
 // This is as of Next.js 14, but you could also use other dynamic functions
-import { unstable_noStore as noStore } from 'next/cache';
+import { connection } from 'next/server'
 import { EnvProvider } from 'next-runtime-env';
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  noStore(); // Opt into dynamic rendering
+  await connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
   return (

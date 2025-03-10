@@ -1,4 +1,4 @@
-import { unstable_noStore as noStore } from 'next/cache';
+import { connection } from 'next/server';
 import { type FC, type PropsWithChildren } from 'react';
 
 import { getPublicEnv } from '../helpers/get-public-env';
@@ -20,8 +20,10 @@ type PublicEnvProviderProps = PropsWithChildren;
  * </PublicEnvProvider>
  * ```
  */
-export const PublicEnvProvider: FC<PublicEnvProviderProps> = ({ children }) => {
-  noStore(); // Opt into dynamic rendering
+export const PublicEnvProvider: FC<PublicEnvProviderProps> = async ({
+  children,
+}) => {
+  await connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
   const publicEnv = getPublicEnv();
