@@ -1,6 +1,6 @@
 // XXX: Blocked by https://github.com/vercel/next.js/pull/58129
 // import { headers } from 'next/headers';
-import Script, { ScriptProps } from 'next/script';
+import Script, { type ScriptProps } from 'next/script';
 import { type FC } from 'react';
 
 import { type NonceConfig } from '../typings/nonce';
@@ -10,8 +10,8 @@ import { PUBLIC_ENV_KEY } from './constants';
 type EnvScriptProps = {
   env: ProcessEnv;
   nonce?: string | NonceConfig;
-  withNextScriptComponent?: boolean;
-  nextScriptComponentProps?: ScriptProps;
+  disableNextScript?: boolean;
+  nextScriptProps?: ScriptProps;
 };
 
 /**
@@ -28,8 +28,8 @@ type EnvScriptProps = {
 export const EnvScript: FC<EnvScriptProps> = ({
   env,
   nonce,
-  withNextScriptComponent = true,
-  nextScriptComponentProps = { strategy: 'beforeInteractive' },
+  disableNextScript = false,
+  nextScriptProps = { strategy: 'beforeInteractive' },
 }) => {
   let nonceString: string | undefined;
 
@@ -43,23 +43,23 @@ export const EnvScript: FC<EnvScriptProps> = ({
     nonceString = nonce;
   }
 
-  const html = {
+  const innerHTML = {
     __html: `window['${PUBLIC_ENV_KEY}'] = ${JSON.stringify(env)}`,
   };
 
   // You can opt to use a regular "<script>" tag instead of Next.js' Script Component.
   // Note: When using Sentry, sentry.client.config.ts might run after the Next.js <Script> component, even when the strategy is "beforeInteractive"
   // This results in the runtime environments being undefined and the Sentry client config initialized without the correct configuration.
-  if (!withNextScriptComponent) {
-    return <script nonce={nonceString} dangerouslySetInnerHTML={html} />;
+  if (disableNextScript) {
+    return <script nonce={nonceString} dangerouslySetInnerHTML={innerHTML} />;
   }
 
   // Use Next.js Script Component by default
   return (
     <Script
-      {...nextScriptComponentProps}
+      {...nextScriptProps}
       nonce={nonceString}
-      dangerouslySetInnerHTML={html}
+      dangerouslySetInnerHTML={innerHTML}
     />
   );
 };

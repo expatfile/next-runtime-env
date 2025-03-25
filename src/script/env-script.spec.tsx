@@ -54,7 +54,7 @@ describe('EnvScript', () => {
       <EnvScript
         env={env}
         nonce={nonce}
-        nextScriptComponentProps={{
+        nextScriptProps={{
           strategy: 'afterInteractive',
           id,
         }}
@@ -75,8 +75,8 @@ describe('EnvScript', () => {
     render(
       <EnvScript
         env={env}
-        withNextScriptComponent={false}
-        nextScriptComponentProps={{
+        disableNextScript
+        nextScriptProps={{
           id,
         }}
       />,
