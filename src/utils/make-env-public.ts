@@ -1,6 +1,6 @@
 import { event, LogOptions, warn } from '../helpers/log';
 
-export interface MakeEnvPublicOptions extends LogOptions {}
+export type MakeEnvPublicOptions = LogOptions;
 
 function prefixKey(key: string, options?: MakeEnvPublicOptions) {
   // Check if key is available in process.env.

@@ -3,13 +3,13 @@ import { bold, green, red, white, yellow } from '../lib/picocolors';
 export type Level = 'error' | 'warn' | 'info';
 export type LevelWithSilent = 'silent' | Level;
 
-export interface LogOptions {
+export type LogOptions = {
   /**
    * Level of logging
    * @default 'event'
    */
   logLevel?: LevelWithSilent;
-}
+};
 
 export const prefixes = {
   error: red(bold('⨯')),
