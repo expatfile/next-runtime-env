@@ -9,15 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/node": "20.8.10",
-    "@types/react": "18.2.33",
-    "@types/react-dom": "18.2.14",
-    "eslint": "8.52.0",
-    "eslint-config-next": "14.0.1",
-    "next": "14.0.1",
+    "@types/node": "22.13.13",
+    "@types/react": "~18",
+    "@types/react-dom": "~18",
+    "eslint": "9.23.0",
+    "eslint-config-next": "15.2.4",
+    "next": "15.2.4",
     "next-runtime-env": "link:../..",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.2.2"
+    "react": "~18",
+    "react-dom": "~18",
+    "typescript": "5.8.2"
   }
 }

@@ -28,15 +28,20 @@ runs:
 
   - name: Setup git config
     shell: bash
+    env:
+      GIT_USER_EMAIL: ${{ inputs.git_user_email }}
+      GIT_USER_NAME: ${{ inputs.git_user_name }}
     run: |
-      git config --global user.email ${{ inputs.git_user_email }}
-      git config --global user.name ${{ inputs.git_user_name }}
+      git config --global user.email "${GIT_USER_EMAIL}"
+      git config --global user.name "${GIT_USER_NAME}"
 
   - name: Merge main back to development
     shell: bash
+    env:
+      MAIN_BRANCH: ${{ inputs.main_branch }}
     run: |
       git fetch --unshallow
       git checkout development
       git pull
-      git merge --no-ff origin/${{ inputs.main_branch }} -m "Back-merge ${{ inputs.main_branch }} into development"
+      git merge --no-ff "origin/${MAIN_BRANCH}" -m "ci: 🔀 back-merge ${MAIN_BRANCH} into development"
       git push
