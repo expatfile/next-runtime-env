@@ -45,6 +45,46 @@ describe('EnvScript', () => {
     expect(document.querySelector('script')).not.toHaveAttribute('nonce');
   });
 
+  it('should accept Next.js Script tag props', () => {
+    const env = { NODE_ENV: 'test', API_URL: 'http://localhost:3000' };
+    const nonce = 'test-nonce-xyz';
+    const id = 'text-id-abc';
+
+    render(
+      <EnvScript
+        env={env}
+        nonce={nonce}
+        nextScriptProps={{
+          strategy: 'afterInteractive',
+          id,
+        }}
+      />,
+    );
+
+    expect(document.querySelector('script')).toHaveAttribute('nonce', nonce);
+    expect(document.querySelector('script')).toHaveAttribute('id', id);
+    expect(document.querySelector('script')?.textContent).toBe(
+      `window['__ENV'] = ${JSON.stringify(env)}`,
+    );
+  });
+
+  it('should not have Next.js Script props when a regular script tag is used', () => {
+    const env = { NODE_ENV: 'test', API_URL: 'http://localhost:3000' };
+    const id = 'text-id-abc';
+
+    render(
+      <EnvScript
+        env={env}
+        disableNextScript
+        nextScriptProps={{
+          id,
+        }}
+      />,
+    );
+
+    expect(document.querySelector('script')).not.toHaveAttribute('id', id);
+  });
+
   it.todo(
     'should get the nonce from the headers when the headerKey is provided',
   );

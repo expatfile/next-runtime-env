@@ -20,7 +20,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [18, 20, 22]
 
     steps:
       - name: Checkout
@@ -42,7 +42,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [18, 20, 22]
 
     steps:
       - name: Checkout
@@ -64,7 +64,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18, 20]
+        node-version: [18, 20, 22]
 
     steps:
       - name: Checkout
@@ -81,8 +81,10 @@ jobs:
             --ci \
             --runInBand \
             --coverage
+        env:
+          JEST_JUNIT_CLASSNAME: '{filepath}'
 
       - name: Upload code coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

@@ -56,14 +56,17 @@ describe('makeEnvPublic()', () => {
 
     expect(eventMock).toHaveBeenCalledWith(
       `Prefixed environment variable 'FOO'`,
+      undefined,
     );
 
     expect(eventMock).toHaveBeenCalledWith(
       `Prefixed environment variable 'BAR'`,
+      undefined,
     );
 
     expect(eventMock).toHaveBeenCalledWith(
       `Prefixed environment variable 'BAZ'`,
+      undefined,
     );
   });
 
@@ -72,6 +75,7 @@ describe('makeEnvPublic()', () => {
 
     expect(warnMock).toHaveBeenCalledWith(
       `Skipped prefixing environment variable 'FOO'. Variable not in process.env`,
+      undefined,
     );
   });
 
@@ -82,6 +86,18 @@ describe('makeEnvPublic()', () => {
 
     expect(warnMock).toHaveBeenCalledWith(
       `Environment variable 'NEXT_PUBLIC_FOO' is already public`,
+      undefined,
+    );
+  });
+
+  it('should not log anything when logLevel is set to silent', () => {
+    process.env.FOO = 'foo';
+
+    makeEnvPublic('FOO', { logLevel: 'silent' });
+
+    expect(eventMock).toHaveBeenCalledWith(
+      `Prefixed environment variable 'FOO'`,
+      { logLevel: 'silent' },
     );
   });
 });
