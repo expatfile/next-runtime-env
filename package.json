@@ -33,7 +33,7 @@
   "homepage": "https://github.com/expatfile/next-runtime-env#readme",
   "dependencies": {
     "next": "^14",
-    "react": "^18"
+    "react": "^19.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.6.3",
@@ -41,7 +41,7 @@
     "@types/eslint": "^9.6.1",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.14",
-    "@types/react": "^18.3.20",
+    "@types/react": "^19.0.0",
     "@types/react-dom": "^18.3.5",
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
