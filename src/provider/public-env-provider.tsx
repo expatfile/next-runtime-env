@@ -20,10 +20,10 @@ type PublicEnvProviderProps = PropsWithChildren;
  * </PublicEnvProvider>
  * ```
  */
-export const PublicEnvProvider: FC<PublicEnvProviderProps> = async ({
+export const PublicEnvProvider: FC<PublicEnvProviderProps> = ({
   children,
 }) => {
-  await connection(); // Opt into dynamic rendering
+  connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
   const publicEnv = getPublicEnv();
