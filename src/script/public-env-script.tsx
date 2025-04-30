@@ -23,8 +23,8 @@ type PublicEnvScriptProps = {
  * </head>
  * ```
  */
-export const PublicEnvScript: FC<PublicEnvScriptProps> = async ({ nonce }) => {
-  await connection(); // Opt into dynamic rendering
+export const PublicEnvScript: FC<PublicEnvScriptProps> =  ({ nonce }) => {
+  connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
   const publicEnv = getPublicEnv();
