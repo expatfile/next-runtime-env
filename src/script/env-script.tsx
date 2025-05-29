@@ -51,7 +51,16 @@ export const EnvScript: FC<EnvScriptProps> = ({
   // Note: When using Sentry, sentry.client.config.ts might run after the Next.js <Script> component, even when the strategy is "beforeInteractive"
   // This results in the runtime environments being undefined and the Sentry client config initialized without the correct configuration.
   if (disableNextScript) {
-    return <script nonce={nonceString} dangerouslySetInnerHTML={innerHTML} />;
+    // Set suppressHydrationWarning on the vanilla script tag if nonce is being used, as React will
+    // throw a ssr hydration error otherwise. This is because the browser removes the nonce from the
+    // DOM before the hydration check takes place, leading to a mismatch. This can be safely ignored.
+    return (
+      <script
+        suppressHydrationWarning={!!nonceString}
+        nonce={nonceString}
+        dangerouslySetInnerHTML={innerHTML}
+      />
+    );
   }
 
   // Use Next.js Script Component by default
