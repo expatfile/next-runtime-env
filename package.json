@@ -9,6 +9,7 @@
     "test": "jest",
     "test:coverage": "pnpm test -- --coverage",
     "test:watch": "pnpm test -- --maxWorkers=50% --watchAll",
+    "prepare": "pnpm build",
     "build": "tsc -p .",
     "build:watch": "pnpm build --watch",
     "audit-ci": "audit-ci",

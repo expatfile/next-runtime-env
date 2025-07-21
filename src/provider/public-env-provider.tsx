@@ -20,9 +20,7 @@ type PublicEnvProviderProps = PropsWithChildren;
  * </PublicEnvProvider>
  * ```
  */
-export const PublicEnvProvider: FC<PublicEnvProviderProps> = ({
-  children,
-}) => {
+export const PublicEnvProvider: FC<PublicEnvProviderProps> = ({ children }) => {
   connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime

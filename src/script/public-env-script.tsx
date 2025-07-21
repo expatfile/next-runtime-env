@@ -1,6 +1,6 @@
+import { type ScriptProps } from 'next/script';
 import { connection } from 'next/server';
 import { type FC } from 'react';
-import { type ScriptProps } from 'next/script';
 
 import { getPublicEnv } from '../helpers/get-public-env';
 import { type NonceConfig } from '../typings/nonce';
@@ -26,7 +26,11 @@ type PublicEnvScriptProps = {
  * </head>
  * ```
  */
-export const PublicEnvScript: FC<PublicEnvScriptProps> =  ({ nonce }) => {
+export const PublicEnvScript: FC<PublicEnvScriptProps> = ({
+  nonce,
+  disableNextScript,
+  nextScriptProps,
+}) => {
   connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
