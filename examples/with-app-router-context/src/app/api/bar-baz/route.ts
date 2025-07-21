@@ -1,8 +1,8 @@
-// This is as of Next.js 14, but you could also use other dynamic functions
-import { unstable_noStore as noStore } from 'next/cache';
+// This is as of Next.js 15, but you could also use other dynamic functions
+import { connection } from 'next/server';
 
 export async function GET() {
-  noStore(); // Opt into dynamic rendering
+  await connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
   return Response.json({

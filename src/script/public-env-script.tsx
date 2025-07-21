@@ -1,4 +1,4 @@
-import { unstable_noStore as noStore } from 'next/cache';
+import { connection } from 'next/server';
 import { type FC } from 'react';
 import { type ScriptProps } from 'next/script';
 
@@ -26,12 +26,8 @@ type PublicEnvScriptProps = {
  * </head>
  * ```
  */
-export const PublicEnvScript: FC<PublicEnvScriptProps> = ({
-  nonce,
-  disableNextScript,
-  nextScriptProps,
-}) => {
-  noStore(); // Opt into dynamic rendering
+export const PublicEnvScript: FC<PublicEnvScriptProps> =  ({ nonce }) => {
+  connection(); // Opt into dynamic rendering
 
   // This value will be evaluated at runtime
   const publicEnv = getPublicEnv();

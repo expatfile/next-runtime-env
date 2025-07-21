@@ -44,4 +44,5 @@ runs:
       git checkout development
       git pull
       git merge --no-ff "origin/${MAIN_BRANCH}" -m "ci: 🔀 back-merge ${MAIN_BRANCH} into development"
+      git merge --no-ff origin/${{ inputs.main_branch }} -m "ci: 🔀 back-merge ${{ inputs.main_branch }} into development"
       git push
