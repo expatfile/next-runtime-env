@@ -3,6 +3,10 @@
   "version": "0.0.0-development",
   "description": "Next.js Runtime Environment Configuration - Populates your environment at runtime rather than build time.",
   "main": "build/index.js",
+  "exports": {
+    ".": "./build/index.js",
+    "./eslint": "./build/eslint/index.js"
+  },
   "scripts": {
     "lint": "eslint ./src",
     "lint:fix": "pnpm lint --fix",
@@ -45,6 +49,8 @@
     "@types/react-dom": "^18.3.5",
     "@typescript-eslint/eslint-plugin": "^8.28.0",
     "@typescript-eslint/parser": "^8.28.0",
+    "@typescript-eslint/rule-tester": "^8.53.1",
+    "@typescript-eslint/utils": "^8.53.1",
     "audit-ci": "^7.1.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^10.1.1",
