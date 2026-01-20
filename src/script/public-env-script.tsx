@@ -1,6 +1,6 @@
 import { unstable_noStore as noStore } from 'next/cache';
-import { type FC } from 'react';
 import { type ScriptProps } from 'next/script';
+import { type FC } from 'react';
 
 import { getPublicEnv } from '../helpers/get-public-env';
 import { type NonceConfig } from '../typings/nonce';
