@@ -41,6 +41,7 @@ describe('configureRuntimeEnv()', () => {
 
   it('should call the helper methods with options', () => {
     configureRuntimeEnv({
+      rootdirectory: 'rootdirectory/',
       subdirectory: 'subdirectory/',
     });
 
@@ -51,7 +52,10 @@ describe('configureRuntimeEnv()', () => {
       {
         NEXT_PUBLIC_FOO: 'foo',
       },
-      'subdirectory/',
+      {
+        rootdirectory: 'rootdirectory/',
+        subdirectory: 'subdirectory/',
+      },
     );
   });
 });
