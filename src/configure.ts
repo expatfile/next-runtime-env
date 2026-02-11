@@ -3,6 +3,11 @@ import { writeBrowserEnv } from './helpers/write-browser-env';
 
 export type ConfigureRuntimeEnvOptions = {
   /**
+   * The rootdirectory of `/public` where the `__ENV.js` file should be written
+   * eg. `rootdirectory/`to.
+   */
+  rootdirectory?: string;
+  /**
    * The subdirectory of `/public` where the `__ENV.js` file should be written
    * eg. `subdirectory/`to.
    */
@@ -25,5 +30,5 @@ export type ConfigureRuntimeEnvOptions = {
 export function configureRuntimeEnv(options?: ConfigureRuntimeEnvOptions) {
   const publicEnv = getPublicEnv();
 
-  writeBrowserEnv(publicEnv, options?.subdirectory);
+  writeBrowserEnv(publicEnv, options);
 }

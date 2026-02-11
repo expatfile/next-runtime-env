@@ -69,13 +69,30 @@ describe('writeBrowserEnv()', () => {
     fs.rmSync(file);
   });
 
+  it('should write to a rootdirectory', () => {
+    const fileInRootdirectory = `${base}/rootdirectory/public/__ENV.js`;
+    const messageWithRootdirectory = `- ${chalk.green(
+      `ready`,
+    )} [next-runtime-env] wrote browser runtime environment variables to '${fileInRootdirectory}'.`;
+
+    writeBrowserEnv({}, { rootdirectory: 'rootdirectory/' });
+
+    expect(infoSpy).toHaveBeenCalledWith(messageWithRootdirectory);
+
+    const content = fs.readFileSync(fileInRootdirectory).toString();
+
+    expect(content).toEqual('window.__ENV = {};');
+
+    fs.rmSync(fileInRootdirectory);
+  });
+
   it('should write to a subdirectory', () => {
     const fileInSubdirectory = `${path}/subdirectory/__ENV.js`;
     const messageWithSubdirectory = `- ${chalk.green(
       `ready`,
     )} [next-runtime-env] wrote browser runtime environment variables to '${fileInSubdirectory}'.`;
 
-    writeBrowserEnv({}, 'subdirectory/');
+    writeBrowserEnv({}, { subdirectory: 'subdirectory/' });
 
     expect(infoSpy).toHaveBeenCalledWith(messageWithSubdirectory);
 
