@@ -3,6 +3,12 @@
   "version": "0.0.0-development",
   "description": "Next.js Runtime Environment Configuration - Populates your environment at runtime rather than build time.",
   "main": "build/index.js",
+  "exports": {
+    ".": {
+      "react-server": "./build/index.server.js",
+      "default": "./build/index.js"
+    }
+  },
   "scripts": {
     "lint": "eslint ./src",
     "lint:fix": "pnpm lint --fix",
