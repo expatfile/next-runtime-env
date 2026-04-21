@@ -1,29 +1,22 @@
-import { unstable_noStore as noStore } from 'next/cache';
-
 import { isBrowser } from '../helpers/is-browser';
 import { PUBLIC_ENV_KEY } from './constants';
 
 /**
- * Reads a safe environment variable from the browser or any environment
- * variable from the server (process.env).
- *
- * Usage:
- * ```ts
- * const API_URL = env('NEXT_PUBLIC_API_URL');
- * ```
+ * Client Component version: only allows NEXT_PUBLIC_* variables.
+ * This runs both in the browser and during SSR of client components.
+ * Blocking non-public vars prevents secrets from leaking into HTML.
  */
 export function env(key: string): string | undefined {
-  if (isBrowser()) {
-    if (!key.startsWith('NEXT_PUBLIC_')) {
-      throw new Error(
-        `Environment variable '${key}' is not public and cannot be accessed in the browser.`,
-      );
-    }
-
-    return window[PUBLIC_ENV_KEY][key];
+  if (!key.startsWith('NEXT_PUBLIC_')) {
+    throw new Error(
+      `Environment variable '${key}' is not public and cannot be accessed from a Client Component. ` +
+      `Use process.env['${key}'] directly in a Server Component instead.`,
+    );
   }
 
-  noStore();
+  if (isBrowser()) {
+    return window[PUBLIC_ENV_KEY][key];
+  }
 
   return process.env[key];
 }
